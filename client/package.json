@@ -13,7 +13,9 @@
     "@headlessui/react": "^1.7.14",
     "@heroicons/react": "^2.0.17",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.11.1",
+    "react-svg": "^16.1.11"
   },
   "devDependencies": {
     "@types/react": "^18.0.28",
