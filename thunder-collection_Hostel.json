@@ -1,0 +1,41 @@
+{
+    "client": "Thunder Client",
+    "collectionName": "Hostel",
+    "dateExported": "2023-05-08T12:59:06.982Z",
+    "version": "1.1",
+    "folders": [
+        {
+            "_id": "5d87c0b5-dcb3-4aed-877b-8945a0a075d6",
+            "name": "auth",
+            "containerId": "",
+            "created": "2023-05-06T22:22:35.885Z",
+            "sortNum": 10000
+        }
+    ],
+    "requests": [
+        {
+            "_id": "e78b9acf-0865-40f6-b8f7-a9f23444a749",
+            "colId": "2406ef9c-6bcb-47c5-a9b0-5a977c8e68ab",
+            "containerId": "5d87c0b5-dcb3-4aed-877b-8945a0a075d6",
+            "name": "loginStudent",
+            "url": "localhost:3000/api/auth/login",
+            "method": "POST",
+            "sortNum": 10000,
+            "created": "2023-05-06T22:23:16.548Z",
+            "modified": "2023-05-06T22:23:45.912Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"cms_id\":366885,\n  \"password\":\"123456789\"\n}",
+                "form": []
+            },
+            "tests": []
+        }
+    ]
+}
