@@ -62,7 +62,7 @@ export default function SignIn() {
           <p className="text-sm font-light text-gray-400">
             Don’t have an account yet?{" "}
             <Link
-              to="request"
+              to="/auth/request"
               className="font-medium hover:underline text-blue-500"
             >
               Request an account.

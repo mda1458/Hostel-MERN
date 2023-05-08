@@ -62,7 +62,7 @@ export default function AdminSignIn() {
           <p className="text-sm font-light text-gray-400">
             You're a student?{" "}
             <Link
-              to="request"
+              to="/auth/login"
               className="font-medium hover:underline text-blue-500"
             >
               SignIn Here.
