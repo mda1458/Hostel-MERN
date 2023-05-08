@@ -1,7 +1,7 @@
 {
     "client": "Thunder Client",
     "collectionName": "Hostel",
-    "dateExported": "2023-05-08T12:59:06.982Z",
+    "dateExported": "2023-05-08T17:59:10.433Z",
     "version": "1.1",
     "folders": [
         {
@@ -22,7 +22,7 @@
             "method": "POST",
             "sortNum": 10000,
             "created": "2023-05-06T22:23:16.548Z",
-            "modified": "2023-05-06T22:23:45.912Z",
+            "modified": "2023-05-08T17:58:44.102Z",
             "headers": [
                 {
                     "name": "Content-Type",
@@ -32,7 +32,31 @@
             "params": [],
             "body": {
                 "type": "json",
-                "raw": "{\n  \"cms_id\":366885,\n  \"password\":\"123456789\"\n}",
+                "raw": "{\n  \"email\":\"muhammaddanish1458@gmail.com\",\n  \"password\":\"123456789\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "15222fb7-99d7-4236-9792-364f5a0b8e40",
+            "colId": "2406ef9c-6bcb-47c5-a9b0-5a977c8e68ab",
+            "containerId": "5d87c0b5-dcb3-4aed-877b-8945a0a075d6",
+            "name": "register",
+            "url": "localhost:3000/api/auth/register",
+            "method": "POST",
+            "sortNum": 20000,
+            "created": "2023-05-08T17:50:42.251Z",
+            "modified": "2023-05-08T17:58:07.241Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"email\":\"muhammaddanish1458@gmail.com\",\n  \"password\":\"12345678\",\n  \"isAdmin\":false\n}",
                 "form": []
             },
             "tests": []
