@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export default function Navbar() {
+function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   const mobileMenuStyles = `flex-col absolute top-0 left-0 w-full h-full bg-gray px-10 bg-black py-40 text-5xl font-bold`;
@@ -78,3 +78,4 @@ export default function Navbar() {
     </nav>
   );
 }
+export { Navbar };
