@@ -1,5 +1,3 @@
-// student model for hostel managemnt system
-
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
@@ -31,24 +29,38 @@ const StudentSchema = new Schema({
     },
     email:{
         type:String,
+        required:true,
+        unique:true
+    },
+    father_name:{
+        type:String,
         required:true
     },
     contact:{
         type:String,
         required:true
     },
-    password: {
+    address:{
         type:String,
         required:true
     },
-    date:{
+    dob:{
         type:Date,
-        default:Date.now
+        required:true
+    },
+    cnic:{
+        type:String,
+        required:true,
+        unique:true
+    },
+    user:{
+        type:Schema.Types.ObjectId,
+        ref:'user'
+    },
+    hostel:{
+        type:Schema.Types.ObjectId,
+        ref:'hostel'
     }
 })
 
-StudentSchema.virtual('primaryKey').get(function(){
-    return this.cms_id;
-})
-const Student = mongoose.model('student',StudentSchema);
-module.exports = Student;
+module.exports = Student = mongoose.model('student',StudentSchema);
