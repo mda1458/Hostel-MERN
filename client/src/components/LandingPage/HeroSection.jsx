@@ -12,9 +12,9 @@ export default function HeroSection() {
             </h1>
         <p className='py-10 text-2xl'>One Solution For All Of The Hostel&apos;s Needs</p>
         <div className="py-20">
-            <a href="#" className="bg-blue-500 py-3 px-40 hover:bg-blue-700 transition rounded text-2xl" >Login</a>
+            <a href="/auth/login" className="bg-blue-500 py-3 px-40 hover:bg-blue-700 transition rounded text-2xl" >Login</a>
             <p className="mt-6 mb-3">OR</p>
-            <a href="#" className="text-xl hover:underline hover:text-blue-500" >Request Registration</a>
+            <a href="/auth/request" className="text-xl hover:underline hover:text-blue-500" >Request Registration</a>
         </div>
       </div>
     </main>

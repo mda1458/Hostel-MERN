@@ -3,9 +3,17 @@
 @tailwind utilities;
 
 :root {
-    --clr-primary: #111827;
+  --clr-primary: #111827;
 }
 
 body {
-    background-color: var(--clr-primary);
+  background-color: var(--clr-primary);
+}
+
+@layer base {
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
 }
