@@ -16,7 +16,27 @@ export default function Index() {
     {
       text: "Settings",
       url: "/student-dashboard/settings",
-    }
+    },
+    {
+      text: "Mess",
+      url: "/student-dashboard/settings",
+    },
+    {
+      text: "Attendance",
+      url: "/student-dashboard/settings",
+    },
+    {
+      text: "Invoices",
+      url: "/student-dashboard/settings",
+    },
+    {
+      text: "Complaints",
+      url: "/student-dashboard/settings",
+    },
+    {
+      text: "Suggestions",
+      url: "/student-dashboard/settings",
+    },
   ]
 
   return (

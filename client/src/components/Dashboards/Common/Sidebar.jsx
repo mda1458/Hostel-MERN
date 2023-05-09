@@ -59,13 +59,13 @@ function Sidebar({ links }) {
         <Link to={`/${links[0].for}-dashboard`} className="p-4">
           <h1 className="text-3xl font-bold pt-5">Dashboard</h1>
         </Link>
-        <div className="flex flex-col space-y-1 text-5xl font-bold text-white">
+        <div className="flex flex-col space-y-1 text-4xl font-bold text-white">
           {/*eslint-disable-next-line react/prop-types*/}
           {links.map((link) => (
             <Link
               to={link.url}
               key={link.text}
-              className={`p-4 ${
+              className={`py-2 px-4 ${
                 location.pathname === link.url
                   ? "text-blue-500"
                   : "hover:text-blue-500"

@@ -8,6 +8,7 @@ import SignIn from "./components/LandingSite/AuthPage/SignIn";
 import RequestAcc from "./components/LandingSite/AuthPage/Request";
 import AdminSignIn from "./components/LandingSite/AuthPage/AdminSignIn";
 import Index from "./components/Dashboards/StudentDashboard/Index";
+import Home from "./components/Dashboards/StudentDashboard/Home";
 
 function App() {
   return (
@@ -24,7 +25,7 @@ function App() {
           </Route>
         </Route>
         <Route path="/student-dashboard" element={<Index />}>
-          <Route index element={<Index />} />
+          <Route index element={<Home />} />
         </Route>
       </Routes>
     </>
