@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export default function Navbar() {
+function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   const mobileMenuStyles = `flex-col absolute top-0 left-0 w-full h-full bg-gray px-10 bg-black py-40 text-5xl font-bold`;
@@ -42,6 +42,12 @@ export default function Navbar() {
           Request
         </a>
         <a
+          href="/auth/admin-login"
+          className="md:py-3 md:hover:text-blue-500 transition-all ease-linear"
+        >
+          AdminLogin
+        </a>
+        <a
           href="/auth/login"
           className={`md:bg-blue-500 md:hover:bg-blue-700 transition md:text-white font-bold md:text-lg md:py-3 md:mb-3 md:px-8 md:rounded ${
             menuOpen ? "text-blue-500" : ""
@@ -72,3 +78,4 @@ export default function Navbar() {
     </nav>
   );
 }
+export { Navbar };

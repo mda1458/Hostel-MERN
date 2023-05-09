@@ -1,4 +1,4 @@
-export default function HeroSVG() {
+function HeroSVG() {
   return (
     <>
       <svg
@@ -344,3 +344,5 @@ export default function HeroSVG() {
     </>
   );
 }
+
+export { HeroSVG };
