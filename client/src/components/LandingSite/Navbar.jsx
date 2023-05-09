@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -7,7 +8,7 @@ function Navbar() {
 
   return (
     <nav className="flex align-center justify-between p-10 text-white md:px-20">
-      <a href="/" className="flex z-10 md:py-3 font-bold text-xl lg:text-4xl">
+      <Link to="/" className="flex z-10 md:py-3 font-bold text-xl lg:text-4xl">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -23,38 +24,38 @@ function Navbar() {
           />
         </svg>
         &nbsp; HMS
-      </a>
+      </Link>
       <div
         className={`flex ${
           menuOpen ? mobileMenuStyles : "hidden"
         } gap-10 md:flex`}
       >
-        <a
-          href="/about"
+        <Link
+          to="/about"
           className="md:py-3 md:hover:text-blue-500 transition-all ease-linear"
         >
           About
-        </a>
-        <a
-          href="/auth/request"
+        </Link>
+        <Link
+          to="/auth/request"
           className="md:py-3 md:hover:text-blue-500 transition-all ease-linear"
         >
           Request
-        </a>
-        <a
-          href="/auth/admin-login"
+        </Link>
+        <Link
+          to="/auth/admin-login"
           className="md:py-3 md:hover:text-blue-500 transition-all ease-linear"
         >
           AdminLogin
-        </a>
-        <a
-          href="/auth/login"
+        </Link>
+        <Link
+          to="/auth/login"
           className={`md:bg-blue-500 md:hover:bg-blue-700 transition md:text-white font-bold md:text-lg md:py-3 md:mb-3 md:px-8 md:rounded ${
             menuOpen ? "text-blue-500" : ""
           }`}
         >
           Login
-        </a>
+        </Link>
       </div>
       <div
         className="md:hidden z-10 py-1"
