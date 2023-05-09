@@ -12,11 +12,6 @@ export default function SignIn() {
   const changePass = (event) => {
     setPass(event.target.value);
   };
-  const [position, setPosition] = useState("");
-  
-  const changePosition = (event) => {
-    setPosition(event.target.value);
-  };
 
   const cms = {
     name: "cms",
