@@ -3,22 +3,51 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 
 export default function SignIn() {
-  const [inputCms, setInputCms] = useState("");
+  
+  let login = async (event) => {
+    event.preventDefault();
+    let data = {
+      email: email,
+      password: pass,
+    };
+
+    let response = await fetch("http://localhost:3000/api/auth/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data)
+    });
+
+    let result = await response.json();
+    console.log(result);
+    if (result.success) {
+      localStorage.setItem("token", result.token);
+      localStorage.setItem("user", JSON.stringify(result.user));
+      alert("Login success");
+      // window.location.href = "/";
+    } else {
+      alert(result.errors[0].msg);
+    }
+
+  };
+
+  const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
 
-  const changeCms = (event) => {
-    setInputCms(event.target.value);
+  const changeEmail = (event) => {
+    setEmail(event.target.value);
   };
   const changePass = (event) => {
     setPass(event.target.value);
   };
 
-  const cms = {
-    name: "cms",
-    type: "number",
-    placeholder: "000000",
+  const iemail = {
+    name: "email",
+    type: "email",
+    placeholder: "abc@gmail.com",
     req: true,
-    onChange: changeCms,
+    onChange: changeEmail,
   };
   const password = {
     name: "password",
@@ -34,8 +63,8 @@ export default function SignIn() {
         <h1 className="text-xl font-bold leading-tight tracking-tight md:text-2xl text-white">
           Sign in to your account
         </h1>
-        <form className="space-y-4 md:space-y-6" action="#">
-          <Input field={cms} />
+        <form className="space-y-4 md:space-y-6" onSubmit={login}>
+          <Input field={iemail} />
           <Input field={password} />
           <div className="flex items-center justify-between">
             <div className="flex items-start">
