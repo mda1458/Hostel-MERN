@@ -7,7 +7,7 @@ export default function SignIn() {
   let login = async (event) => {
     event.preventDefault();
     let data = {
-      email: inputCms,
+      email: email,
       password: pass,
     };
 
@@ -32,11 +32,11 @@ export default function SignIn() {
 
   };
 
-  const [inputCms, setInputCms] = useState("");
+  const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
 
-  const changeCms = (event) => {
-    setInputCms(event.target.value);
+  const changeEmail = (event) => {
+    setEmail(event.target.value);
   };
   const changePass = (event) => {
     setPass(event.target.value);
@@ -47,12 +47,12 @@ export default function SignIn() {
     setPosition(event.target.value);
   };
 
-  const cms = {
-    name: "cms",
+  const iemail = {
+    name: "email",
     type: "email",
     placeholder: "000000",
     req: true,
-    onChange: changeCms,
+    onChange: changeEmail,
   };
   const password = {
     name: "password",
@@ -69,7 +69,7 @@ export default function SignIn() {
           Sign in to your account
         </h1>
         <form className="space-y-4 md:space-y-6" onSubmit={login}>
-          <Input field={cms} />
+          <Input field={iemail} />
           <Input field={password} />
           {/* <div className="flex items-baseline gap-3">
             <div className="flex items-center mb-4">
