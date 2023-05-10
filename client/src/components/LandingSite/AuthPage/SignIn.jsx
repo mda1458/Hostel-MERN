@@ -1,8 +1,9 @@
 import { Input } from "./Input";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 export default function SignIn() {
+  let navigate = useNavigate();
   
   let login = async (event) => {
     event.preventDefault();
@@ -20,12 +21,10 @@ export default function SignIn() {
     });
 
     let result = await response.json();
-    console.log(result);
     if (result.success) {
-      localStorage.setItem("token", result.token);
-      localStorage.setItem("user", JSON.stringify(result.user));
-      alert("Login success");
-      // window.location.href = "/";
+      localStorage.setItem("token", result.data.token);
+      localStorage.setItem("user", JSON.stringify(result.data.user));
+      navigate("/student-dashboard");
     } else {
       alert(result.errors[0].msg);
     }
