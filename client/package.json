@@ -10,10 +10,13 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.4.0",
     "@headlessui/react": "^1.7.14",
     "@heroicons/react": "^2.0.17",
     "@material-tailwind/react": "^2.0.0",
+    "chart.js": "^4.3.0",
     "react": "^18.2.0",
+    "react-chartjs-2": "^5.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.11.1",
     "react-svg": "^16.1.11"

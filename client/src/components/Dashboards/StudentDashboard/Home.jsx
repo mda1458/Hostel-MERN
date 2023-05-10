@@ -1,3 +1,4 @@
+
 function Home() {
 
   let student = JSON.parse(localStorage.getItem("student"));
