@@ -7,6 +7,7 @@ Input.propTypes = {
       req: PropTypes.bool.isRequired,
       type: PropTypes.string.isRequired,
       onChange: PropTypes.func.isRequired,
+      value: PropTypes.string.isRequired,
     }).isRequired,
   };
   
@@ -16,6 +17,7 @@ function Input({ field }) {
     const placeholder = field.placeholder;
     const required = field.req;
     const type = field.type;
+    const value = field.value;
     return (
         <div>
             <label htmlFor={name} className="block mb-2 text-sm font-medium text-white">Your {name}</label>
