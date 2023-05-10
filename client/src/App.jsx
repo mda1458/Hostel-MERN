@@ -9,6 +9,11 @@ import RequestAcc from "./components/LandingSite/AuthPage/Request";
 import AdminSignIn from "./components/LandingSite/AuthPage/AdminSignIn";
 import Index from "./components/Dashboards/StudentDashboard/Index";
 import Home from "./components/Dashboards/StudentDashboard/Home";
+import Mess from "./components/Dashboards/StudentDashboard/Mess";
+import Attendance from "./components/Dashboards/StudentDashboard/Attendance";
+import Invoices from "./components/Dashboards/StudentDashboard/Invoices";
+import Suggestions from "./components/Dashboards/StudentDashboard/Suggestions";
+import Complaints from "./components/Dashboards/StudentDashboard/Complaints";
 
 function App() {
   return (
@@ -26,6 +31,11 @@ function App() {
         </Route>
         <Route path="/student-dashboard" element={<Index />}>
           <Route index element={<Home />} />
+          <Route path="mess" element={<Mess />  } />
+          <Route path="attendance" element={<Attendance/>} />
+          <Route path="complaints" element={<Complaints/>} />
+          <Route path="suggestions" element={<Suggestions/>} />
+          <Route path="invoices" element={<Invoices/>} />
         </Route>
       </Routes>
     </>
