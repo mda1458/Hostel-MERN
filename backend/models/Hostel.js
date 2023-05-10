@@ -21,10 +21,6 @@ const HostelSchema = new Schema({
     vacant:{
         type:Number,
         required:true
-    },
-    manager:{
-        type:Schema.Types.ObjectId,
-        ref:'admin'
     }
 })
 

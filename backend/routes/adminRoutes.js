@@ -1,63 +1,48 @@
 const express = require('express');
-const router = express.Router();
 const { check } = require('express-validator');
-const { registerStudent, getStudent, getAllStudents, updateStudent, deleteStudent } = require('../controllers/studentController');
+const { registerAdmin, updateAdmin, getHostel, deleteAdmin } = require('../controllers/adminController');
+const router = express.Router();
 
-// @route  POST api/admin/register-student
-// @desc   Register student
+// @route  POST api/admin/register-admin
+// @desc   Register admin
 // @access Public
-router.post('/register-student', [
+router.post('/register-admin', [
     check('name', 'Name is required').not().isEmpty(),
-    check('cms_id', 'CMS ID is required').isLength(6),
-    check('room_no', 'Room number is required').isLength(3),
-    check('batch', 'Batch is required').not().isEmpty(),
-    check('dept', 'Department is required').not().isEmpty(),
-    check('course', 'Course is required').not().isEmpty(),
     check('email', 'Please include a valid email').isEmail(),
     check('father_name', 'Father name is required').not().isEmpty(),
     check('contact', 'Enter a valid contact number').isLength(11),
     check('address', 'Address is required').not().isEmpty(),
     check('dob', 'Date of birth is required').not().isEmpty(),
     check('cnic', 'CNIC is required').isLength(13),
-    check('hostel', 'Hostel is required').not().isEmpty()
-], registerStudent);
+    check('password', 'Password is required').isLength(8)
+], registerAdmin);
 
-// @route  POST api/admin/get-student
-// @desc   Get student by CMS ID
+// @route  POST api/admin/update-admin
+// @desc   Update admin
 // @access Public
-router.get('/get-student', [
-    check('cms_id', 'Enter a valid CMS ID').isLength(6)
-], getStudent);
-
-// @route  POST api/admin/get-all-students
-// @access Public
-router.get('/get-all-students', getAllStudents);
-
-// @route  POST api/admin/update-student
-// @desc   Update student
-// @access Public
-router.post('/update-student', [
-    check('cms_id', 'CMS ID is required').not().isEmpty(),
-    check('room_no', 'Room number is required').not().isEmpty(),
-    check('batch', 'Batch is required').not().isEmpty(),
-    check('dept', 'Department is required').not().isEmpty(),
-    check('course', 'Course is required').not().isEmpty(),
+router.post('/update-admin', [
+    check('name', 'Name is required').not().isEmpty(),
     check('email', 'Please include a valid email').isEmail(),
-    check('father_name', 'Father name is required').not().isEmpty(),
-    check('contact', 'Contact is required').not().isEmpty(),
+    check('contact', 'Enter a valid contact number').isLength(11),
     check('address', 'Address is required').not().isEmpty(),
     check('dob', 'Date of birth is required').not().isEmpty(),
-    check('cnic', 'CNIC is required').not().isEmpty(),
-    check('user', 'User is required').not().isEmpty(),
-    check('hostel', 'Hostel is required').not().isEmpty()
-], updateStudent);
+    check('cnic', 'CNIC is required').isLength(13),
+    check('hostel', 'Hostel is required').not().isEmpty(),
+    check('password', 'Password is required').isLength(8)
+], updateAdmin);
 
-// @route  POST api/admin/delete-student
-// @desc   Delete student
+// @route  POST api/admin/get-hostel
+// @desc   Get hostel by name
 // @access Public
-router.post('/delete-student', [
-    check('cms_id', 'Enter a valid CMS ID').isLength(6)
-], deleteStudent);
+router.post('/get-hostel', [
+    check('email', 'Please include a valid email').isEmail()
+], getHostel);
+
+// @route  POST api/admin/delete-admin
+// @desc   Delete admin
+// @access Public
+router.post('/delete-admin', [
+    check('email', 'Please include a valid email').isEmail()
+], deleteAdmin);
 
 module.exports = router;
-

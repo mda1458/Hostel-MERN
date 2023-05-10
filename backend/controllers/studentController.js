@@ -2,14 +2,14 @@ const { generateToken, verifyToken } = require('../utils/auth');
 const { validationResult } = require('express-validator');
 const { Student, Hostel, User } = require('../models');
 const bcrypt = require('bcryptjs');
-const { deleteOne } = require('../models/Admin');
 
 const registerStudent = async (req, res) => {
     // console.log(req.body);
+    let success = false;
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         // console.log(errors);
-        return res.status(400).json({ errors: errors.array() });
+        return res.status(400).json({success, errors: errors.array() });
     }
 
     const { name, cms_id, room_no, batch, dept, course, email, father_name, contact, address, dob, cnic, hostel, password } = req.body;
@@ -18,7 +18,7 @@ const registerStudent = async (req, res) => {
         let student = await Student.findOne({ cms_id });
 
         if (student) {
-            return res.status(400).json({ errors: [{ msg: 'Student already exists' }] });
+            return res.status(400).json({success, errors: [{ msg: 'Student already exists' }] });
         }
         let shostel = await Hostel.findOne({ name: hostel });
 
@@ -55,21 +55,23 @@ const registerStudent = async (req, res) => {
 
         const token = generateToken(student.id);
 
-        res.json({ token, student });
+        success = true;
+        res.json({success, token, student });
 
     } catch (err) {
-        console.error(err.message);
-        res.status(500).send('Server error');
+        console.log(err);
+        res.status(500).json({success, errors: [{msg: 'Server error'}]});
     }
 }
 
 const getStudent = async (req, res) => {
     try {
         // console.log(req.body);
+        let success = false;
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
             // console.log(errors);
-            return res.status(400).json({ errors: errors.array() });
+            return res.status(400).json({success, errors: errors.array() });
         }
 
         const { cms_id } = req.body;
@@ -77,27 +79,46 @@ const getStudent = async (req, res) => {
         const student = await Student.findOne({ cms_id }).select('-password');
 
         if (!student) {
-            return res.status(400).json({ errors: [{ msg: 'Student does not exist' }] });
+            return res.status(400).json({success, errors: [{ msg: 'Student does not exist' }] });
         }
 
-        res.json(student);
+        success = true;
+        res.json({success, student });
     } catch (err) {
-        console.error(err.message);
-        res.status(500).send('Server error');
+        console.log(err);
+        res.status(500).json({success, errors: [{msg: 'Server error'}]});
     }
 }
 
 const getAllStudents = async (req, res) => {
+
+    let success = false;
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        // console.log(errors);
+        return res.status(400).json({success, errors: errors.array() });
+    }
+
+    let { hostel } = req.body;
+
     try {
-        const students = await Student.find().select('-password');
-        res.json(students);
-    } catch (err) {
-        console.error(err.message);
-        res.status(500).send('Server error');
+
+        const shostel = await Hostel.findOne({ name: hostel });
+
+        const students = await Student.find({ hostel: shostel.id }).select('-password');
+
+        success = true;
+        res.json({success, students});
+    }
+    catch (err) {
+        console.log(err);
+        res.status(500).json({success, errors: [{msg: 'Server error'}]});
     }
 }
 
 const updateStudent = async (req, res) => {
+
+    let success = false;
     try {
         const student = await Student.findById(req.student.id).select('-password');
 
@@ -119,20 +140,22 @@ const updateStudent = async (req, res) => {
 
         await student.save();
 
-        res.json(student);
+        success = true;
+        res.json({success, student});
     } catch (err) {
-        console.error(err.message);
-        res.status(500).send('Server error');
+        console.log(err);
+        res.status(500).json({success, errors: [{msg: 'Server error'}]});
     }
 }
 
 const deleteStudent = async (req, res) => {
     try {
         // console.log(req.body);
+        let success = false;
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
             // console.log(errors);
-            return res.status(400).json({ errors: errors.array() });
+            return res.status(400).json({success, errors: errors.array() });
         }
 
         const { cms_id } = req.body;
@@ -140,7 +163,7 @@ const deleteStudent = async (req, res) => {
         const student = await Student.findOne({ cms_id }).select('-password');
 
         if (!student) {
-            return res.status(400).json({ errors: [{ msg: 'Student does not exist' }] });
+            return res.status(400).json({success, errors: [{ msg: 'Student does not exist' }] });
         }
 
         const user = await User.findById(student.user);
@@ -149,10 +172,11 @@ const deleteStudent = async (req, res) => {
 
         await Student.deleteOne(student);
 
-        res.json({ msg: 'Student deleted' });
+        success = true;
+        res.json({success, msg: 'Student deleted successfully' });
     } catch (err) {
-        console.error(err.message);
-        res.status(500).send('Server error');
+        console.log(err);
+        res.status(500).json({success, errors: [{msg: 'Server error'}]});
     }
 }
 

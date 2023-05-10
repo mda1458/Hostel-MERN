@@ -60,6 +60,10 @@ const StudentSchema = new Schema({
     hostel:{
         type:Schema.Types.ObjectId,
         ref:'hostel'
+    },
+    date:{
+        type:Date,
+        default:Date.now
     }
 })
 

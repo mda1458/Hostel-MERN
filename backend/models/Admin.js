@@ -35,6 +35,14 @@ const AdminSchema = new Schema({
     user:{
         type:Schema.Types.ObjectId,
         ref:'user'
+    },
+    hostel:{
+        type:Schema.Types.ObjectId,
+        ref:'hostel'
+    },
+    date:{
+        type:Date,
+        default:Date.now
     }
 })
 
