@@ -74,10 +74,12 @@ const getStudent = async (req, res) => {
             return res.status(400).json({success, errors: errors.array() });
         }
 
-        const { cms_id } = req.body;
+        const { token } = req.body;
+        
+        const decoded = verifyToken(token);
 
-        const student = await Student.findOne({ cms_id }).select('-password');
-
+        const student = await Student.findOne({user: decoded.userId}).select('-password');
+        
         if (!student) {
             return res.status(400).json({success, errors: [{ msg: 'Student does not exist' }] });
         }

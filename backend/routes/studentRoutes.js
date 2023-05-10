@@ -27,7 +27,7 @@ router.post('/register-student', [
 // @desc   Get student by CMS ID
 // @access Public
 router.post('/get-student', [
-    check('cms_id', 'Enter a valid CMS ID').isLength(6)
+    check('token', 'You donot have a valid token').notEmpty()
 ], getStudent);
 
 // @route  POST api/student/get-all-students
