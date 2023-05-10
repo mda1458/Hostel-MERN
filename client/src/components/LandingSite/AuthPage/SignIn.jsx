@@ -21,10 +21,26 @@ export default function SignIn() {
     });
 
     let result = await response.json();
+
     if (result.success) {
       localStorage.setItem("token", result.data.token);
-      localStorage.setItem("user", JSON.stringify(result.data.user));
-      navigate("/student-dashboard");
+      let student = await fetch("http://localhost:3000/api/student/get-student", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({token: result.data.token})
+      });
+
+      let studentResult = await student.json();
+      console.log(studentResult);
+      if (studentResult.success) {
+        localStorage.setItem("student", JSON.stringify(studentResult.student));
+        navigate("/student-dashboard");
+      } else {
+        alert(studentResult.errors[0].msg);
+        navigate("/auth/login");
+      }
     } else {
       alert(result.errors[0].msg);
     }
