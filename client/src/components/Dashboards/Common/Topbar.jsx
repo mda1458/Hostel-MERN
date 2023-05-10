@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, json } from "react-router-dom";
 
 function Topbar() {
   const [date, setDate] = useState(new Date());
+
+  const user = JSON.parse(localStorage.getItem("user"));
 
   function refreshClock() {
     setDate(new Date());
@@ -17,7 +19,7 @@ function Topbar() {
   return (
     <div className="py-5 px-5 flex items-center justify-between text-white w-full bg-stone-950 shadow-lg absolute top-0 md:w-[83.3vw] md:ml-[16.7vw]">
       {date.toLocaleTimeString()}
-      <span>Student Name</span>
+      <span>{user.email}</span>
       <div className="flex gap-3">
         <Link to="settings">
           <svg

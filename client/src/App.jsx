@@ -14,6 +14,7 @@ import Attendance from "./components/Dashboards/StudentDashboard/Attendance";
 import Invoices from "./components/Dashboards/StudentDashboard/Invoices";
 import Suggestions from "./components/Dashboards/StudentDashboard/Suggestions";
 import Complaints from "./components/Dashboards/StudentDashboard/Complaints";
+import Settings from "./components/Dashboards/StudentDashboard/Settings";
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
           <Route path="complaints" element={<Complaints/>} />
           <Route path="suggestions" element={<Suggestions/>} />
           <Route path="invoices" element={<Invoices/>} />
+          <Route path="settings" element={<Settings/>} />
         </Route>
       </Routes>
     </>
