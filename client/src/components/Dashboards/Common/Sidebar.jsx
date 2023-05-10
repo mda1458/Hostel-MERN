@@ -11,6 +11,13 @@ Sidebar.propTypes = {
 };
 
 function Sidebar({ links }) {
+  const logout = (e) => {
+    e.preventDefault();
+    localStorage.removeItem("token");
+    localStorage.removeItem("student");
+    window.location.href = "/";
+  };
+
   const [isOpen, setIsOpen] = useState(true);
   const location = useLocation();
 
@@ -77,6 +84,7 @@ function Sidebar({ links }) {
         </div>
         <div className="p-4">
           <button
+            onClick={logout}
             type="submit"
             className="w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
           >
