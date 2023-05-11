@@ -1,6 +1,37 @@
 import { useState } from "react";
 import { Input } from "../../LandingSite/AuthPage/Input";
 function Complaints() {
+  const registerComplaint = async (e) => {
+    e.preventDefault();
+    let student = JSON.parse(localStorage.getItem("student"));
+    const complaint = {
+      student: student._id,
+      hostel: student.hostel,
+      title: title,
+      description: desc,
+      type: type,
+    };
+
+    const res = await fetch("http://localhost:3000/api/complaint/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(complaint),
+    });
+
+    const data = await res.json();
+
+    if (data.success) {
+      alert("Complaint registered successfully");
+      setTitle("");
+      setDesc("");
+      setType("Electric");
+    } else {
+      alert(data.message);
+    }
+  };
+    
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
   const [type, setType] = useState("Electric");
@@ -40,7 +71,7 @@ function Complaints() {
       <h1 className="text-white font-bold text-5xl mt-10">Complaints</h1>
       <form
         method="POST"
-        action="#"
+        onSubmit={registerComplaint}
         className="md:w-[30vw] w-full py-5 pb-7 px-10 bg-neutral-950 rounded-lg shadow-xl flex flex-col gap-5"
       >
         <div>
