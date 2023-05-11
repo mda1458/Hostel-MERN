@@ -49,3 +49,45 @@ exports.login = async (req, res, next) => {
         next(error);
     }
 };
+
+exports.changePassword = async (req, res, next) => {
+    let success = false;
+    try {
+        const errors = validationResult(req);
+
+        if (!errors.isEmpty()) {
+            return res.status(400).json({success, errors: errors.array() });
+        }
+
+        const { email, password, newPassword } = req.body;
+
+        try {
+            let user = await User.findOne({ email });
+            if (!user) {
+                return res.status(400).json({success, errors: [{ msg: 'Invalid credentials' }] });
+            }
+
+            const oldPassword = await bcrypt.compare(password, user.password);
+
+            if (!oldPassword) {
+                return res.status(400).json({success, errors: [{ msg: 'Invalid credentials' }] });
+            }
+
+            const salt = await bcrypt.genSalt(10);
+            const newp = await bcrypt.hash(newPassword, salt);
+
+            user.password = newp;
+            await user.save();
+
+            success = true;
+            res.status(200).json({ success, msg: 'Password changed successfully' });
+
+        }
+        catch (err) {
+            console.error(err.message);
+            res.status(500).send('Server error');
+        }
+    } catch (error) {
+        next(error);
+    }
+}
