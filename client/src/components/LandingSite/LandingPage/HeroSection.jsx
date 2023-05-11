@@ -1,4 +1,5 @@
 import { HeroSVG } from "./HeroSVG";
+import { Link } from "react-router-dom";
 
 function HeroSection() {
   return (
@@ -15,19 +16,19 @@ function HeroSection() {
           One Solution For All Of The Hostel&apos;s Needs
         </p>
         <div className="py-20">
-          <a
-            href="/auth/login"
+          <Link
+            to="/auth/login"
             className="bg-blue-500 py-3 px-40 hover:bg-blue-700 transition rounded text-2xl"
           >
             Login
-          </a>
+          </Link>
           <p className="mt-6 mb-3">OR</p>
-          <a
-            href="/auth/request"
+          <Link
+            to="/auth/request"
             className="text-xl hover:underline hover:text-blue-500"
           >
             Request Registration
-          </a>
+          </Link>
         </div>
       </div>
     </main>
