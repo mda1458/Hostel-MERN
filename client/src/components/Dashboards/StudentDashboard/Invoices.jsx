@@ -84,7 +84,7 @@ function Invoices() {
         </div>
       </div>
 
-      <div className="w-full max-w-md p-4 border rounded-lg shadow sm:p-8 bg-neutral-950 border-neutral-900 drop-shadow-xl">
+      <div className="w-full max-w-md p-4 border rounded-lg shadow sm:p-8 bg-neutral-950 border-neutral-900 drop-shadow-xl overflow-y-auto max-h-70">
         <div className="flex items-center justify-between mb-4">
           <h5 className="text-xl font-bold leading-none text-white">
             Latest Invoices

@@ -4,10 +4,34 @@
 
 :root {
   --clr-primary: #111827;
+  --primary: #1C1917;
+  --secondary: #0A0A0A;
 }
 
 body {
   background-color: var(--clr-primary);
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--secondary) var(--primary);
+}
+
+/* Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 15px;
+}
+
+*::-webkit-scrollbar-track {
+  background: var(--primary);
+  border-radius: 5px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: var(--secondary);
+  border-radius: 14px;
+  border: 3px solid var(--primary);
 }
 
 @layer base {

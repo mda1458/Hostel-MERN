@@ -1,18 +1,20 @@
 import { useEffect, useState } from "react";
-import { Link, json, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import PropTypes from 'prop-types'
 
-function Topbar() {
+Topbar.propTypes = {
+  name: PropTypes.string
+}
+
+function Topbar({ name }) {
   const navigate = useNavigate();
   let logout = () => {
     localStorage.removeItem("student");
     localStorage.removeItem("token");
     navigate("/");
   };
-    
 
   const [date, setDate] = useState(new Date());
-
-  const student = JSON.parse(localStorage.getItem("student"));
 
   function refreshClock() {
     setDate(new Date());
@@ -27,7 +29,7 @@ function Topbar() {
   return (
     <div className="py-5 px-5 flex items-center justify-between text-white w-full bg-stone-950 shadow-lg absolute top-0 md:w-[83.3vw] md:ml-[16.7vw]">
       {date.toLocaleTimeString()}
-      <span>{student.name}</span>
+      <span>{name}</span>
       <div className="flex gap-3">
         <Link to="settings">
           <svg
@@ -50,7 +52,7 @@ function Topbar() {
             />
           </svg>
         </Link>
-        <div className="relative group cursor-pointer">     
+        <div className="relative group cursor-pointer">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -66,7 +68,9 @@ function Topbar() {
             />
           </svg>
           <div className="absolute bg-neutral-800 -bottom-15 right-2 hidden group-hover:flex flex-col rounded">
-            <span className="py-2 px-20 w-100 hover:bg-neutral-900">No new notification</span>
+            <span className="py-2 px-20 w-100 hover:bg-neutral-900">
+              No new notification
+            </span>
           </div>
         </div>
 

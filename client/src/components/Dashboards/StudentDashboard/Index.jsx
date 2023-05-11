@@ -129,10 +129,12 @@ export default function Index() {
     },
   ];
 
+  const student = JSON.parse(localStorage.getItem("student"));
+
   return (
     <div className="flex">
       <Sidebar links={links} />
-      <Topbar />
+      <Topbar name={student.name} />
       <div className="w-full bg-stone-900 h-screen">
         <Outlet />
       </div>
