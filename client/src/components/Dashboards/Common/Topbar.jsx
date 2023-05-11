@@ -1,10 +1,18 @@
 import { useEffect, useState } from "react";
-import { Link, json } from "react-router-dom";
+import { Link, json, useNavigate } from "react-router-dom";
 
 function Topbar() {
+  const navigate = useNavigate();
+  let logout = () => {
+    localStorage.removeItem("student");
+    localStorage.removeItem("token");
+    navigate("/");
+  };
+    
+
   const [date, setDate] = useState(new Date());
 
-  const user = JSON.parse(localStorage.getItem("user"));
+  const student = JSON.parse(localStorage.getItem("student"));
 
   function refreshClock() {
     setDate(new Date());
@@ -19,7 +27,7 @@ function Topbar() {
   return (
     <div className="py-5 px-5 flex items-center justify-between text-white w-full bg-stone-950 shadow-lg absolute top-0 md:w-[83.3vw] md:ml-[16.7vw]">
       {date.toLocaleTimeString()}
-      <span>{user.email}</span>
+      <span>{student.name}</span>
       <div className="flex gap-3">
         <Link to="settings">
           <svg
@@ -81,8 +89,8 @@ function Topbar() {
             <Link to="settings" className="py-2 px-8 hover:bg-neutral-900">
               Settings
             </Link>
-            <Link to="logout" className="py-2 px-8 hover:bg-neutral-900">
-              Logout
+            <Link to="/" className="py-2 px-8 hover:bg-neutral-900">
+              <span onClick={logout}>Logout</span>
             </Link>
           </div>
         </div>
