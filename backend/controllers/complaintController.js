@@ -60,7 +60,7 @@ exports.getbystudent = async (req, res) => {
     }
     const { student } = req.body;
     try {
-        const complaints = await Complaint.find({ student }).populate('hostel', ['name']);
+        const complaints = await Complaint.find({ student });
         success = true;
         res.json({ success, complaints });
     }
