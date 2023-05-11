@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 
 Sidebar.propTypes = {
@@ -12,13 +12,12 @@ Sidebar.propTypes = {
 };
 
 function Sidebar({ links }) {
-  const logout = (e) => {
-    e.preventDefault();
-    localStorage.removeItem("token");
+  const navigate = useNavigate();
+  let logout = () => {
     localStorage.removeItem("student");
-    window.location.href = "/";
-  };
-
+    localStorage.removeItem("token");
+    navigate("/");
+}
   const [isOpen, setIsOpen] = useState(true);
   const location = useLocation();
 
