@@ -93,6 +93,17 @@ function Complaints() {
         body: JSON.stringify(cmpln),
       });
       const data = await res.json();
+      let complaints = data.complaints;
+      complaints = complaints.map((complaint) => {
+        var date = new Date(complaint.date);
+        complaint.date = date.toLocaleDateString('en-US', { day: 'numeric', month: 'long', year: 'numeric' });
+        return {
+          title: complaint.title,
+          status: complaint.status,
+          date: complaint.date,
+          type: complaint.type,
+        };
+      });
       setRegComplaints(data.complaints);
     }
     fetchComplaints();
