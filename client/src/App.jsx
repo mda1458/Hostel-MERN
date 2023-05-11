@@ -15,6 +15,8 @@ import Invoices from "./components/Dashboards/StudentDashboard/Invoices";
 import Suggestions from "./components/Dashboards/StudentDashboard/Suggestions";
 import Complaints from "./components/Dashboards/StudentDashboard/Complaints";
 import Settings from "./components/Dashboards/StudentDashboard/Settings";
+import AdminIndex from "./components/Dashboards/AdminDashboard/Index";
+import AdminHome from "./components/Dashboards/AdminDashboard/Home"
 
 function App() {
   return (
@@ -38,6 +40,9 @@ function App() {
           <Route path="suggestions" element={<Suggestions/>} />
           <Route path="invoices" element={<Invoices/>} />
           <Route path="settings" element={<Settings/>} />
+        </Route>
+        <Route path="/admin-dashboard" element={<AdminIndex />}>
+          <Route index element={<AdminHome />} />
         </Route>
       </Routes>
     </>
