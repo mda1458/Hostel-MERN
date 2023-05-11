@@ -73,7 +73,7 @@ function Complaints() {
             htmlFor="description"
             className="block mb-2 text-sm font-medium text-white"
           >
-            Your complaint Description
+            Your complaint description
           </label>
           <textarea
             name="description"
