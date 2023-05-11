@@ -124,6 +124,41 @@ const getHostel = async (req, res) => {
     }
 }
 
+const getAdmin = async (req, res) => {
+    let success = false;
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({success, errors: errors.array()});
+    }
+    try {
+        const {isAdmin} = req.body;
+        if (!isAdmin) {
+            return res.status(401).json({success, errors: [{msg: 'Not an Admin, authorization denied'}]});
+        }
+        const {token} = req.body;
+        if (!token) {
+            return res.status(401).json({success, errors: [{msg: 'No token, authorization denied'}]});
+        }
+
+        const decoded = verifyToken(token);
+
+        if (!decoded) {
+            return res.status(401).json({success, errors: [{msg: 'Token is not valid'}]});
+        }
+
+        let admin = await Admin.findOne({user:decoded.userId}).select('-password');
+
+        if (!admin) {
+            return res.status(401).json({success, errors: [{msg: 'Token is not valid'}]});
+        }
+
+        success = true;
+        res.json({success, admin});
+    } catch (error) {
+        res.status(500).send('Server error');
+    }
+}
+
 const deleteAdmin = async (req, res) => {
     try {
         let success = false;
@@ -156,6 +191,7 @@ const deleteAdmin = async (req, res) => {
 module.exports = {
     registerAdmin,
     updateAdmin,
+    getAdmin,
     getHostel,
     deleteAdmin
 }

@@ -7,11 +7,10 @@ exports.login = async (req, res, next) => {
     let success = false;
     try {
         const errors = validationResult(req);
-
         if (!errors.isEmpty()) {
             return res.status(400).json({success, errors: errors.array() });
         }
-
+        
         const { email, password } = req.body;
 
         try {

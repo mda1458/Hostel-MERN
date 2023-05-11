@@ -1,6 +1,6 @@
 const express = require('express');
 const { check } = require('express-validator');
-const { registerAdmin, updateAdmin, getHostel, deleteAdmin } = require('../controllers/adminController');
+const { registerAdmin, updateAdmin, getAdmin, getHostel, deleteAdmin } = require('../controllers/adminController');
 const router = express.Router();
 
 // @route  POST api/admin/register-admin
@@ -30,6 +30,14 @@ router.post('/update-admin', [
     check('hostel', 'Hostel is required').not().isEmpty(),
     check('password', 'Password is required').isLength(8)
 ], updateAdmin);
+
+// @route  POST api/admin/get-admin
+// @desc   Get admin by email
+// @access Public
+router.post('/get-admin', [
+    check('isAdmin', 'isAdmin is required').notEmpty(),
+    check('token', 'Token is required').notEmpty(),
+], getAdmin);
 
 // @route  POST api/admin/get-hostel
 // @desc   Get hostel by name

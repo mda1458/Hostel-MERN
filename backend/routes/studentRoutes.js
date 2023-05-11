@@ -27,6 +27,7 @@ router.post('/register-student', [
 // @desc   Get student by CMS ID
 // @access Public
 router.post('/get-student', [
+    check('isAdmin', 'isAdmin is required').notEmpty(),
     check('token', 'You donot have a valid token').notEmpty()
 ], getStudent);
 

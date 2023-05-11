@@ -29,7 +29,9 @@ export default function SignIn() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({token: result.data.token})
+        body: JSON.stringify({
+          isAdmin: result.data.user.isAdmin,
+          token: result.data.token})
       });
 
       let studentResult = await student.json();

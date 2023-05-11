@@ -1,8 +1,55 @@
 import { Input } from "./Input";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 export default function AdminSignIn() {
+  let navigate = useNavigate();
+  
+  let login = async (event) => {
+    event.preventDefault();
+    let data = {
+      email: inputEmail,
+      password: pass,
+    };
+
+    let response = await fetch("http://localhost:3000/api/auth/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data)
+    });
+
+    let result = await response.json();
+
+    if (result.success) {
+      localStorage.setItem("token", result.data.token);
+      let admin = await fetch("http://localhost:3000/api/admin/get-admin", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          isAdmin: result.data.user.isAdmin,
+          token: result.data.token
+        })
+      });
+
+      let adminResult = await admin.json();
+      console.log(adminResult);
+      if (adminResult.success) {
+        localStorage.setItem("admin", JSON.stringify(adminResult.admin));
+        navigate("/admin-dashboard");
+      } else {
+        alert(adminResult.errors[0].msg);
+        navigate("/auth/admin-login");
+      }
+    } else {
+      alert(result.errors[0].msg);
+    }
+
+  };
+
   const [inputEmail, setInputEmail] = useState("");
   const [pass, setPass] = useState("");
 
@@ -16,7 +63,7 @@ export default function AdminSignIn() {
   const email = {
     name: "email",
     type: "email",
-    placeholder: "000000",
+    placeholder: "abc@email.com",
     req: true,
     value: inputEmail,
     onChange: changeEmail,
@@ -36,7 +83,7 @@ export default function AdminSignIn() {
         <h1 className="text-xl font-bold leading-tight tracking-tight md:text-2xl text-white">
           Sign in to your account - Manager
         </h1>
-        <form className="space-y-4 md:space-y-6" action="#">
+        <form className="space-y-4 md:space-y-6" onSubmit={login}>
           <Input field={email} />
           <Input field={password} />
           <div className="flex items-center justify-between">
