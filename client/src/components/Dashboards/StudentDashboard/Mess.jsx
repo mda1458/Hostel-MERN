@@ -74,7 +74,9 @@ function Mess() {
           student: student._id,
         }),
       })
-        .then((res) => res.json())
+        .then((res) => {
+          res.json()
+        })
         .then((result) => {
           if (result.success) {
             setRequests(result.count);
@@ -87,14 +89,14 @@ function Mess() {
 
             
 
-
+  const date = new Date();
   const labels =  ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
   return (
     <div className="w-full h-screen pt-20 gap-10 flex flex-col items-center justify-center">
       <h1 className="text-white font-bold text-5xl">Mess</h1>
       <ul className="flex gap-5 text-white text-xl">
-        <li>Total Meals: 0</li>
+        <li>Total Meals: {0 || date.getDate() * 3}</li>
         <li>Meals Off: 0</li>
         <li>Requests Sent: {requests}</li>
       </ul>
