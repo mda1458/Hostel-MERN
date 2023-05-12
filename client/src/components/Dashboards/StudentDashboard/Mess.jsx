@@ -21,20 +21,23 @@ function Mess() {
     });
 
     let result = await response.json();
-
+    console.log(result);
     if (result.success) {
       setRequests(requests + 1);
       setLeaveDate("");
       setReturnDate("");
       alert("Mess off requested successfully");
     } else {
-      alert(result.errors[0].msg);
+      alert(result.message);
     }
   };
+
+  let daysofmonthtilltoday = new Date().getDate();
 
   const [leaveDate, setLeaveDate] = useState("");
   const [returnDate, setReturnDate] = useState("");
   const [requests, setRequests] = useState(0);
+  const [mealsoff, setMealsOff] = useState(0);
 
   function handleleaveChange(e) {
     setLeaveDate(e.target.value);
@@ -79,7 +82,8 @@ function Mess() {
         })
         .then((result) => {
           if (result.success) {
-            setRequests(result.count);
+            setMealsOff(result.approved);
+            setRequests(result.requests);
           } else {
             alert(result.errors[0].msg);
           }
@@ -96,8 +100,8 @@ function Mess() {
     <div className="w-full h-screen pt-20 gap-10 flex flex-col items-center justify-center">
       <h1 className="text-white font-bold text-5xl">Mess</h1>
       <ul className="flex gap-5 text-white text-xl">
-        <li>Total Meals: {0 || date.getDate() * 3}</li>
-        <li>Meals Off: 0</li>
+        <li>Total Meals: {daysofmonthtilltoday-mealsoff}</li>
+        <li>Meals Off: {mealsoff}</li>
         <li>Requests Sent: {requests}</li>
       </ul>
       <div className="w-full h-[30vh] flex flex-col items-center justify-center">

@@ -12,6 +12,14 @@ exports.requestMessOff = async (req, res) => {
         return res.status(400).json({errors: errors.array(), success});
     }
     const { student, leaving_date, return_date } = req.body;
+    const today = new Date();
+    console.log(leaving_date);
+    if (new Date(leaving_date) > new Date(return_date)) {
+        return res.status(400).json({success, "message": "Leaving date cannot be greater than return date"});
+    }
+    else if (new Date(leaving_date) < today) {
+        return res.status(400).json({success, "message": "Request cannot be made for past Mess off"});
+    }
     try {
         const messOff = new MessOff({
             student,
@@ -38,9 +46,11 @@ exports.countMessOff = async (req, res) => {
     }
     const { student } = req.body;
     try {
-        const count = await MessOff.countDocuments({student});
+        let date = new Date();
+        const requests = await MessOff.countDocuments({student, leaving_date: {$gte: new Date(date.getFullYear(), date.getMonth(), 1), $lte: new Date(date.getFullYear(), date.getMonth()+1, 0)}});
+        const approved = await MessOff.countDocuments({student, status: "Approved", leaving_date: {$gte: new Date(date.getFullYear(), date.getMonth(), 1), $lte: new Date(date.getFullYear(), date.getMonth()+1, 0)}});
         success = true;
-        return res.status(200).json({success, count});
+        return res.status(200).json({success, requests, approved});
     }
     catch (err) {
         console.error(err.message);
