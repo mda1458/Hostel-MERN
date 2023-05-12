@@ -17,6 +17,7 @@ import Complaints from "./components/Dashboards/StudentDashboard/Complaints";
 import Settings from "./components/Dashboards/StudentDashboard/Settings";
 import AdminIndex from "./components/Dashboards/AdminDashboard/Index";
 import AdminHome from "./components/Dashboards/AdminDashboard/Home"
+import RegisterStudent from "./components/Dashboards/AdminDashboard/RegisterStudent";
 
 function App() {
   return (
@@ -43,6 +44,7 @@ function App() {
         </Route>
         <Route path="/admin-dashboard" element={<AdminIndex />}>
           <Route index element={<AdminHome />} />
+          <Route path='register-student' element={<RegisterStudent />} />
         </Route>
       </Routes>
     </>
