@@ -1,10 +1,15 @@
 import { Input } from "./Input";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { verifysession } from "../../../utils/";
 
 export default function SignIn() {
   let navigate = useNavigate();
-  
+
+  if (localStorage.getItem("token")) {
+    verifysession();
+  }
+
   let login = async (event) => {
     event.preventDefault();
     let data = {

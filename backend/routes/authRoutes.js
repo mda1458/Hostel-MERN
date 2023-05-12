@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { check } = require('express-validator');
-const { login, changePassword } = require('../controllers/authController');
+const { login, changePassword, verifySession } = require('../controllers/authController');
 
 // @route   POST api/auth/login
 // @desc    Authenticate user and get token
@@ -19,5 +19,12 @@ router.post('/change-password', [
     check('password', 'Old password is required').isLength({ min: 8 }),
     check('newPassword', 'New password of more than 8 character is required').isLength({ min: 8 })
 ], changePassword);
+
+// @route   POST api/auth/verifysession
+// @desc    Verify session
+// @access  public
+router.post('/verifysession', [
+    check('token', 'Token is required').not().isEmpty()
+], verifySession);
 
 module.exports = router;

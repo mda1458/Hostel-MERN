@@ -47,7 +47,7 @@ const registerAdmin = async (req, res) => {
 
             await admin.save();
 
-            const token = generateToken(admin.id);
+            const token = generateToken(user.id, user.isAdmin);
 
             success = true;
             res.json({success, token, admin});

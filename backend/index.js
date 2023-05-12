@@ -16,6 +16,7 @@ app.use('/api/student', require('./routes/studentRoutes'));
 app.use('/api/admin', require('./routes/adminRoutes'));
 app.use('/api/complaint', require('./routes/complaintRoutes'));
 app.use('/api/invoice', require('./routes/invoiceRoutes'));
+app.use('/api/messoff', require('./routes/messoffRoutes'));
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)

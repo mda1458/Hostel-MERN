@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect} from "react";
 
 function Invoices() {
   const generateInvoice = async (e) => {
@@ -38,20 +38,57 @@ function Invoices() {
       alert(data.errors[0].msg);
     }
   };
-  const [invoiceList, setInvoiceList] = useState([
-    {
-      title: "Mess bill",
-      amount: "Rs. 6900",
-      status: "Pending",
-      date: "29-May-2023",
-    },
-    {
-      title: "Hostel rent",
-      amount: "Rs. 8000",
-      status: "Paid",
-      date: "30-May-2023",
-    },
-  ]);
+  const [invoiceList, setInvoiceList] = useState([{
+    title: "Mess bill",
+    amount: "Rs. 2000",
+    status: "Paid",
+    date: "12-12-2020",
+  }]);
+  const [totalInvoices, setTotalInvoices] = useState(0);
+  const [pendingInvoices, setPendingInvoices] = useState(0);
+  const [paidInvoices, setPaidInvoices] = useState(0);
+
+  useEffect(() => {
+    let student = JSON.parse(localStorage.getItem("student"));
+    fetch("http://localhost:3000/api/invoice/student", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        },
+        body: JSON.stringify({student: student._id}),
+      })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.success) {
+          let invoices = data.invoices;
+          let List = [];
+          let paidInvoices = 0;
+          let pendingInvoices = 0;
+    
+          invoices.forEach((invoice) => {
+            if (invoice.status.toLowerCase === "paid") {
+              paidInvoices += 1;
+            } else {
+              pendingInvoices += 1;
+            }
+            let date = new Date(invoice.date);
+            invoice.date= date.toLocaleDateString('en-US', { day: 'numeric', month: 'long', year: 'numeric' });
+            List.push(
+              {
+                title: invoice.title,
+                amount: "Rs. "+invoice.amount,
+                status: invoice.status,
+                date: invoice.date,
+              }
+            );
+          });
+          setInvoiceList(List);
+          setTotalInvoices(invoices.length);
+          setPaidInvoices(paidInvoices);
+          setPendingInvoices(pendingInvoices);
+        }
+      });
+  }, [invoiceList, totalInvoices, pendingInvoices, paidInvoices]);
 
   return (
     <div className="w-full h-screen flex flex-col gap-5 items-center justify-center">
@@ -67,17 +104,17 @@ function Invoices() {
       </p>
       <div className="flex gap-10 items-center my-5">
         <div className="flex flex-col items-center justify-center">
-          <dt className="mb-2 ml-2 text-5xl font-extrabold text-blue-700">02</dt>
+          <dt className="mb-2 ml-2 text-5xl font-extrabold text-blue-700">{totalInvoices}</dt>
           <dd className="text-gray-400 text-center">Total Invoices</dd>
         </div>
         <div className="flex flex-col items-center justify-center">
-          <dt className="mb-2 text-5xl font-extrabold text-blue-700">01</dt>
+          <dt className="mb-2 text-5xl font-extrabold text-blue-700">{paidInvoices}</dt>
           <dd className="text-gray-400 ">
             Paid Invoices
           </dd>
         </div>
         <div className="flex flex-col items-center justify-center">
-          <dt className="mb-2 text-5xl font-extrabold text-blue-700">01</dt>
+          <dt className="mb-2 text-5xl font-extrabold text-blue-700">{pendingInvoices}</dt>
           <dd className="text-gray-400">
             Pending Invoices
           </dd>

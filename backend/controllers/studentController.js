@@ -53,7 +53,7 @@ const registerStudent = async (req, res) => {
 
         await student.save();
 
-        const token = generateToken(student.id);
+        const token = generateToken(user.id, user.isAdmin);
 
         success = true;
         res.json({success, token, student });

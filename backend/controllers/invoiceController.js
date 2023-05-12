@@ -69,6 +69,23 @@ exports.getInvoicesbyid = async (req, res) => {
     }
 }
 
-
-
-
+// @route   GET api/invoice/student
+// @desc    Get all invoices
+// @access  Public
+exports.getInvoices = async (req, res) => {
+    let success = false;
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({errors: errors.array(), success});
+    }
+    const { student } = req.body;
+    try {
+        let invoices = await Invoice.find({student: student});
+        success = true;
+        res.status(200).json({success, invoices});
+    }
+    catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server error');
+    }
+}

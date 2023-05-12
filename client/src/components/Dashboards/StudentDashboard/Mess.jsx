@@ -1,14 +1,45 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Input } from "../../LandingSite/AuthPage/Input";
 import { Bar } from "react-chartjs-2";
 import "chart.js/auto"; // !IMPORTANT
 
 function Mess() {
+  let requestMessOff = async (event) => {
+    event.preventDefault();
+    let data = {
+      student: JSON.parse(localStorage.getItem("student"))._id,
+      leaving_date: leaveDate,
+      return_date: returnDate,
+    };
+
+    let response = await fetch("http://localhost:3000/api/messoff/request", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+
+    let result = await response.json();
+
+    if (result.success) {
+      setRequests(requests + 1);
+      setLeaveDate("");
+      setReturnDate("");
+      alert("Mess off requested successfully");
+    } else {
+      alert(result.errors[0].msg);
+    }
+  };
+
   const [leaveDate, setLeaveDate] = useState("");
   const [returnDate, setReturnDate] = useState("");
+  const [requests, setRequests] = useState(0);
 
-  function handleChange(e) {
+  function handleleaveChange(e) {
     setLeaveDate(e.target.value);
+  }
+  function handlereturnChange(e) {
     setReturnDate(e.target.value);
   }
 
@@ -18,7 +49,7 @@ function Mess() {
     req: true,
     type: "date",
     value: leaveDate,
-    onChange: handleChange,
+    onChange: handleleaveChange,
   };
   const returningDate = {
     name: "return date",
@@ -26,10 +57,36 @@ function Mess() {
     req: true,
     type: "date",
     value: returnDate,
-    onChange: handleChange,
+    onChange: handlereturnChange,
   };
 
-  console.log(returnDate);
+  // console.log(returnDate);
+
+  useEffect(() => {
+    let student = JSON.parse(localStorage.getItem("student"));
+    if (student) {
+      fetch("http://localhost:3000/api/messoff/count", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          student: student._id,
+        }),
+      })
+        .then((res) => res.json())
+        .then((result) => {
+          if (result.success) {
+            setRequests(result.count);
+          } else {
+            alert(result.errors[0].msg);
+          }
+        });
+    }
+  }, [requests]);
+
+            
+
 
   const labels =  ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
@@ -39,7 +96,7 @@ function Mess() {
       <ul className="flex gap-5 text-white text-xl">
         <li>Total Meals: 0</li>
         <li>Meals Off: 0</li>
-        <li>Requests Sent: 0</li>
+        <li>Requests Sent: {requests}</li>
       </ul>
       <div className="w-full h-[30vh] flex flex-col items-center justify-center">
         <span className="text-white text-lg mb-2">This Week</span>
@@ -61,7 +118,7 @@ function Mess() {
       </div>
       <form
         method="POST"
-        action="#"
+        onSubmit={requestMessOff}
         className="bg-neutral-950 py-5 px-10 rounded-lg shadow-xl"
       >
         <div className="flex gap-5">
