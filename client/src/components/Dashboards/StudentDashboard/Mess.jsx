@@ -13,7 +13,7 @@ function Mess() {
       return_date: returnDate,
     };
 
-    let response = await fetch("http://localhost:3000/api/messoff/request", {
+    let response = await fetch("http://localhost:3000/api/Messoff/request", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -29,7 +29,7 @@ function Mess() {
       setReturnDate("");
       alert("Mess off requested successfully");
     } else {
-      alert(result.message);
+      alert(result.Message);
     }
 
     setLoading(false);
@@ -40,7 +40,7 @@ function Mess() {
   const [leaveDate, setLeaveDate] = useState("");
   const [returnDate, setReturnDate] = useState("");
   const [requests, setRequests] = useState(0);
-  const [mealsoff, setMealsOff] = useState(0);
+  const [Messoff, setMessOff] = useState(0);
   const [loading, setLoading] = useState(false);
   const [requestsList, setRequestsList] = useState([
     {
@@ -87,7 +87,7 @@ function Mess() {
     let student = JSON.parse(localStorage.getItem("student"));
     setLoading(true);
     if (student) {
-      fetch("http://localhost:3000/api/messoff/count", {
+      fetch("http://localhost:3000/api/Messoff/count", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -99,7 +99,7 @@ function Mess() {
         .then((res) => res.json())
         .then((result) => {
           if (result.success) {
-            setMealsOff(result.approved);
+            setMessOff(result.approved);
             setRequests(result.requests);
           } else {
             alert(result.errors[0].msg);
@@ -109,7 +109,7 @@ function Mess() {
     setLoading(false);
   }, [requests]);
 
-  const labels = ["Meals Off", "Requested Meals Off", "Meals Attended"];
+  const labels = ["Mess Off", "Requested Mess Off", "Mess Attended"];
   const loader = (
     <svg
       aria-hidden="true"
@@ -131,10 +131,10 @@ function Mess() {
 
   return (
     <div className="w-full h-screen pt-20 gap-10 flex flex-col items-center justify-center">
-      <h1 className="text-white font-bold text-5xl">Mess</h1>
+      <h1 className="text-white font-bold text-5xl">Mess Off</h1>
       <ul className="flex gap-5 text-white text-xl">
-        <li>Total Meals: {daysofmonthtilltoday - mealsoff} </li>
-        <li>Meals Off: {loading ? loader : mealsoff}</li>
+        <li>Total Mess: {daysofmonthtilltoday - Messoff} </li>
+        <li>Mess Off: {loading ? loader : Messoff}</li>
         <li>Requests Sent: {loading ? loader : requests}</li>
       </ul>
       <div className="w-full h-[30vh] gap-10 flex items-center justify-center">
@@ -145,8 +145,8 @@ function Mess() {
               labels,
               datasets: [
                 {
-                  label: "meals",
-                  data: [mealsoff, requests, daysofmonthtilltoday-mealsoff],
+                  label: "Mess",
+                  data: [Messoff, requests, daysofmonthtilltoday-Messoff],
                   backgroundColor: ["#F26916", "#EAB308", "#1D4ED8"],
                   barThickness: 20,
                   borderRadius: 0,
@@ -167,16 +167,16 @@ function Mess() {
           <ul className="text-white">
             <li className="flex gap-2">
               {" "}
-              <span className="w-10 h-5 bg-orange-500 block"></span> Meals Off
+              <span className="w-10 h-5 bg-orange-500 block"></span> Mess Off
             </li>
             <li className="flex gap-2">
               {" "}
               <span className="w-10 h-5 bg-yellow-500 block"></span> Requested
-              Meals
+              Mess
             </li>
             <li className="flex gap-2">
               {" "}
-              <span className="w-10 h-5 bg-blue-500 block"></span> Meals
+              <span className="w-10 h-5 bg-blue-500 block"></span> Mess
               Attended
             </li>
           </ul>

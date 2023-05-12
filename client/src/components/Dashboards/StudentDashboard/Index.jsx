@@ -27,7 +27,7 @@ export default function Index() {
       ),
     },
     {
-      text: "Mess",
+      text: "Mess Off",
       url: "/student-dashboard/mess",
       svg: (
         <svg
