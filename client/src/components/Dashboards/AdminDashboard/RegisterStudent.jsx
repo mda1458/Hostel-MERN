@@ -85,6 +85,14 @@ function RegisterStudent() {
       cms: 368113,
       status: "pending",
     },
+    {
+      cms: 368114,
+      status: "pending",
+    },
+    {
+      cms: 368110,
+      status: "pending",
+    },
   ]);
 
   const handleClick = (requestCms) => {
@@ -92,16 +100,16 @@ function RegisterStudent() {
   } 
 
   return (
-    <div className="w-full h-screen max-h-screen overflow-y-auto flex flex-col items-center justify-center">
-      <h1 className="text-white font-bold text-5xl mt-[500px] mb-5">
+    <div className=" box-border w-full max-h-screen pt-[700px] overflow-y-auto flex flex-col items-center justify-center">
+      <h1 className="text-white font-bold text-5xl mb-5">
         Requests
       </h1>
       <div className="flow-root bg-neutral-950 w-96 px-10 py-5 rounded-lg shadow-xl">
-        <ul role="list" className="divide-y divide-gray-700 text-white">
+        <ul role="list" className="divide-y -mx-2 divide-gray-700 text-white max-h-[200px] overflow-auto">
           {requests.length === 0
             ? "No new requests"
             : requests.map((request) => (
-              <li className="py-3 sm:py-4" key={request.cms}>
+              <li className="py-3 sm:py-4 mx-5" key={request.cms}>
                 <div className="flex items-center space-x-4">
                   <div className="flex-shrink-0 text-white">
                     <svg
@@ -127,7 +135,7 @@ function RegisterStudent() {
                       from {request.cms}
                     </p>
                   </div>
-                  <button className="hover:underline">Dismiss</button>
+                  <button className="hover:underline" onClick={() => handleClick(request.cms)}>Dismiss</button>
                 </div>
               </li>
             ))}
