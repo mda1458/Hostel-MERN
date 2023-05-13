@@ -1,17 +1,48 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Doughnut } from "react-chartjs-2";
 
 function Attendance() {
-  const [daysOff, setDaysOff] = useState(5); //!Fetch from database
-  const [thisWeek, setThisWeek] = useState([
-    { name: "Monday", present: true },
-    { name: "Tuesday", present: false }
-  ]); //!Fetch from database
+  const getAttendance = async () => {
+      let student = JSON.parse(localStorage.getItem("student"));
+      const res = await fetch("http://localhost:3000/api/attendance/get", {
+        method: "POST",
+        headers:{
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({student:student._id}),
+      });
+      const data = await res.json();
+      if(data.success){
+        let daysOff = 0;
+        let thisWeek = [];
+        data.attendance.map((day) => {
+          if(day.status === "absent"){
+            daysOff++;
+          }
+          if (new Date(day.date) >= new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)) {
+            thisWeek.push(
+              { weekdate: new Date(day.date).toLocaleDateString('en-US', {day: 'numeric', month: 'long', year: 'numeric'}), weekday: new Date(day.date).toLocaleDateString('en-PK', {weekday:"long"}), present: day.status === "Present" }
+            );
+          }
+        });
+        setDaysOff(daysOff);
+        setThisWeek(thisWeek);
+        console.log(daysOff, thisWeek);
+      }
+      else{
+        console.log("Error");
+      }
+    };
+  const [daysOff, setDaysOff] = useState(0); //!Fetch from database
+  const [thisWeek, setThisWeek] = useState([{}]); //!Fetch from database
 
   let totalDays = new Date();
   totalDays = totalDays.getDate();
   const labels = ["Days off", "Days present"];
 
+  useEffect(() => {
+    getAttendance();
+  }, [ daysOff, thisWeek ]);
   return (
     <div className="w-full h-screen flex flex-col gap-5 items-center justify-center">
       <h1 className="text-white font-bold text-5xl">Attendance</h1>
@@ -42,13 +73,13 @@ function Attendance() {
           <p className="text-white text-xl font-bold ">This Week</p>
           <ul role="list" className="divide-y divide-gray-700">
             {thisWeek.map((day) => (
-              <li className="py-3 sm:py-4" key={day.name}>
+              <li className="py-3 sm:py-4" key={day.weekdate}>
                 <div className="flex items-center space-x-4">
                   <div className="flex-1 min-w-0">
                     <p className="text-sm font-medium truncate text-white">
-                      {day.name}
+                      {day.weekday} -- {day.weekdate}
                     </p>
-                    <p className="text-sm truncate text-gray-400">Present</p>
+                    <p className="text-sm truncate text-gray-400">{day.present?"Present":"Absent"}</p>
                   </div>
                   <div className="flex flex-col items-center text-base font-semibold text-white">
                     {day.present ? (
