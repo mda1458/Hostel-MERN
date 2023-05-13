@@ -43,7 +43,7 @@ router.post('/get-admin', [
 // @desc   Get hostel by name
 // @access Public
 router.post('/get-hostel', [
-    check('email', 'Please include a valid email').isEmail()
+    check('id', 'Id is required').notEmpty(),
 ], getHostel);
 
 // @route  POST api/admin/delete-admin

@@ -20,7 +20,8 @@ router.post('/register-student', [
     check('address', 'Address is required').not().isEmpty(),
     check('dob', 'Date of birth is required').not().isEmpty(),
     check('cnic', 'CNIC is required').isLength(13),
-    check('hostel', 'Hostel is required').not().isEmpty()
+    check('hostel', 'Hostel is required').not().isEmpty(),
+    check('password', 'Please enter a password with 8 or more characters').isLength({ min: 8 }),
 ], registerStudent);
 
 // @route  POST api/student/get-student

@@ -13,7 +13,6 @@ const registerStudent = async (req, res) => {
     }
 
     const { name, cms_id, room_no, batch, dept, course, email, father_name, contact, address, dob, cnic, hostel, password } = req.body;
-
     try {
         let student = await Student.findOne({ cms_id });
 
@@ -53,11 +52,8 @@ const registerStudent = async (req, res) => {
 
         await student.save();
 
-        const token = generateToken(user.id, user.isAdmin);
-
         success = true;
-        res.json({success, token, student });
-
+        res.json({success, student });
     } catch (err) {
         console.log(err);
         res.status(500).json({success, errors: [{msg: 'Server error'}]});

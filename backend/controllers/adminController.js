@@ -108,9 +108,9 @@ const getHostel = async (req, res) => {
             return res.status(400).json({success, errors: errors.array()});
         }
 
-        const {email} = req.body
+        const {id} = req.body
 
-        let admin = await Admin.findOne({email});
+        let admin = await Admin.findById(id);
         
         if (!admin) {
             return res.status(400).json({success, errors: [{msg: 'Admin does not exists'}]});

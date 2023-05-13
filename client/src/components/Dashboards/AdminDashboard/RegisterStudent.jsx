@@ -4,6 +4,63 @@ import { Button } from "../Common/PrimaryButton";
 import { Loader } from "../Common/Loader";
 
 function RegisterStudent() {
+  const registerStudent = async (e) => {
+    e.preventDefault();
+    try {
+      setLoading(true);
+      let student = {
+        name: name,
+        cms_id: cms,
+        room_no: room_no,
+        batch: batch,
+        dept: dept,
+        course: course,
+        email: email,
+        father_name: fatherName,
+        contact: contact,
+        address: address,
+        dob: dob,
+        cnic: cnic,
+        hostel: hostel,
+        password: password
+      };
+      const res = await fetch("http://localhost:3000/api/student/register-student", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(student),
+      })
+      const data = await res.json();
+
+      if (data.success) {
+        alert("Student registered successfully");
+        setCms("");
+        setName("");
+        setRoomNo("");
+        setBatch("");
+        setDept("");
+        setCourse("");
+        setEmail("");
+        setFatherName("");
+        setContact("");
+        setAddress("");
+        setDob("");
+        setCnic("");
+        setPassword("");
+        setLoading(false);
+      } else {
+        alert(data.message);
+        setLoading(false);
+
+      }
+    } catch (err) {
+      console.log(err);
+      setLoading(false);
+    }
+  };
+
+  const hostel = JSON.parse(localStorage.getItem("hostel")).name;
   const [cms, setCms] = useState();
   const [name, setName] = useState();
   const [room_no, setRoomNo] = useState();
@@ -16,7 +73,6 @@ function RegisterStudent() {
   const [address, setAddress] = useState();
   const [dob, setDob] = useState();
   const [cnic, setCnic] = useState();
-  const [hostel, setHostel] = useState();
   const [password, setPassword] = useState();
 
   const [loading, setLoading] = useState(false);
@@ -41,43 +97,43 @@ function RegisterStudent() {
           {requests.length === 0
             ? "No new requests"
             : requests.map((request) => (
-                <li className="py-3 sm:py-4" key={request.cms}>
-                  <div className="flex items-center space-x-4">
-                    <div className="flex-shrink-0 text-white">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        strokeWidth={2}
-                        stroke="currentColor"
-                        className="w-7 h-7"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"
-                        />
-                      </svg>
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <p className="text-sm font-medium truncate text-white">
-                        New Request
-                      </p>
-                      <p className="text-sm truncate text-gray-400">
-                        from {request.cms}
-                      </p>
-                    </div>
-                    <button className="hover:underline">Dismiss</button>
+              <li className="py-3 sm:py-4" key={request.cms}>
+                <div className="flex items-center space-x-4">
+                  <div className="flex-shrink-0 text-white">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={2}
+                      stroke="currentColor"
+                      className="w-7 h-7"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"
+                      />
+                    </svg>
                   </div>
-                </li>
-              ))}
+                  <div className="flex-1 min-w-0">
+                    <p className="text-sm font-medium truncate text-white">
+                      New Request
+                    </p>
+                    <p className="text-sm truncate text-gray-400">
+                      from {request.cms}
+                    </p>
+                  </div>
+                  <button className="hover:underline">Dismiss</button>
+                </div>
+              </li>
+            ))}
         </ul>
       </div>
       <h1 className="text-white font-bold text-5xl mt-10 mb-5">
         Register Student
       </h1>
       <div className="w-[60vw] p-10 bg-neutral-950 rounded-lg shadow-xl mb-10">
-        <form method="POST" action="#" className="flex flex-col gap-3">
+        <form method="post" onSubmit={registerStudent} className="flex flex-col gap-3">
           <div className="flex gap-5 flex-wrap justify-center">
             <Input
               field={{
@@ -135,7 +191,7 @@ function RegisterStudent() {
               field={{
                 name: "contact",
                 placeholder: "Student Contact",
-                type: "number",
+                type: "text",
                 req: true,
                 value: contact,
                 onChange: (e) => setContact(e.target.value),
@@ -186,7 +242,7 @@ function RegisterStudent() {
                 type: "text",
                 req: true,
                 value: hostel,
-                onChange: (e) => setHostel(e.target.value),
+                disabled: true,
               }}
             />
             <Input
@@ -211,7 +267,6 @@ function RegisterStudent() {
                 onChange: (e) => setCourse(e.target.value),
               }}
             />
-
             <Input
               field={{
                 name: "batch",
