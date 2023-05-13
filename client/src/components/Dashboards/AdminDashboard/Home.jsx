@@ -5,6 +5,7 @@ function Home() {
   admin = JSON.parse(admin);
   console.log(admin);
 
+  useEffect(() => {
   const getHostel = async () => {
     try {
       const res = await fetch("http://localhost:3000/api/admin/get-hostel", {
@@ -22,16 +23,15 @@ function Home() {
     }
   }
   
-  useEffect(() => {
     getHostel();
-  }, []);
+  }, [admin._id]);
 
   let hostel = localStorage.getItem("hostel");
   hostel = JSON.parse(hostel);
   console.log(hostel.name, admin.name);
 
   return (
-    <div className="w-full h-screen flex items-center justify-center">
+    <div className="w-full h-screen flex flex-col gap-3 items-center justify-center">
       <h1 className="text-white font-bold text-5xl">
         Welcome <span className="text-blue-500">{admin.name}!</span>
       </h1>

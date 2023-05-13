@@ -18,6 +18,11 @@ import Settings from "./components/Dashboards/StudentDashboard/Settings";
 import AdminIndex from "./components/Dashboards/AdminDashboard/Index";
 import AdminHome from "./components/Dashboards/AdminDashboard/Home"
 import RegisterStudent from "./components/Dashboards/AdminDashboard/RegisterStudent";
+import AdminAttendance from "./components/Dashboards/AdminDashboard/Attendance";
+import AdminComplaints from "./components/Dashboards/AdminDashboard/Complaints";
+import AdminInvoices from './components/Dashboards/AdminDashboard/Invoices'
+import AdminSuggestions from './components/Dashboards/AdminDashboard/Suggestions'
+import AdminSettings from './components/Dashboards/AdminDashboard/Settings'
 
 function App() {
   return (
@@ -45,6 +50,11 @@ function App() {
         <Route path="/admin-dashboard" element={<AdminIndex />}>
           <Route index element={<AdminHome />} />
           <Route path='register-student' element={<RegisterStudent />} />
+          <Route path="attendance" element={<AdminAttendance />} />
+          <Route path="complaints" element={<AdminComplaints />} />
+          <Route path="invoices" element={<AdminInvoices/>} />
+          <Route path="suggestions" element={<AdminSuggestions/>} />
+          <Route path="settings" element={<AdminSettings/>} />
         </Route>
       </Routes>
     </>
