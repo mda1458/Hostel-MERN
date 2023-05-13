@@ -87,6 +87,10 @@ function RegisterStudent() {
     },
   ]);
 
+  const handleClick = (requestCms) => {
+    setRequests(requests.filter((request) => request.cms !== requestCms)); 
+  } 
+
   return (
     <div className="w-full h-screen max-h-screen overflow-y-auto flex flex-col items-center justify-center">
       <h1 className="text-white font-bold text-5xl mt-[500px] mb-5">
@@ -297,7 +301,7 @@ function RegisterStudent() {
                   <Loader /> Registering...
                 </>
               ) : (
-                "Register Student"
+                <span>Register Student</span>
               )}
             </Button>
           </div>
