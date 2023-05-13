@@ -3,7 +3,30 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 
 export default function RequestAcc() {
+  const register = (event) => {
+    event.preventDefault();
+    let data = {
+      cms_id: inputCms,
+    };
 
+    fetch("http://localhost:3000/api/request/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data)
+    }).then((response) => {
+      if (response.status === 200) {
+        alert("Request sent successfully");
+      } else {
+        response.json().then((data) => {
+          alert(data.errors[0].msg);
+        }
+        );
+      }
+    }
+    );
+  };
   const [inputCms, setInputCms] = useState('');
   const changeCms = (event) => {
     setInputCms(event.target.value);
@@ -24,7 +47,7 @@ export default function RequestAcc() {
         <h1 className="text-xl font-bold leading-tight tracking-tight md:text-2xl text-white">
           Request account from Hostel Manager
         </h1>
-        <form className="space-y-4 md:space-y-6" action="#">
+        <form className="space-y-4 md:space-y-6" onSubmit={register}>
           <Input field={cms} />
           <button
             type="submit"

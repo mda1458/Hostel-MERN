@@ -1,12 +1,35 @@
 import { useState } from "react";
 import { Input } from "./Input";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function Settings() {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const changePassword = async (e) => {
     e.preventDefault();
-    //! Logic...
+    const user = JSON.parse(localStorage.getItem("admin"));
+    
+    const data = {
+      email: user.email,
+      password: oldPass,
+      newPassword: pass,
+    };
+    
+    let result = await fetch("http://localhost:3000/api/auth/change-password", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+
+    result = await result.json();
+
+    if (result.success) {
+      alert("Password Changed Successfully");
+      navigate("/admin-dashboard");
+    } else {
+      alert(result.errors[0].msg);
+    }
   };
 
 
