@@ -120,13 +120,13 @@ function Complaints() {
       <Line
         data={{
           labels: [
-            "9-5-2023",
-            "10-5-2023",
-            "11-5-2023",
-            "12-5-2023",
-            "13-5-2023",
-            "14-5-2023",
-            "15-5-2023",
+            `${new Date().getDate() - 6}-${new Date().getMonth() + 1}-${new Date().getFullYear()}`,
+            `${new Date().getDate() - 5}-${new Date().getMonth() + 1}-${new Date().getFullYear()}`,
+            `${new Date().getDate() - 4}-${new Date().getMonth() + 1}-${new Date().getFullYear()}`,
+            `${new Date().getDate() - 3}-${new Date().getMonth() + 1}-${new Date().getFullYear()}`,
+            `${new Date().getDate() - 2}-${new Date().getMonth() + 1}-${new Date().getFullYear()}`,
+            `${new Date().getDate() - 1}-${new Date().getMonth() + 1}-${new Date().getFullYear()}`,
+            `${new Date().getDate() - 0}-${new Date().getMonth() + 1}-${new Date().getFullYear()}`,
           ],
           datasets: [
             {
