@@ -23,6 +23,7 @@ import AdminComplaints from "./components/Dashboards/AdminDashboard/Complaints";
 import AdminInvoices from './components/Dashboards/AdminDashboard/Invoices'
 import AdminSuggestions from './components/Dashboards/AdminDashboard/Suggestions'
 import AdminSettings from './components/Dashboards/AdminDashboard/Settings'
+import AllStudents from "./components/Dashboards/AdminDashboard/AllStudents";
 
 function App() {
   return (
@@ -55,6 +56,7 @@ function App() {
           <Route path="invoices" element={<AdminInvoices/>} />
           <Route path="suggestions" element={<AdminSuggestions/>} />
           <Route path="settings" element={<AdminSettings/>} />
+          <Route path="all-students" element={<AllStudents/>}/>
         </Route>
       </Routes>
     </>
