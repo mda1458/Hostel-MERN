@@ -46,7 +46,7 @@ function Complaints() {
       desc: "Description of the complaint",
       student: "AbdulAhad",
       status: "Pending",
-      date: "15-5-2023",
+      date: "May 15, 2023",
     },
     {
       hostel: "Attar-2",
@@ -54,7 +54,7 @@ function Complaints() {
       desc: "Description of the complaint",
       student: "Danish",
       status: "Pending",
-      date: "14-5-2023",
+      date: "May 14, 2023",
     },
     {
       hostel: "Attar-2",
@@ -62,7 +62,7 @@ function Complaints() {
       desc: "Description of the complaint",
       student: "Saim",
       status: "Pending",
-      date: "13-5-2023",
+      date: "May 13, 2023",
     },
     {
       hostel: "Attar-2",
@@ -70,7 +70,7 @@ function Complaints() {
       desc: "Description of the complaint",
       student: "Nagra",
       status: "Pending",
-      date: "15-5-2023",
+      date: "May 15, 2023",
     },
   ]); //!AFTER FETCH FILL THIS WITH COMPLAINT DATA
 
@@ -95,18 +95,17 @@ function Complaints() {
   const [graphData, setGraphData] = useState([0, 0, 0, 0, 0, 0, 0]);
 
   useEffect(() => {
-    const date = new Date().getDate();
-    const month = new Date().getMonth();
-    const year = new Date().getFullYear();
-    const labels = [
-      `${date - 6}-${month + 1}-${year}`,
-      `${date - 5}-${month + 1}-${year}`,
-      `${date - 4}-${month + 1}-${year}`,
-      `${date - 3}-${month + 1}-${year}`,
-      `${date - 2}-${month + 1}-${year}`,
-      `${date - 1}-${month + 1}-${year}`,
-      `${date - 0}-${month + 1}-${year}`,
+    const dates = [
+      new Date(Date.now() - 6 * 24 * 60 * 60 * 1000).toLocaleDateString('en-US', { day: 'numeric', month: 'long', year: 'numeric' }),
+      new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toLocaleDateString('en-US', { day: 'numeric', month: 'long', year: 'numeric' }),
+      new Date(Date.now() - 4 * 24 * 60 * 60 * 1000).toLocaleDateString('en-US', { day: 'numeric', month: 'long', year: 'numeric' }),
+      new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toLocaleDateString('en-US', { day: 'numeric', month: 'long', year: 'numeric' }),
+      new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toLocaleDateString('en-US', { day: 'numeric', month: 'long', year: 'numeric' }),
+      new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toLocaleDateString('en-US', { day: 'numeric', month: 'long', year: 'numeric' }),
+      new Date(Date.now() - 0 * 24 * 60 * 60 * 1000).toLocaleDateString('en-US', { day: 'numeric', month: 'long', year: 'numeric' }),
     ];
+
+    const labels = dates.map((date) => date);
     setGraphData(
       labels.map(
         (date) =>
@@ -120,13 +119,13 @@ function Complaints() {
       <Line
         data={{
           labels: [
-            `${new Date().getDate() - 6}-${new Date().getMonth() + 1}-${new Date().getFullYear()}`,
-            `${new Date().getDate() - 5}-${new Date().getMonth() + 1}-${new Date().getFullYear()}`,
-            `${new Date().getDate() - 4}-${new Date().getMonth() + 1}-${new Date().getFullYear()}`,
-            `${new Date().getDate() - 3}-${new Date().getMonth() + 1}-${new Date().getFullYear()}`,
-            `${new Date().getDate() - 2}-${new Date().getMonth() + 1}-${new Date().getFullYear()}`,
-            `${new Date().getDate() - 1}-${new Date().getMonth() + 1}-${new Date().getFullYear()}`,
-            `${new Date().getDate() - 0}-${new Date().getMonth() + 1}-${new Date().getFullYear()}`,
+            new Date(Date.now() - 6 * 24 * 60 * 60 * 1000).toLocaleDateString('en-US', { day: 'numeric', month: 'long', year: 'numeric' }),
+            new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toLocaleDateString('en-US', { day: 'numeric', month: 'long', year: 'numeric' }),
+            new Date(Date.now() - 4 * 24 * 60 * 60 * 1000).toLocaleDateString('en-US', { day: 'numeric', month: 'long', year: 'numeric' }),
+            new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toLocaleDateString('en-US', { day: 'numeric', month: 'long', year: 'numeric' }),
+            new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toLocaleDateString('en-US', { day: 'numeric', month: 'long', year: 'numeric' }),
+            new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toLocaleDateString('en-US', { day: 'numeric', month: 'long', year: 'numeric' }),
+            new Date(Date.now() - 0 * 24 * 60 * 60 * 1000).toLocaleDateString('en-US', { day: 'numeric', month: 'long', year: 'numeric' }),
           ],
           datasets: [
             {
@@ -163,41 +162,41 @@ function Complaints() {
             {unsolvedComplaints.length === 0
               ? "No new complaints!"
               : unsolvedComplaints.map((complaint) => (
-                  <li className="py-3 sm:py-4" key={complaint.student}>
-                    <div className="flex items-center space-x-4">
-                      <div className="flex-shrink-0 text-white">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          strokeWidth={2}
-                          stroke="currentColor"
-                          className="w-7 h-7"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"
-                          />
-                        </svg>
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <p className="text-sm font-medium truncate text-white">
-                          {complaint.title}
-                        </p>
-                        <p className="text-sm truncate text-gray-400">
-                          {complaint.desc}
-                        </p>
-                      </div>
-                      <button
-                        className="hover:underline"
-                        onClick={() => dismissComplaint()}
+                <li className="py-3 sm:py-4" key={complaint.student}>
+                  <div className="flex items-center space-x-4">
+                    <div className="flex-shrink-0 text-white">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth={2}
+                        stroke="currentColor"
+                        className="w-7 h-7"
                       >
-                        Solved
-                      </button>
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"
+                        />
+                      </svg>
                     </div>
-                  </li>
-                ))}
+                    <div className="flex-1 min-w-0">
+                      <p className="text-sm font-medium truncate text-white">
+                        {complaint.title}
+                      </p>
+                      <p className="text-sm truncate text-gray-400">
+                        {complaint.desc}
+                      </p>
+                    </div>
+                    <button
+                      className="hover:underline"
+                      onClick={() => dismissComplaint()}
+                    >
+                      Solved
+                    </button>
+                  </div>
+                </li>
+              ))}
           </ul>
         </div>
       </div>
