@@ -158,11 +158,11 @@ function Complaints() {
         {graph}
         <div className="bg-neutral-950 px-10 py-5 rounded-xl shadow-xl w-96 max-h-64 overflow-auto">
           <span className="text-white font-bold text-xl">New Complaints</span>
-          <ul role="list" className="divide-y divide-gray-700 text-white">
+          <ul role="list" className="divide-y divide-gray-700 text-white ">
             {unsolvedComplaints.length === 0
               ? "No new complaints!"
               : unsolvedComplaints.map((complaint) => (
-                <li className="py-3 sm:py-4" key={complaint.student}>
+                <li className="py-3 sm:py-4 px-5 rounded hover:bg-neutral-700 hover:scale-105 transition-all" key={complaint.student}>
                   <div className="flex items-center space-x-4">
                     <div className="flex-shrink-0 text-white">
                       <svg
@@ -189,7 +189,7 @@ function Complaints() {
                       </p>
                     </div>
                     <button
-                      className="hover:underline"
+                      className="hover:underline hover:text-green-600"
                       onClick={() => dismissComplaint()}
                     >
                       Solved

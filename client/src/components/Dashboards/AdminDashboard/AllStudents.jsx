@@ -34,21 +34,21 @@ function AllStudents() {
           {allStudents.length === 0
             ? "No new complaints!"
             : allStudents.map((student) => (
-                <li className="py-3 sm:py-4" key={student.cms}>
+                <li className="py-3 px-5 rounded sm:py-4 hover:bg-neutral-700 hover:scale-105 transition-all" key={student.cms}>
                   <div className="flex items-center space-x-4">
                     <div className="flex-shrink-0 text-white">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
                         viewBox="0 0 24 24"
-                        strokeWidth={2}
+                        strokeWidth={1.5}
                         stroke="currentColor"
-                        className="w-7 h-7"
+                        className="w-6 h-6"
                       >
                         <path
                           strokeLinecap="round"
                           strokeLinejoin="round"
-                          d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"
+                          d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"
                         />
                       </svg>
                     </div>
@@ -61,7 +61,7 @@ function AllStudents() {
                       </p>
                     </div>
                     <div className="flex gap-3">
-                      <button className="hover:underline">
+                      <button className="hover:underline hover:text-green-600 hover:scale-125 transition-all">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           fill="none"
@@ -77,7 +77,7 @@ function AllStudents() {
                           />
                         </svg>
                       </button>
-                      <button className="hover:underline ">
+                      <button className="hover:underline hover:text-red-500 hover:scale-125 transition-all">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           fill="none"

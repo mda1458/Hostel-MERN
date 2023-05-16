@@ -20,18 +20,18 @@ body {
 
 /* Chrome, Edge, and Safari */
 *::-webkit-scrollbar {
-  width: 15px;
+  width: 5px;
 }
 
 *::-webkit-scrollbar-track {
-  background: var(--primary);
+  background: transparent;
   border-radius: 5px;
 }
 
 *::-webkit-scrollbar-thumb {
-  background-color: var(--secondary);
-  border-radius: 14px;
-  border: 3px solid var(--primary);
+  /* background-color: var(--primary); */
+  /* border-radius: 14px; */
+  border-left: 5px solid var(--primary);
 }
 
 input:-webkit-autofill,
