@@ -95,12 +95,12 @@ function Attendance() {
   );
 
   return (
-    <div className="w-full h-screen flex flex-col gap-3 items-center justify-center">
+    <div className="w-full h-screen flex flex-col gap-3 items-center xl:pt-0 md:pt-40 pt-64 justify-center overflow-auto max-h-screen">
       <h1 className="text-white font-bold text-5xl">Attendance</h1>
       <p className="text-white text-xl mb-10">Date: {date}</p>
-      <div className="flex gap-5 flex-wrap">
+      <div className="flex gap-5 flex-wrap items-center justify-center">
         <>{graph}</>
-        <div className="flow-root w-96 bg-neutral-950 px-7 py-5 rounded-lg shadow-xl max-h-[250px] overflow-auto">
+        <div className="flow-root md:w-[400px] w-full bg-neutral-950 px-7 py-5 rounded-lg shadow-xl max-h-[250px] overflow-auto">
           <span
             className={`font-bold text-xl text-white ${
               unmarkedStudents.length ? "block" : "hidden"
