@@ -20,15 +20,25 @@ function Attendance() {
   const [markedStudents, setMarkedStudents] = useState([]);
 
   const markAttendance = (studentCms, isPresent) => {
-    unmarkedStudents.find((student) => student.cms === studentCms).attendance = isPresent;
-    setunmarkedStudents(unmarkedStudents.filter((student) => student.attendance === undefined));
-    setMarkedStudents((markedStudents) => markedStudents.concat(unmarkedStudents.filter((student) => student.attendance !== undefined)));
+    unmarkedStudents.find((student) => student.cms === studentCms).attendance =
+      isPresent;
+    setunmarkedStudents(
+      unmarkedStudents.filter((student) => student.attendance === undefined)
+    );
+    setMarkedStudents((markedStudents) =>
+      markedStudents.concat(
+        unmarkedStudents.filter((student) => student.attendance !== undefined)
+      )
+    );
   };
-
-  useEffect(()=> {
-    console.log( "State: ", unmarkedStudents);
-    console.log( "Marked: ", markedStudents);
-  },[unmarkedStudents, markedStudents])
+  
+  const [present, setPresent] = useState(0)
+  
+  useEffect(() => {
+    console.log("State: ", unmarkedStudents);
+    console.log("Marked: ", markedStudents);
+    setPresent(markedStudents.filter((student) => student.attendance === true).length)
+  }, [unmarkedStudents, markedStudents]);
 
   let date = new Date();
   date = date.toLocaleDateString("en-US", {
@@ -37,8 +47,7 @@ function Attendance() {
     year: "numeric",
   });
 
-
-  const labels = ['Present', 'Absentees']
+  const labels = ["Present", "Absentees"];
   const graph = (
     <div className="flex flex-row-reverse items-center gap-3 h-64">
       <Doughnut
@@ -48,8 +57,8 @@ function Attendance() {
           datasets: [
             {
               label: "No. of Students",
-              data: [2, 3],
-              backgroundColor: ["#F26916", "#1D4ED8"],
+              data: [present, markedStudents.length-present, unmarkedStudents.length],
+              backgroundColor: ["#1D4ED8", "#F26916", "#808080"],
               barThickness: 20,
               borderRadius: 0,
               borderJoinStyle: "round",
@@ -84,9 +93,7 @@ function Attendance() {
       <h1 className="text-white font-bold text-5xl">Attendance</h1>
       <p className="text-white text-xl mb-10">Date: {date}</p>
       <div className="flex gap-5 flex-wrap">
-        <>
-            {graph}
-        </>
+        <>{graph}</>
         <div className="flow-root w-96 bg-neutral-950 px-7 py-5 rounded-lg shadow-xl max-h-[250px] overflow-auto">
           <span
             className={`font-bold text-xl text-white ${
