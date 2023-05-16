@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { check } = require('express-validator');
-const { registerComplaint, getbyhostel, getbystudent } = require('../controllers/complaintController');
+const { registerComplaint, getbyhostel, getbystudent, resolve } = require('../controllers/complaintController');
 
 // @route   Register api/compalint/register
 // @desc    Register complaint
@@ -17,7 +17,7 @@ router.post('/register', [
 // @route   GET api/complaint/hostel
 // @desc    Get all complaints by hostel id
 // @access  Public
-router.post('/hostel', [
+router.post('/hostel/', [
     check('hostel', 'Hostel is required').not().isEmpty()
 ], getbyhostel);
 
@@ -27,5 +27,13 @@ router.post('/hostel', [
 router.post('/student', [
     check('student', 'Student is required').not().isEmpty()
 ], getbystudent);
+
+// @route   GET api/complaint/resolve
+// @desc    Get complaint by complaint id
+// @access  Public
+router.post('/resolve', [
+    check('id', 'Complaint id is required').not().isEmpty()
+], resolve);
+
 
 module.exports = router;

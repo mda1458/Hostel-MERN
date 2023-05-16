@@ -39,7 +39,7 @@ exports.getbyhostel = async (req, res) => {
     }
     const { hostel } = req.body;
     try {
-        const complaints = await Complaint.find({ hostel }).populate('student', ['name', 'email', 'rollno']);
+        const complaints = await Complaint.find({ hostel }).populate('student', ['name', 'room_no']);
         success = true;
         res.json({ success, complaints });
     }
@@ -66,6 +66,29 @@ exports.getbystudent = async (req, res) => {
     }
     catch (err) {
         console.error(err.errors);
+        res.status(500).send('Server error');
+    }
+}
+
+// @route   GET api/complaint
+// @desc    Get complaint by complaint id
+// @access  Public
+exports.resolve = async (req, res) => {
+    let success = false;
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array(), success });
+    }
+    const { id } = req.body;
+    try {
+        const complaint = await Complaint.findById(id);
+        complaint.status = "solved";
+        await complaint.save();
+        success = true;
+        res.json({ success });
+    }
+    catch (err) {
+        console.error(err.message);
         res.status(500).send('Server error');
     }
 }
