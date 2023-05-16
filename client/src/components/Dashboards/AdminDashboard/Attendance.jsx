@@ -47,7 +47,7 @@ function Attendance() {
     year: "numeric",
   });
 
-  const labels = ["Present", "Absentees"];
+  const labels = ["Present", "Absentees", "Unmarked Students"];
   const graph = (
     <div className="flex flex-row-reverse items-center gap-3 h-64">
       <Doughnut
