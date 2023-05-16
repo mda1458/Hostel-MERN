@@ -31,13 +31,15 @@ function Attendance() {
       )
     );
   };
-  
-  const [present, setPresent] = useState(0)
-  
+
+  const [present, setPresent] = useState(0);
+
   useEffect(() => {
     console.log("State: ", unmarkedStudents);
     console.log("Marked: ", markedStudents);
-    setPresent(markedStudents.filter((student) => student.attendance === true).length)
+    setPresent(
+      markedStudents.filter((student) => student.attendance === true).length
+    );
   }, [unmarkedStudents, markedStudents]);
 
   let date = new Date();
@@ -57,7 +59,11 @@ function Attendance() {
           datasets: [
             {
               label: "No. of Students",
-              data: [present, markedStudents.length-present, unmarkedStudents.length],
+              data: [
+                present,
+                markedStudents.length - present,
+                unmarkedStudents.length,
+              ],
               backgroundColor: ["#1D4ED8", "#F26916", "#808080"],
               barThickness: 20,
               borderRadius: 0,
@@ -89,12 +95,12 @@ function Attendance() {
   );
 
   return (
-    <div className="w-full h-screen flex flex-col gap-3 items-center justify-center">
+    <div className="w-full h-screen flex flex-col gap-3 items-center xl:pt-0 md:pt-40 pt-64 justify-center overflow-auto max-h-screen">
       <h1 className="text-white font-bold text-5xl">Attendance</h1>
       <p className="text-white text-xl mb-10">Date: {date}</p>
-      <div className="flex gap-5 flex-wrap">
+      <div className="flex gap-5 flex-wrap items-center justify-center">
         <>{graph}</>
-        <div className="flow-root w-96 bg-neutral-950 px-7 py-5 rounded-lg shadow-xl max-h-[250px] overflow-auto">
+        <div className="flow-root md:w-[400px] w-full bg-neutral-950 px-7 py-5 rounded-lg shadow-xl max-h-[250px] overflow-auto">
           <span
             className={`font-bold text-xl text-white ${
               unmarkedStudents.length ? "block" : "hidden"
@@ -107,21 +113,24 @@ function Attendance() {
               ? "All students are marked!"
               : unmarkedStudents.map((student) =>
                   student.attendance === undefined ? (
-                    <li className="py-3 sm:py-4" key={student.cms}>
+                    <li
+                      className="py-3 sm:py-4 px-5 rounded hover:bg-neutral-700 hover:scale-105 transition-all"
+                      key={student.cms}
+                    >
                       <div className="flex items-center space-x-4">
                         <div className="flex-shrink-0 text-white">
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             fill="none"
                             viewBox="0 0 24 24"
-                            strokeWidth={2}
+                            strokeWidth={1.5}
                             stroke="currentColor"
-                            className="w-7 h-7"
+                            className="w-6 h-6"
                           >
                             <path
                               strokeLinecap="round"
                               strokeLinejoin="round"
-                              d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"
+                              d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"
                             />
                           </svg>
                         </div>
@@ -134,16 +143,42 @@ function Attendance() {
                           </p>
                         </div>
                         <button
-                          className="hover:underline"
+                          className="hover:underline hover:text-green-600 hover:scale-125 transition-all"
                           onClick={() => markAttendance(student.cms, true)}
                         >
-                          Present
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            strokeWidth={1.5}
+                            stroke="currentColor"
+                            className="w-6 h-6"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                            />
+                          </svg>
                         </button>
                         <button
-                          className="hover:underline"
+                          className="hover:underline hover:text-red-600 hover:scale-125 transition-all"
                           onClick={() => markAttendance(student.cms, false)}
                         >
-                          Absent
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            strokeWidth={1.5}
+                            stroke="currentColor"
+                            className="w-6 h-6"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                            />
+                          </svg>
                         </button>
                       </div>
                     </li>
