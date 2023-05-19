@@ -5,6 +5,25 @@ import { useState } from "react";
 export default function AdminSignIn() {
   let navigate = useNavigate();
   
+  const getHostel = async () => {
+    let admin = JSON.parse(localStorage.getItem("admin"));
+    try {
+      const res = await fetch("http://localhost:3000/api/admin/get-hostel", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ id: admin._id })
+      });
+
+      const data = await res.json();
+      console.log(data);
+      localStorage.setItem("hostel", JSON.stringify(data.hostel));
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   let login = async (event) => {
     event.preventDefault();
     let data = {
@@ -39,6 +58,9 @@ export default function AdminSignIn() {
       console.log(adminResult);
       if (adminResult.success) {
         localStorage.setItem("admin", JSON.stringify(adminResult.admin));
+        localStorage.setItem("hostel", JSON.stringify(adminResult.hostel));
+        getHostel();
+
         navigate("/admin-dashboard");
       } else {
         alert(adminResult.errors[0].msg);
