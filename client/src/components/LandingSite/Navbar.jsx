@@ -37,6 +37,12 @@ function Navbar() {
           About
         </Link>
         <Link
+          to="/contact"
+          className="md:py-3 md:hover:text-blue-500 transition-all ease-linear"
+        >
+          Contact
+        </Link>
+        <Link
           to="/auth/request"
           className="md:py-3 md:hover:text-blue-500 transition-all ease-linear"
         >

@@ -28,7 +28,7 @@ function About() {
       <div className="py-20 sm:py-25 flex gap-10 flex-wrap justify-center align-center">
         <TeamCard member={ahad} />
         <TeamCard member={danish} />
-        <TeamCard member={Abubakar} />
+        <TeamCard member={abubakar} />
       </div>
     </>
   );
