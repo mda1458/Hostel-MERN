@@ -134,7 +134,7 @@ export default function Index() {
   return (
     <div className="flex">
       <Sidebar links={links} />
-      <Topbar name={student.name} />
+      <Topbar name={student.name} notifications={[]} />
       <div className="w-full bg-stone-900 h-screen">
         <Outlet />
       </div>

@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import PropTypes from 'prop-types'
+import PropTypes from "prop-types";
 
 Topbar.propTypes = {
-  name: PropTypes.string
-}
+  name: PropTypes.string,
+  notifications: PropTypes.array,
+};
 
-function Topbar({ name }) {
+function Topbar({ name, notifications }) {
   const navigate = useNavigate();
   let logout = () => {
     localStorage.removeItem("student");
@@ -67,10 +68,36 @@ function Topbar({ name }) {
               d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0"
             />
           </svg>
-          <div className="absolute bg-neutral-800 -bottom-15 right-2 hidden group-hover:flex flex-col rounded">
-            <span className="py-2 px-20 w-100 hover:bg-neutral-900">
-              No new notification
-            </span>
+          <div className="absolute bg-neutral-800 -bottom-15 right-2 p-5 w-96 hidden group-hover:flex flex-col rounded-xl">
+            <ul className="[&>*:nth-child(1)]:border-t-0">
+              {notifications.map((noti) => (
+                <li
+                  key={noti}
+                  className="py-5 px-5 flex justify-between items-center text-md border-t-[1px] border-neutral-500 transition-all hover:bg-neutral-900 hover:rounded-xl hover:scale-105 hover:shadow-xl hover:border-transparent"
+                >
+                  New account request from {noti}
+                  <span className="group/edit relative flex">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={1.5}
+                      stroke="currentColor"
+                      className="w-5 h-5 hover:fill-neutral-500 hover:scale-125 transition-all"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M21.75 9v.906a2.25 2.25 0 01-1.183 1.981l-6.478 3.488M2.25 9v.906a2.25 2.25 0 001.183 1.981l6.478 3.488m8.839 2.51l-4.66-2.51m0 0l-1.023-.55a2.25 2.25 0 00-2.134 0l-1.022.55m0 0l-4.661 2.51m16.5 1.615a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V8.844a2.25 2.25 0 011.183-1.98l7.5-4.04a2.25 2.25 0 012.134 0l7.5 4.04a2.25 2.25 0 011.183 1.98V19.5z"
+                      />
+                    </svg>
+                    <span className="text-md hidden absolute w-32 -left-12 top-7 bg-black text-center group-hover/edit:block rounded">
+                      Mark as read.
+                    </span>
+                  </span>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
 
