@@ -1,56 +1,51 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Line } from "react-chartjs-2";
 
 function Complaints() {
+  const allComplaints = useRef([{}]);
+  const unsolvedComplaints = useRef([{}]);
+  const resolvedComplaints = useRef([{}]);
+
   const getComplaints = async () => {
     const hostel = JSON.parse(localStorage.getItem("hostel"))._id;
-    const response = await fetch(
-      `http://localhost:3000/api/complaint/hostel`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ hostel }),
-      }
-    );
+    const response = await fetch(`http://localhost:3000/api/complaint/hostel`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ hostel }),
+    });
 
     const data = await response.json();
-    if (data.success){
-    const complaints = [];
-    data.complaints.map((complaint) => {
-      let date = new Date(complaint.date);
-      complaints.unshift({
-        id: complaint._id,
-        type: complaint.type,
-        title: complaint.title,
-        desc: complaint.description,
-        student: complaint.student.name,
-        room: complaint.student.room_no,
-        status: complaint.status,
-        date: date.toLocaleDateString("en-US", { day: "numeric", month: "long", year: "numeric" }),
+    if (data.success) {
+      const complaints = [];
+      data.complaints.map((complaint) => {
+        let date = new Date(complaint.date);
+        complaints.unshift({
+          id: complaint._id,
+          type: complaint.type,
+          title: complaint.title,
+          desc: complaint.description,
+          student: complaint.student.name,
+          room: complaint.student.room_no,
+          status: complaint.status,
+          date: date.toLocaleDateString("en-US", {
+            day: "numeric",
+            month: "long",
+            year: "numeric",
+          }),
+        });
       });
-    });
-    setAllComplaints(complaints);
-    const resolved = complaints.filter(
-      (complaint) => complaint.status.toLowerCase() !== "pending"
-    );
-    setResolvedComplaints(resolved);
-    setComplaints(
-      complaints.filter(
-        (complaint) => complaint.status.toLowerCase() === "pending"
-      )
-    );
-    }
-    else
-      console.log(data.message);
+      allComplaints.current = complaints;
+      const resolved = resolvedComplaints.current.filter(
+        (complaint) => complaint.status !== "pending"
+      );
+      resolvedComplaints.current = resolved;
+      unsolvedComplaints.current = complaints.filter(
+        (complaint) => complaint.status === "pending"
+      );
+    } else console.log(data.message);
   };
-
-  //!AFTER FETCH FILL THIS WITH COMPLAINT DATA
-  const [unsolvedComplaints, setComplaints] = useState([{}]);
-
-  const [resolvedComplaints, setResolvedComplaints] = useState([]); //!DO NOT FILL THIS WITH DATA FROM FETCH
-  const [allComplaints, setAllComplaints] = useState([{}]); //!AFTER FETCH FILL THIS WITH COMPLAINT DATA
 
   const dismissComplaint = (id) => {
     fetch(`http://localhost:3000/api/complaint/resolve`, {
@@ -109,7 +104,8 @@ function Complaints() {
     setGraphData(
       labels.map(
         (date) =>
-          allComplaints.filter((complaint) => complaint.date === date).length
+          allComplaints.current.filter((complaint) => complaint.date === date)
+            .length
       )
     );
   }, [allComplaints, unsolvedComplaints, resolvedComplaints]);
@@ -172,12 +168,12 @@ function Complaints() {
       <h1 className="text-white font-bold text-5xl">Complaints</h1>
       <div className="flex md:gap-7 flex-wrap justify-center items-center gap-7">
         {graph}
-        <div className="bg-neutral-950 px-10 py-5 rounded-xl shadow-xl w-96 max-h-64 overflow-auto">
+        <div className="bg-neutral-950 px-10 py-5 rounded-xl shadow-xl w-full mx-5 sm:m-0 sm:w-96 max-h-64 overflow-auto">
           <span className="text-white font-bold text-xl">New Complaints</span>
           <ul role="list" className="divide-y divide-gray-700 text-white">
-            {unsolvedComplaints.length === 0
+            {unsolvedComplaints.current.length === 0
               ? "No new complaints!"
-              : unsolvedComplaints.map((complaint) => (
+              : unsolvedComplaints.current.map((complaint) => (
                   <li
                     className="py-3 sm:py-4 px-5 rounded hover:bg-neutral-700 hover:scale-105 transition-all"
                     key={complaint.student}
