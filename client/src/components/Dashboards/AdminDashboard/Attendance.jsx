@@ -1,26 +1,63 @@
 import { useEffect, useState } from "react";
 import { Doughnut } from "react-chartjs-2";
+import { getAllStudents } from "../../../utils";
 
 function Attendance() {
-  const [unmarkedStudents, setunmarkedStudents] = useState([
-    {
-      cms: 368115,
-      name: "Abdul Ahad",
-      room: 69,
-      attendance: undefined,
-    },
-    {
-      cms: 368116,
-      name: "Danish",
-      room: 69,
-      attendance: undefined,
-    },
-  ]);
+  const getALL = async () => {
+    const marked = await fetch("http://localhost:3000/api/attendance/getHostelAttendance", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ hostel: JSON.parse(localStorage.getItem("hostel"))._id }),
+        });
+    const markedData = await marked.json();
+    if (markedData.success) {
+      console.log("Attendance: ", markedData.attendance);
+    }
+    const markedStudents = markedData.attendance.map((student) => {
+      return {
+        id: student.student._id,
+        cms: student.student.cms_id,
+        name: student.student.name,
+        room: student.student.room_no,
+        attendance: student.status === "present" ? true : false,
+      };
+    });
+    setMarkedStudents(markedStudents);
+    const data = await getAllStudents();
+    const students = data.students;
+    const unmarkedStudents = students.filter(
+      (student) =>
+        !markedStudents.find((markedStudent) => markedStudent.id === student._id)
+    );
+    unmarkedStudents.map((student) => {
+      student.id = student._id;
+      student.cms = student.cms_id;
+      student.name = student.name;
+      student.room = student.room_no;
+      student.attendance = undefined;
+    });
+    setunmarkedStudents(unmarkedStudents);
+  };
+  const [unmarkedStudents, setunmarkedStudents] = useState([]);
 
   const [markedStudents, setMarkedStudents] = useState([]);
 
-  const markAttendance = (studentCms, isPresent) => {
-    unmarkedStudents.find((student) => student.cms === studentCms).attendance =
+  const markAttendance = async (id, isPresent) => {
+    const data = await fetch(`http://localhost:3000/api/attendance/mark`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ student:id, status: isPresent? "present" : "absent" }),
+    });
+    const response = await data.json();
+    if (response.success) {
+      console.log("Attendance marked");
+    }
+
+    unmarkedStudents.find((student) => student.id === id).attendance =
       isPresent;
     setunmarkedStudents(
       unmarkedStudents.filter((student) => student.attendance === undefined)
@@ -35,12 +72,14 @@ function Attendance() {
   const [present, setPresent] = useState(0);
 
   useEffect(() => {
+    getALL();
     console.log("State: ", unmarkedStudents);
     console.log("Marked: ", markedStudents);
     setPresent(
       markedStudents.filter((student) => student.attendance === true).length
     );
-  }, [unmarkedStudents, markedStudents]);
+    console.log("Present: ", present);
+  }, [unmarkedStudents.length, markedStudents.length]);
 
   let date = new Date();
   date = date.toLocaleDateString("en-US", {
@@ -94,6 +133,7 @@ function Attendance() {
     </div>
   );
 
+
   return (
     <div className="w-full h-screen flex flex-col gap-3 items-center xl:pt-0 md:pt-40 pt-64 justify-center overflow-auto max-h-screen">
       <h1 className="text-white font-bold text-5xl">Attendance</h1>
@@ -115,7 +155,7 @@ function Attendance() {
                   student.attendance === undefined ? (
                     <li
                       className="py-3 sm:py-4 px-5 rounded hover:bg-neutral-700 hover:scale-105 transition-all"
-                      key={student.cms}
+                      key={student.id}
                     >
                       <div className="flex items-center space-x-4">
                         <div className="flex-shrink-0 text-white">
@@ -144,7 +184,7 @@ function Attendance() {
                         </div>
                         <button
                           className="hover:underline hover:text-green-600 hover:scale-125 transition-all"
-                          onClick={() => markAttendance(student.cms, true)}
+                          onClick={() => markAttendance(student.id, true)}
                         >
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -163,7 +203,7 @@ function Attendance() {
                         </button>
                         <button
                           className="hover:underline hover:text-red-600 hover:scale-125 transition-all"
-                          onClick={() => markAttendance(student.cms, false)}
+                          onClick={() => markAttendance(student.id, false)}
                         >
                           <svg
                             xmlns="http://www.w3.org/2000/svg"

@@ -42,20 +42,7 @@ function Mess() {
   const [requests, setRequests] = useState(0);
   const [Messoff, setMessOff] = useState(0);
   const [loading, setLoading] = useState(false);
-  const [requestsList, setRequestsList] = useState([
-    {
-      reqDate: '12-5-2023',
-      leavingDate: '13-5-2023',
-      returnDate: '17-5-2023',
-      status: 'Pending'
-    },
-    {
-      reqDate: '12-5-2023',
-      leavingDate: '13-5-2023',
-      returnDate: '17-5-2023',
-      status: 'Pending'
-    },
-  ]);
+  const [requestsList, setRequestsList] = useState([]);
 
   function handleleaveChange(e) {
     setLeaveDate(e.target.value);

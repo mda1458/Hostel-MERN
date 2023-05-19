@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { check } = require('express-validator');
-const { markAttendance, getAttendance, updateAttendance } = require('../controllers/attendanceController');
+const { markAttendance, getAttendance, updateAttendance, getHostelAttendance } = require('../controllers/attendanceController');
 
 // @route   POST api/attendance/mark
 // @desc    Mark attendance
@@ -25,5 +25,12 @@ router.put('/update', [
     check('student', 'Student is required').not().isEmpty(),
     check('status', 'Status is required').not().isEmpty()
 ], updateAttendance);
+
+// @route   GET api/attendance/getHostelAttendance
+// @desc    Get hostel attendance
+// @access  Public
+router.post('/getHostelAttendance', [
+    check('hostel', 'Hostel is required').not().isEmpty()
+], getHostelAttendance);
 
 module.exports = router;
