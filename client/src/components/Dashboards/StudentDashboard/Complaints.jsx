@@ -107,7 +107,7 @@ function Complaints() {
       setRegComplaints(data.complaints);
     }
     fetchComplaints();
-  }, [regComplaints])
+  }, [regComplaints.length])
 
 
   return (

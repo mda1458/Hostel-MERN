@@ -34,7 +34,7 @@ function Attendance() {
       }
     };
   const [daysOff, setDaysOff] = useState(0); //!Fetch from database
-  const [thisWeek, setThisWeek] = useState([{}]); //!Fetch from database
+  const [thisWeek, setThisWeek] = useState([]); //!Fetch from database
 
   let totalDays = new Date();
   totalDays = totalDays.getDate();
@@ -42,7 +42,7 @@ function Attendance() {
 
   useEffect(() => {
     getAttendance();
-  }, [ daysOff, thisWeek ]);
+  }, [ daysOff.length, thisWeek.length ]);
   return (
     <div className="w-full h-screen flex flex-col gap-5 items-center justify-center">
       <h1 className="text-white font-bold text-5xl">Attendance</h1>
