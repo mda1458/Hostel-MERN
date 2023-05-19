@@ -61,8 +61,8 @@ router.post('/update-student', [
 // @route  POST api/student/delete-student
 // @desc   Delete student
 // @access Public
-router.post('/delete-student', [
-    check('cms_id', 'Enter a valid CMS ID').isLength(6)
+router.delete('/delete-student', [
+    check('id', 'Enter a valid ID').not().isEmpty(),
 ], deleteStudent);
 
 

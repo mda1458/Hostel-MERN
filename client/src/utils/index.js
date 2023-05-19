@@ -1,3 +1,4 @@
 import verifysession from "./verifysession";
+import getAllStudents from "./getAllStudents";
 
-export { verifysession };
+export { verifysession, getAllStudents };
