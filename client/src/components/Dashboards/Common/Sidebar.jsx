@@ -59,7 +59,7 @@ function Sidebar({ links }) {
         </svg>
       </button>
       <div
-        className={`flex flex-col justify-between h-screen w-screen absolute md:static sm:w-64 bg-black text-white transition-transform duration-300 ease-in-out transform ${
+        className={`flex flex-col justify-between h-screen w-screen absolute md:static sm:w-64 bg-black text-white transition-transform duration-300 ease-in-out z-40 transform ${
           isOpen ? "translate-x-0" : "absolute -translate-x-full"
         }`}
       >

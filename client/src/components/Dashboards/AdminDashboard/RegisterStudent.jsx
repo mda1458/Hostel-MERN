@@ -76,28 +76,6 @@ function RegisterStudent() {
   const [password, setPassword] = useState();
 
   const [loading, setLoading] = useState(false);
-  const [requests, setRequests] = useState([
-    {
-      cms: 368115,
-      status: "pending",
-    },
-    {
-      cms: 368113,
-      status: "pending",
-    },
-    {
-      cms: 368114,
-      status: "pending",
-    },
-    {
-      cms: 368110,
-      status: "pending",
-    },
-  ]);
-
-  const handleClick = (requestCms) => {
-    setRequests(requests.filter((request) => request.cms !== requestCms)); 
-  } 
 
   return (
     <div className="w-full max-h-screen pt-20 flex flex-col items-center justify-center">
