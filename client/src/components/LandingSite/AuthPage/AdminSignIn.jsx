@@ -58,7 +58,7 @@ export default function AdminSignIn() {
       console.log(adminResult);
       if (adminResult.success) {
         localStorage.setItem("admin", JSON.stringify(adminResult.admin));
-        getHostel();
+        const hostel = await getHostel();
         navigate("/admin-dashboard");
       } else {
         alert(adminResult.errors[0].msg);
