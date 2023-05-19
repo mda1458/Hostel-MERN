@@ -1,7 +1,7 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 
 function Suggestions() {
-  const [suggestions, setSuggestions] = useState([
+  const suggestions = useRef([
     {
       title: "Make toilet clean",
       description: "Make our toilet clean for floor#69 hostel Attar-1!!! >:(",
@@ -12,17 +12,20 @@ function Suggestions() {
     },
   ]);
 
-  const modal = useRef();
+  useEffect(()=>{
+    //!Fetch here
+    console.log(suggestions.current);
+  }, [suggestions])
 
   return (
     <div className="w-full h-screen flex flex-col gap-3 items-center justify-center">
       <h1 className="text-white font-bold text-5xl">Suggestions</h1>
-      <div className="bg-neutral-950 px-10 py-5 rounded-xl shadow-xl sm:w-96 w-full mt-5 max-h-96 overflow-auto">
+      <div className="bg-neutral-950 px-10 py-5 rounded-xl shadow-xl sm:w-[50%] sm:min-w-[450px] w-full mt-5 max-h-96 overflow-auto">
         <span className="text-white font-bold text-xl">All Students</span>
         <ul role="list" className="divide-y divide-gray-700 text-white">
-          {suggestions.length === 0
+          {suggestions.current.length === 0
             ? "No Students Found"
-            : suggestions.map((suggestion) => (
+            : suggestions.current.map((suggestion) => (
                 <li
                   className="py-3 px-5 rounded sm:py-4 hover:bg-neutral-700 hover:shadow-xl hover:scale-105 transition-all cursor-pointer"
                   key={suggestion._id}
@@ -52,7 +55,7 @@ function Suggestions() {
                         {suggestion.description}
                       </p>
                     </div>
-                    <button className="group/show relative">
+                    <button className="group/show relative z-0">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
