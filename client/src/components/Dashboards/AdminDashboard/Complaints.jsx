@@ -2,99 +2,78 @@ import { useState, useEffect } from "react";
 import { Line } from "react-chartjs-2";
 
 function Complaints() {
-  //!AFTER FETCH FILL THIS WITH COMPLAINT DATA
-  const [unsolvedComplaints, setComplaints] = useState([
-    {
-      hostel: "Attar-1",
-      title: "Title goes here.",
-      desc: "Description of the complaint",
-      student: "AbdulAhad",
-      status: "Pending",
-      date: "15-5-2023",
-    },
-    {
-      hostel: "Attar-2",
-      title: "Title goes here.",
-      desc: "Description of the complaint",
-      student: "Danish",
-      status: "Pending",
-      date: "14-5-2023",
-    },
-    {
-      hostel: "Attar-2",
-      title: "Title goes here.",
-      desc: "Description of the complaint",
-      student: "Saim",
-      status: "Pending",
-      date: "13-5-2023",
-    },
-    {
-      hostel: "Attar-2",
-      title: "Title goes here.",
-      desc: "Description of the complaint",
-      student: "Nagra",
-      status: "Pending",
-      date: "15-5-2023",
-    },
-  ]);
+  const getComplaints = async () => {
+    const hostel = JSON.parse(localStorage.getItem("hostel"))._id;
+    const response = await fetch(
+      `http://localhost:3000/api/complaint/hostel`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ hostel }),
+      }
+    );
 
-  const [resolvedComplaints, setResolvedComplaints] = useState([]); //!DO NOT FILL THIS WITH DATA FROM FETCH
-  const [allComplaints, setAllComplaints] = useState([
-    {
-      hostel: "Attar-1",
-      title: "Title goes here.",
-      desc: "Description of the complaint",
-      student: "AbdulAhad",
-      status: "Pending",
-      date: "May 15, 2023",
-    },
-    {
-      hostel: "Attar-2",
-      title: "Title goes here.",
-      desc: "Description of the complaint",
-      student: "Danish",
-      status: "Pending",
-      date: "May 14, 2023",
-    },
-    {
-      hostel: "Attar-2",
-      title: "Title goes here.",
-      desc: "Description of the complaint",
-      student: "Saim",
-      status: "Pending",
-      date: "May 13, 2023",
-    },
-    {
-      hostel: "Attar-2",
-      title: "Title goes here.",
-      desc: "Description of the complaint",
-      student: "Nagra",
-      status: "Pending",
-      date: "May 15, 2023",
-    },
-  ]); //!AFTER FETCH FILL THIS WITH COMPLAINT DATA
-
-  const dismissComplaint = () => {
-    unsolvedComplaints.find(
-      (complaint) => complaint.status.toLowerCase() === "pending"
-    ).status = "Solved";
+    const data = await response.json();
+    if (data.success){
+    const complaints = [];
+    data.complaints.map((complaint) => {
+      let date = new Date(complaint.date);
+      complaints.unshift({
+        id: complaint._id,
+        type: complaint.type,
+        title: complaint.title,
+        desc: complaint.description,
+        student: complaint.student.name,
+        room: complaint.student.room_no,
+        status: complaint.status,
+        date: date.toLocaleDateString("en-US", { day: "numeric", month: "long", year: "numeric" }),
+      });
+    });
+    setAllComplaints(complaints);
+    const resolved = complaints.filter(
+      (complaint) => complaint.status.toLowerCase() !== "pending"
+    );
+    setResolvedComplaints(resolved);
     setComplaints(
-      unsolvedComplaints.filter(
+      complaints.filter(
         (complaint) => complaint.status.toLowerCase() === "pending"
       )
     );
-    setResolvedComplaints((resolvedComplaints) =>
-      resolvedComplaints.concat(
-        unsolvedComplaints.filter(
-          (complaint) => complaint.status.toLowerCase() !== "pending"
-        )
-      )
-    );
+    }
+    else
+      console.log(data.message);
+  };
+
+  //!AFTER FETCH FILL THIS WITH COMPLAINT DATA
+  const [unsolvedComplaints, setComplaints] = useState([{}]);
+
+  const [resolvedComplaints, setResolvedComplaints] = useState([]); //!DO NOT FILL THIS WITH DATA FROM FETCH
+  const [allComplaints, setAllComplaints] = useState([{}]); //!AFTER FETCH FILL THIS WITH COMPLAINT DATA
+
+  const dismissComplaint = (id) => {
+    fetch(`http://localhost:3000/api/complaint/resolve`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ id }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.success) {
+          getComplaints();
+        } else {
+          console.log(data);
+        }
+      });
   };
 
   const [graphData, setGraphData] = useState([0, 0, 0, 0, 0, 0, 0]);
 
   useEffect(() => {
+    getComplaints();
     const dates = [
       new Date(Date.now() - 6 * 24 * 60 * 60 * 1000).toLocaleDateString(
         "en-US",
@@ -133,7 +112,7 @@ function Complaints() {
           allComplaints.filter((complaint) => complaint.date === date).length
       )
     );
-  }, [allComplaints]);
+  }, [allComplaints, unsolvedComplaints, resolvedComplaints]);
 
   const graph = (
     <div className="flex items-center justify-center md:h-64 h-40 md:w-96 w-full">
@@ -195,7 +174,7 @@ function Complaints() {
         {graph}
         <div className="bg-neutral-950 px-10 py-5 rounded-xl shadow-xl w-96 max-h-64 overflow-auto">
           <span className="text-white font-bold text-xl">New Complaints</span>
-          <ul role="list" className="divide-y divide-gray-700 text-white ">
+          <ul role="list" className="divide-y divide-gray-700 text-white">
             {unsolvedComplaints.length === 0
               ? "No new complaints!"
               : unsolvedComplaints.map((complaint) => (

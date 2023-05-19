@@ -107,7 +107,7 @@ const getAllStudents = async (req, res) => {
 
     try {
 
-        const shostel = await Hostel.findOne({ name: hostel });
+        const shostel = await Hostel.findById(hostel);
 
         const students = await Student.find({ hostel: shostel.id }).select('-password');
 
@@ -162,17 +162,15 @@ const deleteStudent = async (req, res) => {
             return res.status(400).json({success, errors: errors.array() });
         }
 
-        const { cms_id } = req.body;
+        const { id } = req.body;
 
-        const student = await Student.findOne({ cms_id }).select('-password');
+        const student = await Student.findById(id).select('-password');
 
         if (!student) {
             return res.status(400).json({success, errors: [{ msg: 'Student does not exist' }] });
         }
 
-        const user = await User.findById(student.user);
-
-        await User.deleteOne(user);
+        const user = await User.findByIdAndDelete(student.user);
 
         await Student.deleteOne(student);
 
