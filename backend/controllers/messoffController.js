@@ -9,7 +9,7 @@ exports.requestMessOff = async (req, res) => {
     let success = false;
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        return res.status(400).json({errors: errors.array(), success});
+        return res.status(400).json({"message": errors.array(), success});
     }
     const { student, leaving_date, return_date } = req.body;
     const today = new Date();
@@ -47,7 +47,7 @@ exports.countMessOff = async (req, res) => {
     const { student } = req.body;
     try {
         let date = new Date();
-        const requests = await MessOff.countDocuments({student, leaving_date: {$gte: new Date(date.getFullYear(), date.getMonth(), 1), $lte: new Date(date.getFullYear(), date.getMonth()+1, 0)}});
+        const list = await MessOff.find({ student, leaving_date: { $gte: new Date(date.getFullYear(), date.getMonth(), 1), $lte: new Date(date.getFullYear(), date.getMonth() + 1, 0) } });
         let approved = await MessOff.find({student, status: "Approved", leaving_date: {$gte: new Date(date.getFullYear(), date.getMonth(), 1), $lte: new Date(date.getFullYear(), date.getMonth()+1, 0)}});
         
         let days = 0;
@@ -58,7 +58,7 @@ exports.countMessOff = async (req, res) => {
         approved = days;
 
         success = true;
-        return res.status(200).json({success, requests, approved});
+        return res.status(200).json({success, list, approved});
     }
     catch (err) {
         console.error(err.message);

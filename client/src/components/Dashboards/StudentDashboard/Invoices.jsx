@@ -88,7 +88,7 @@ function Invoices() {
           setPendingInvoices(pendingInvoices);
         }
       });
-  }, [invoiceList, totalInvoices, pendingInvoices, paidInvoices]);
+  }, [invoiceList.length, totalInvoices, pendingInvoices, paidInvoices]);
 
   return (
     <div className="w-full h-screen flex flex-col gap-5 items-center justify-center">
