@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { Input } from "../../LandingSite/AuthPage/Input";
 import { Doughnut } from "react-chartjs-2";
 import "chart.js/auto"; // !IMPORTANT
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Mess() {
   let requestMessOff = async (event) => {
@@ -24,12 +26,30 @@ function Mess() {
     let result = await response.json();
     console.log(result);
     if (result.success) {
-      setRequests(requests + 1);
+      setRequests(requests+1);
       setLeaveDate("");
       setReturnDate("");
-      alert("Mess off requested successfully");
+      toast.success('Mess Off Requested Succesfully!', {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
     } else {
-      alert(result.Message);
+      toast.error(result.message, {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
     }
 
     setLoading(false);
@@ -71,6 +91,7 @@ function Mess() {
   // console.log(returnDate);
 
   useEffect(() => {
+    console.log(1);
     let student = JSON.parse(localStorage.getItem("student"));
     setLoading(true);
     if (student) {
@@ -87,7 +108,9 @@ function Mess() {
         .then((result) => {
           if (result.success) {
             setMessOff(result.approved);
-            setRequests(result.requests);
+            setRequests(result.list.length);
+            setRequestsList(result.list);
+            console.log(result)
           } else {
             alert(result.errors[0].msg);
           }
@@ -117,6 +140,7 @@ function Mess() {
   );
 
   return (
+    
     <div className="w-full h-screen pt-20 gap-10 flex flex-col items-center justify-center">
       <h1 className="text-white font-bold text-5xl">Mess Off</h1>
       <ul className="flex gap-5 text-white text-xl">
@@ -179,18 +203,18 @@ function Mess() {
               {requestsList.length === 0
                 ? "No requests Sent"
                 : requestsList.map((req) => (
-                    <li className="py-3 sm:py-4" key={req.reqDate}>
+                    <li className="py-3 sm:py-4" key={req._id}>
                       <div className="flex items-center space-x-4">
                         <div className="flex-1 min-w-0">
                           <p className="text-sm font-medium truncate text-white">
-                            {req.status}
+                            {req.status.toUpperCase()}
                           </p>
                           <p className="text-sm truncate text-gray-400">
-                            {req.leavingDate} to {req.returnDate}
+                          {new Date(req.leaving_date).toDateString().slice(4, 10)} to {new Date(req.return_date).toDateString().slice(4, 10)}
                           </p>
                         </div>
                         <div className="flex flex-col items-center text-base font-semibold text-white">
-                          {req.reqDate}
+                        {new Date(req.request_date).toDateString().slice(4,10)}
                         </div>
                       </div>
                     </li>
@@ -218,6 +242,18 @@ function Mess() {
             "Request Mess off"
           )}
         </button>
+        <ToastContainer
+          position="top-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="dark"
+        />
       </form>
     </div>
   );

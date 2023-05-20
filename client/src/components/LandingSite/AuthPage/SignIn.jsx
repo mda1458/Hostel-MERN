@@ -45,7 +45,6 @@ export default function SignIn() {
         localStorage.setItem("student", JSON.stringify(studentResult.student));
         navigate("/student-dashboard");
       } else {
-        alert(studentResult.errors[0].msg);
         navigate("/auth/login");
       }
     } else {
