@@ -1,15 +1,14 @@
 const express = require('express')
 const router = express.Router()
 const { check } = require('express-validator')
-const { generateInvoice, getInvoicesbyid, getInvoices } = require('../controllers/invoiceController')
+const { generateInvoices, getInvoicesbyid, getInvoices } = require('../controllers/invoiceController')
 
 // @route   Generate api/invoice/generate
 // @desc    Generate invoice
 // @access  Public
 router.post('/generate', [
-    check('student', 'Student is required').not().isEmpty(),
-    check('title', 'Title is required').not().isEmpty()
-], generateInvoice);
+    check('hostel', 'Hostel is required').not().isEmpty(),
+], generateInvoices);
 
 // @route   GET api/invoice/getbyid
 // @desc    Get all invoices
@@ -24,5 +23,7 @@ router.post('/getbyid', [
 router.post('/student', [
     check('student', 'Student is required').not().isEmpty()
 ], getInvoices);
+
+
 
 module.exports = router;
