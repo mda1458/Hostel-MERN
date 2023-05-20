@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Input } from "../../LandingSite/AuthPage/Input";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Settings() {
   const navigate = useNavigate();
@@ -25,10 +27,16 @@ function Settings() {
     result = await result.json();
 
     if (result.success) {
-      alert("Password Changed Successfully");
       navigate("/student-dashboard");
     } else {
-      alert(result.errors[0].msg);
+      toast.error(
+        result.errors[0].msg, {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+      });
     }
   };
 
@@ -74,6 +82,18 @@ function Settings() {
           >
             Change Password
           </button>
+          <ToastContainer
+            position="top-right"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="dark"
+          />
         </div>
       </form>
     </div>
