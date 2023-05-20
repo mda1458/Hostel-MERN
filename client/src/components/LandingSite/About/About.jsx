@@ -26,7 +26,7 @@ function About() {
       "https://w7.pngwing.com/pngs/81/570/png-transparent-profile-logo-computer-icons-user-user-blue-heroes-logo-thumbnail.png",
   };
   const arsal = {
-    name: "Syed Arsa;",
+    name: "Syed Arsal",
     designation: "Database",
     image:
       "https://w7.pngwing.com/pngs/81/570/png-transparent-profile-logo-computer-icons-user-user-blue-heroes-logo-thumbnail.png",
@@ -41,6 +41,8 @@ function About() {
         <TeamCard member={ahad} />
         <TeamCard member={danish} />
         <TeamCard member={abubakar} />
+        <TeamCard member={arsal} />
+        <TeamCard member={muneeb} />
       </div>
     </>
   );
