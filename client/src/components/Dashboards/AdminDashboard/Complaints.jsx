@@ -68,11 +68,11 @@ function Complaints() {
     if (data.success) {
       console.log("Complaint dismissed");
       setComplaints(
-        complaints.filter((complaint) => complaint.id !== id)
+        allComplaints.filter((complaint) => complaint.id !== id)
       );
       setResolvedComplaints(
         resolvedComplaints.concat(
-          complaints.filter((complaint) => complaint.id === id)
+          allComplaints.filter((complaint) => complaint.id === id)
         )
       );
     }
@@ -122,7 +122,7 @@ function Complaints() {
           allComplaints.filter((complaint) => complaint.date === date).length
       )
     );
-  }, [allComplaints, unsolvedComplaints.length, resolvedComplaints.length]);
+  }, [allComplaints.length, unsolvedComplaints.length, resolvedComplaints.length]);
 
   const graph = (
     <div className="flex items-center justify-center md:h-64 h-40 md:w-96 w-full">
