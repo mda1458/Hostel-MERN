@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import { Line } from "react-chartjs-2";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function Complaints() {
   const getComplaints = async () => {
@@ -66,7 +68,15 @@ function Complaints() {
 
     const data = await response.json();
     if (data.success) {
-      console.log("Complaint dismissed");
+      toast.success("Complaint Dismissed",
+        {
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true
+        });
       setComplaints(
         allComplaints.filter((complaint) => complaint.id !== id)
       );
@@ -76,8 +86,17 @@ function Complaints() {
         )
       );
     }
-    else
-      console.log(data);
+    else{
+      toast.error("Something went wrong",
+        {
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true
+          });
+    }
   };
 
   const [graphData, setGraphData] = useState([0, 0, 0, 0, 0, 0, 0]);
@@ -229,6 +248,18 @@ function Complaints() {
           </ul>
         </div>
       </div>
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={true}
+        newestOnTop={true}
+        closeOnClick={true}
+        rtl={false}
+        pauseOnFocusLoss={false}
+        draggable={false}
+        pauseOnHover={false}
+        theme="dark"
+      />
     </div>
   );
 }
