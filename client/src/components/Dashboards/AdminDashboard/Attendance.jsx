@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { Doughnut } from "react-chartjs-2";
 import { getAllStudents } from "../../../utils";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function Attendance() {
   const getALL = async () => {
@@ -54,7 +56,14 @@ function Attendance() {
     });
     const response = await data.json();
     if (response.success) {
-      console.log("Attendance marked");
+      toast.success(
+        "Attendance Marked Successfully!", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+      });
     }
 
     unmarkedStudents.find((student) => student.id === id).attendance =
@@ -229,6 +238,18 @@ function Attendance() {
           </ul>
         </div>
       </div>
+      <ToastContainer
+        position="top-right"
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme= "dark"
+      />
     </div>
   );
 }
