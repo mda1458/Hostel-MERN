@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { check } = require('express-validator');
-const { requestMessOff, countMessOff, listMessOff } = require('../controllers/messoffController');
+const { requestMessOff, countMessOff, listMessOff, updateMessOff } = require('../controllers/messoffController');
 
 // @route   request api/messoff/request
 // @desc    Request for mess off
@@ -26,5 +26,12 @@ router.post('/list', [
     check('hostel', 'Hostel is required').not().isEmpty()
 ], listMessOff);
 
+// @route   POST update request api/messoff/update
+// @desc    Update mess off request
+// @access  Public
+router.post('/update', [
+    check('id', 'ID is required').not().isEmpty(),
+    check('status', 'Status is required').not().isEmpty()
+], updateMessOff);
 
 module.exports = router;

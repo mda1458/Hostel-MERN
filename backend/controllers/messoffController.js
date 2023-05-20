@@ -79,13 +79,34 @@ exports.listMessOff = async (req, res) => {
     try {
         const students = await Student.find({ hostel }).select('_id');
         const list = await MessOff.find({ student: { $in: students } , status: "pending" }).populate('student', ['name', 'room_no']);
-        const approved = await MessOff.countDocuments({ student: { $in: students }, status: "Approved", leaving_date: {$gte: new Date(new Date().getFullYear(), new Date().getMonth(), 1), $lte: new Date(new Date().getFullYear(), new Date().getMonth()+1, 0)}});
-        const rejected = await MessOff.countDocuments({ student: { $in: students }, status: "Rejected", leaving_date: {$gte: new Date(new Date().getFullYear(), new Date().getMonth(), 1), $lte: new Date(new Date().getFullYear(), new Date().getMonth()+1, 0)}});
+        const approved = await MessOff.countDocuments({ student: { $in: students }, status: "approved", leaving_date: {$gte: new Date(new Date().getFullYear(), new Date().getMonth(), 1), $lte: new Date(new Date().getFullYear(), new Date().getMonth()+1, 0)}});
+        const rejected = await MessOff.countDocuments({ student: { $in: students }, status: "rejected", leaving_date: {$gte: new Date(new Date().getFullYear(), new Date().getMonth(), 1), $lte: new Date(new Date().getFullYear(), new Date().getMonth()+1, 0)}});
         success = true;
         return res.status(200).json({success, list, approved, rejected});
     }
     catch (err) {
         // console.error(err.message);
+        return res.status(500).json({success, errors: [{msg: "Server Error"}]});
+    }
+}
+
+// @route   GET api/messoff/update
+// @desc    Update mess off request
+// @access  Public
+exports.updateMessOff = async (req, res) => {
+    let success = false;
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({errors: errors.array(), success});
+    }
+    const { id, status } = req.body;
+    try {
+        const messOff = await MessOff.findByIdAndUpdate(id, { status });
+        success = true;
+        return res.status(200).json({success, messOff});
+    }
+    catch (err) {
+        console.error(err.message);
         return res.status(500).json({success, errors: [{msg: "Server Error"}]});
     }
 }
