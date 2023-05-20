@@ -1,5 +1,8 @@
 import { useState, useEffect } from "react";
 import { getAllStudents } from "../../../utils";
+import { ToastContainer ,toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 function AllStudents() {
   const getCSV = async () => {
     const hostel = JSON.parse(localStorage.getItem('hostel'))._id;
@@ -17,8 +20,23 @@ function AllStudents() {
       link.href = "data:text/csv;charset=utf-8," + escape(data.csv);
       link.download = 'students.csv';
       link.click();
+      toast.success(
+        'CSV Downloaded Successfully!', {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+      });
     } else {
-      alert(data.message);
+      toast.error(
+        data.errors[0].msg, {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+      })
     }
   };
   const getAll = async () => {
@@ -29,26 +47,44 @@ function AllStudents() {
 
   const [allStudents, setallStudents] = useState([]);
 
-  const deleteStudent = (id) => {
-    const data = fetch("http://localhost:3000/api/student/delete-student", {
+  const deleteStudent = async (id) => {
+    const res = await fetch("http://localhost:3000/api/student/delete-student", {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ id }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        alert(data.message);
+    });
+    const data = await res.json();
+    if (data.success) {
+      setallStudents(allStudents.filter((student) => student._id !== id));
+      toast.success(
+        'Student Deleted Successfully!', {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
       })
-      .catch((err) => console.log(err));
+    } else {
+      toast.error(
+        data.errors[0].msg, {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+      })
+    }
   };
 
 
   useEffect(() => {
     getAll();
-  }, []);
+  }, [allStudents.length]);
 
   return (
     <div className="w-full h-screen flex flex-col gap-5 items-center justify-center">
@@ -62,6 +98,16 @@ function AllStudents() {
         >
           Download List
         </button>
+        <ToastContainer
+          position="top-right"
+          autoClose={3000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover />
       </div>
       <div className="bg-neutral-950 px-10 py-5 rounded-xl shadow-xl sm:w-[50%] sm:min-w-[500px] w-full mt-5 max-h-96 overflow-auto">
         <span className="text-white font-bold text-xl">All Students</span>
@@ -129,6 +175,17 @@ function AllStudents() {
                       />
                     </svg>
                   </button>
+                  <ToastContainer 
+                    position="top-right"
+                    autoClose={3000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover/>
+
                 </div>
               </div>
             </li>
