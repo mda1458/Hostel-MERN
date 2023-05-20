@@ -43,7 +43,7 @@ function AllStudents() {
           Download List
         </a>
       </div>
-      <div className="bg-neutral-950 px-10 py-5 rounded-xl shadow-xl sm:w-96 w-full mt-5 max-h-96 overflow-auto">
+      <div className="bg-neutral-950 px-10 py-5 rounded-xl shadow-xl sm:w-[50%] min-w-[500px] w-full mt-5 max-h-96 overflow-auto">
         <span className="text-white font-bold text-xl">All Students</span>
         <ul role="list" className="divide-y divide-gray-700 text-white">
           {allStudents.length === 0 ?
