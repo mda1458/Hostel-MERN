@@ -2,6 +2,8 @@ import { Input } from "./Input";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { verifysession } from "../../../utils/";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function SignIn() {
   let navigate = useNavigate();
@@ -45,10 +47,21 @@ export default function SignIn() {
         localStorage.setItem("student", JSON.stringify(studentResult.student));
         navigate("/student-dashboard");
       } else {
-        navigate("/auth/login");
+        console.log(studentResult.errors)
       }
     } else {
-      alert(result.errors[0].msg);
+      // alert(result.errors[0].msg);
+      toast.error(
+        result.errors[0].msg, {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      })
     }
 
   };
@@ -111,6 +124,18 @@ export default function SignIn() {
           >
             Sign in
           </button>
+          <ToastContainer
+            position="top-right"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="dark"
+          />
           <p className="text-sm font-light text-gray-400">
             Don’t have an account yet?{" "}
             <Link

@@ -1,6 +1,8 @@
 import { Input } from "./Input";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function AdminSignIn() {
   let navigate = useNavigate();
@@ -61,11 +63,30 @@ export default function AdminSignIn() {
         const hostel = await getHostel();
         navigate("/admin-dashboard");
       } else {
-        alert(adminResult.errors[0].msg);
-        navigate("/auth/admin-login");
+        toast.error(
+          adminResult.errors[0].msg, {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        })
       }
     } else {
-      alert(result.errors[0].msg);
+      toast.error(
+        result.errors[0].msg, {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      })
     }
 
   };
@@ -128,6 +149,18 @@ export default function AdminSignIn() {
           >
             Sign in
           </button>
+          <ToastContainer
+            position="top-right"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="dark"
+          />
           <p className="text-sm font-light text-gray-400">
             You&apos;re a student?{" "}
             <Link

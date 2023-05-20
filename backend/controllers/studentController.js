@@ -73,7 +73,7 @@ const getStudent = async (req, res) => {
         const { isAdmin } = req.body;
 
         if (isAdmin) {
-            return res.status(400).json({success, errors: [{ msg: 'Admin cannot access this route' }] });
+            return res.status(400).json({success, errors:  'Admin cannot access this route' });
         }
 
         const { token } = req.body;
@@ -83,14 +83,14 @@ const getStudent = async (req, res) => {
         const student = await Student.findOne({user: decoded.userId}).select('-password');
         
         if (!student) {
-            return res.status(400).json({success, errors: [{ msg: 'Student does not exist' }] });
+            return res.status(400).json({success, errors: 'Student does not exist' });
         }
 
         success = true;
         res.json({success, student });
     } catch (err) {
         console.log(err);
-        res.status(500).json({success, errors: [{msg: 'Server error'}]});
+        res.status(500).json({success, errors: 'Server error'});
     }
 }
 
