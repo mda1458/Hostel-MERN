@@ -1,49 +1,7 @@
 import { useState, useEffect} from "react";
 
 function Invoices() {
-  const generateInvoice = async (e) => {
-    e.preventDefault();
-    let student = JSON.parse(localStorage.getItem("student"));
-    let invoice = {
-      title: "Mess bill",
-      student: student._id,
-    };
-    let response = await fetch("http://localhost:3000/api/invoice/generate", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(invoice),
-    });
-    let data = await response.json();
-    if (data.success) {
-      let date = new Date(data.invoice.date);
-      let getMonthName= (monthNumber) => {
-        const date = new Date();
-        date.setMonth(monthNumber - 1);
-      
-        return date.toLocaleString('en-US', { month: 'long' });
-      }
-      invoice = {
-        title: data.invoice.title,
-        amount: "Rs. "+data.invoice.amount,
-        status: data.invoice.status,
-        date: date.getDate()+"-"+getMonthName(date.getMonth()+1)+"-"+date.getFullYear(),
-      };
-
-      setInvoiceList([...invoiceList, invoice]);
-      alert("Invoice generated successfully");
-    }
-    else{
-      alert(data.errors[0].msg);
-    }
-  };
-  const [invoiceList, setInvoiceList] = useState([{
-    title: "Mess bill",
-    amount: "Rs. 2000",
-    status: "Paid",
-    date: "12-12-2020",
-  }]);
+  const [invoiceList, setInvoiceList] = useState([]);
   const [totalInvoices, setTotalInvoices] = useState(0);
   const [pendingInvoices, setPendingInvoices] = useState(0);
   const [paidInvoices, setPaidInvoices] = useState(0);
@@ -93,12 +51,6 @@ function Invoices() {
   return (
     <div className="w-full h-screen flex flex-col gap-5 items-center justify-center">
       <h1 className="text-white font-bold text-5xl">Invoices</h1>
-      <button
-        onClick={generateInvoice}
-        className="bg-blue-700 text-white px-4 py-2 rounded-lg"
-      >
-        Generate Invoice for this month
-      </button>
       <p className="text-white text-xl">
         All the invoices like Mess bills, Hostel fee will be shown here
       </p>

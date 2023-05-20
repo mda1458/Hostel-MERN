@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react";
 import { Input } from "../../LandingSite/AuthPage/Input";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 function Complaints() {
 
   const [loading, setLoading] = useState(false);
@@ -27,12 +30,33 @@ function Complaints() {
     const data = await res.json();
 
     if (data.success) {
-      alert("Complaint registered successfully");
+      setRegComplaints([]);
+      toast.success(
+        "Complaint Registered Successfully!", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      })
       setTitle("");
       setDesc("");
       setType("Electric");
     } else {
-      alert(data.message);
+      toast.error(
+        data.errors, {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      })
     }
     setLoading(false);
   };
@@ -71,14 +95,7 @@ function Complaints() {
     onChange: chngType,
   };
 
-  const [regComplaints, setRegComplaints] = useState([
-    {
-      title: "Title",
-      status: "Pending",
-      date: "DD-MM-YYYY",
-      type: "Type",
-    },
-  ]);
+  const [regComplaints, setRegComplaints] = useState([]);
 
   
   useEffect(()=> {
@@ -166,6 +183,18 @@ function Complaints() {
             >
               {loading ? 'Registering Complaint...':'Register Complaint'}
             </button>
+            <ToastContainer
+              position="top-right"
+              autoClose={5000}
+              hideProgressBar={false}
+              newestOnTop={false}
+              closeOnClick
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover
+              theme="dark"
+            />
           </div>
         </form>
         <div className="w-80 max-w-md max-h-96 p-4 border rounded-lg shadow sm:p-8 bg-neutral-950 border-neutral-900 drop-shadow-xl overflow-y-auto">
