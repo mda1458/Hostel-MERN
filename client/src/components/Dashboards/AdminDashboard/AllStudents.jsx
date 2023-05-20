@@ -1,6 +1,26 @@
 import { useState, useEffect } from "react";
 import { getAllStudents } from "../../../utils";
 function AllStudents() {
+  const getCSV = async () => {
+    const hostel = JSON.parse(localStorage.getItem('hostel'))._id;
+    const res = await fetch("http://localhost:3000/api/student/csv", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ hostel }),
+    });
+    const data = await res.json();
+    console.log(data);
+    if (data.success) {
+      const link = document.createElement('a');
+      link.href = "data:text/csv;charset=utf-8," + escape(data.csv);
+      link.download = 'students.csv';
+      link.click();
+    } else {
+      alert(data.message);
+    }
+  };
   const getAll = async () => {
     const data = await getAllStudents();
     console.log(data);
@@ -34,14 +54,14 @@ function AllStudents() {
     <div className="w-full h-screen flex flex-col gap-5 items-center justify-center">
       <h1 className="text-white font-bold text-5xl">All Students</h1>
       <div className="w-96 flex justify-center">
-        <a
-          href="../public/paging.pdf"
+        <button
+          onClick={getCSV}
           target="_blank"
           download={true}
           className="px-20 py-3 bg-blue-700 hover:bg-blue-800 text-white font-bold rounded-xl shadow-xl"
         >
           Download List
-        </a>
+        </button>
       </div>
       <div className="bg-neutral-950 px-10 py-5 rounded-xl shadow-xl sm:w-[50%] sm:min-w-[500px] w-full mt-5 max-h-96 overflow-auto">
         <span className="text-white font-bold text-xl">All Students</span>

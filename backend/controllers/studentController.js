@@ -2,6 +2,7 @@ const { generateToken, verifyToken } = require('../utils/auth');
 const { validationResult } = require('express-validator');
 const { Student, Hostel, User } = require('../models');
 const bcrypt = require('bcryptjs');
+const Parser = require('json2csv').Parser;
 
 const registerStudent = async (req, res) => {
     // console.log(req.body);
@@ -182,10 +183,50 @@ const deleteStudent = async (req, res) => {
     }
 }
 
+const csvStudent = async (req, res) => {
+    let success = false;
+    try {
+        // console.log(req.body);
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            // console.log(errors);
+            return res.status(400).json({success, errors: errors.array() });
+        }
+
+        const { hostel } = req.body;
+
+        const shostel = await Hostel.findById(hostel);
+
+        const students = await Student.find({ hostel: shostel.id }).select('-password');
+
+        students.forEach(student => {
+            student.hostel_name = shostel.name;
+            student.d_o_b = new Date(student.dob).toDateString().slice(4);
+            student.cnic_no = student.cnic.slice(0, 5) + '-' + student.cnic.slice(5, 12) + '-' + student.cnic.slice(12);
+            student.contact_no = "+92 "+student.contact.slice(1);
+        });
+
+        const fields = ['name', 'cms_id', 'room_no', 'batch', 'dept', 'course', 'email', 'father_name', 'contact_no', 'address', 'd_o_b', 'cnic_no', 'hostel_name'];
+
+        const opts = { fields };
+
+        const parser = new Parser(opts);
+
+        const csv = parser.parse(students);
+
+        success = true;
+        res.json({success, csv});
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({success, errors: [{msg: 'Server error'}]});
+    }
+}
+
 module.exports = {
     registerStudent,
     getStudent,
     updateStudent,
     deleteStudent,
-    getAllStudents
+    getAllStudents,
+    csvStudent
 }

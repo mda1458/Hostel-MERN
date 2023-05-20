@@ -34,7 +34,17 @@ function RegisterStudent() {
       const data = await res.json();
 
       if (data.success) {
-        alert("Student registered successfully");
+        // toast.success(
+        //   'Student ' + data.student.name + ' Registered Successfully!', {
+        //   position: "top-right",
+        //   autoClose: 3000,
+        //   hideProgressBar: false,
+        //   closeOnClick: true,
+        //   pauseOnHover: true,
+        //   draggable: true,
+        //   progress: undefined,
+        //   theme: "dark",
+        // })
         setCms("");
         setName("");
         setRoomNo("");
