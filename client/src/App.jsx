@@ -25,6 +25,7 @@ import AdminInvoices from './components/Dashboards/AdminDashboard/Invoices'
 import AdminSuggestions from './components/Dashboards/AdminDashboard/Suggestions'
 import AdminSettings from './components/Dashboards/AdminDashboard/Settings'
 import AllStudents from "./components/Dashboards/AdminDashboard/AllStudents";
+import AdminMess from "./components/Dashboards/AdminDashboard/MessOff";
 
 function App() {
   return (
@@ -59,6 +60,7 @@ function App() {
           <Route path="suggestions" element={<AdminSuggestions/>} />
           <Route path="settings" element={<AdminSettings/>} />
           <Route path="all-students" element={<AllStudents/>}/>
+          <Route path="mess" element={<AdminMess />} />
         </Route>
       </Routes>
     </>

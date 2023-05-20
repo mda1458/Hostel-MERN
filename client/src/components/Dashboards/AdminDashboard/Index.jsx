@@ -68,6 +68,25 @@ export default function Index() {
       ),
     },
     {
+      text: "Mess",
+      url: "/admin-dashboard/mess",
+      svg: (
+        <svg
+          className="h-7 w-7"
+          viewBox="0 0 24 24"
+          strokeWidth={1.5}
+          stroke="currentColor"
+          fill="none"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          {" "}
+          <path stroke="none" d="M0 0h24v24H0z" />{" "}
+          <path d="M3 19l15 -15l3 3l-6 6l2 2a14 14 0 0 1 -14 4" />
+        </svg>
+      ),
+    },
+    {
       text: "Invoices",
       url: "/admin-dashboard/invoices",
       svg: (
@@ -153,12 +172,14 @@ export default function Index() {
 
   const admin = JSON.parse(localStorage.getItem("admin"));
 
-  const [notifications, setNotifications] = useState([368115, 347403, 377902, 369420]);
+  const [notifications, setNotifications] = useState([
+    368115, 347403, 377902, 369420,
+  ]);
 
   useEffect(() => {
     //! FETCH FROM DATABASE DANISH
     setNotifications([368115, 347403, 377902, 369420]);
-  }, [])
+  }, []);
 
   return (
     <div className="flex">
