@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Input } from "./Input";
 import { Button } from "../Common/PrimaryButton";
 import { Loader } from "../Common/Loader";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function RegisterStudent() {
   const registerStudent = async (e) => {
@@ -34,17 +36,17 @@ function RegisterStudent() {
       const data = await res.json();
 
       if (data.success) {
-        // toast.success(
-        //   'Student ' + data.student.name + ' Registered Successfully!', {
-        //   position: "top-right",
-        //   autoClose: 3000,
-        //   hideProgressBar: false,
-        //   closeOnClick: true,
-        //   pauseOnHover: true,
-        //   draggable: true,
-        //   progress: undefined,
-        //   theme: "dark",
-        // })
+        toast.success(
+          'Student ' + data.student.name + ' Registered Successfully!', {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        })
         setCms("");
         setName("");
         setRoomNo("");
@@ -60,12 +62,31 @@ function RegisterStudent() {
         setPassword("");
         setLoading(false);
       } else {
-        alert(data.message);
+        // console.log(cms);
+        data.errors.forEach((err) => {
+          toast.error(
+            err.msg, {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+          })
+        })
         setLoading(false);
 
       }
     } catch (err) {
       console.log(err);
+      toast.error(
+        err, {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+      }
+      )
       setLoading(false);
     }
   };
@@ -260,6 +281,18 @@ function RegisterStudent() {
                 <span>Register Student</span>
               )}
             </Button>
+            <ToastContainer
+              position="top-right"
+              autoClose={3000}
+              hideProgressBar={false}
+              newestOnTop={false}
+              closeOnClick
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover
+              theme="dark"
+            />
           </div>
         </form>
       </div>

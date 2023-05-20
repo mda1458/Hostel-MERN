@@ -9,7 +9,7 @@ const { registerStudent, getStudent, getAllStudents, updateStudent, deleteStuden
 // @access Public
 router.post('/register-student', [
     check('name', 'Name is required').not().isEmpty(),
-    check('cms_id', 'CMS ID is required').isLength(6),
+    check('cms_id', 'CMS ID of at least 6 digit is required').isLength(6),
     check('room_no', 'Room number is required').isLength(3),
     check('batch', 'Batch is required').not().isEmpty(),
     check('dept', 'Department is required').not().isEmpty(),
@@ -19,7 +19,7 @@ router.post('/register-student', [
     check('contact', 'Enter a valid contact number').isLength(11),
     check('address', 'Address is required').not().isEmpty(),
     check('dob', 'Date of birth is required').not().isEmpty(),
-    check('cnic', 'CNIC is required').isLength(13),
+    check('cnic', 'Enter valid CNIC').isLength(13),
     check('hostel', 'Hostel is required').not().isEmpty(),
     check('password', 'Please enter a password with 8 or more characters').isLength({ min: 8 }),
 ], registerStudent);
