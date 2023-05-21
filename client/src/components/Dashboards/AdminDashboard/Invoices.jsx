@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import LoadingBar from 'react-top-loading-bar'
 
 function Invoices() {
   const genInvoices = async () => {
+    setProgress(30)
     let hostel = JSON.parse(localStorage.getItem("hostel"));
     try {
       const res = await fetch("http://localhost:3000/api/invoice/generate", {
@@ -13,7 +15,7 @@ function Invoices() {
         },
         body: JSON.stringify({ hostel: hostel._id })
       });
-
+      setProgress(60)
       const data = await res.json();
       console.log(data);
       if (data.success) {
@@ -28,6 +30,7 @@ function Invoices() {
           progress: undefined,
           theme: "dark",
         })
+        getInvoices();
       }
       else {
         toast.error(
@@ -55,9 +58,66 @@ function Invoices() {
         theme: "dark",
       })
     }
+    setProgress(100)
+  };
+
+  const approveInvoice = async (id) => {
+    setProgress(30);
+    try {
+      const res = await fetch("http://localhost:3000/api/invoice/update", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ student: id, status: "approved" })
+      });
+      setProgress(60);
+      const data = await res.json();
+      if (data.success) {
+        toast.success(
+          "Invoice approved succesfully!", {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        })
+        getInvoices();
+      }
+      else {
+        toast.error(
+          "Something went wrong!", {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        })
+      }
+    } catch (err) {
+      toast.error(
+        "Something went wrong!", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      })
+    }
+    setProgress(100);
   };
 
   const getInvoices = async () => {
+    setProgress(30);
     let hostel = JSON.parse(localStorage.getItem("hostel"));
     try {
       const res = await fetch("http://localhost:3000/api/invoice/getbyid", {
@@ -67,7 +127,7 @@ function Invoices() {
         },
         body: JSON.stringify({ hostel: hostel._id })
       });
-    
+      setProgress(60);
       const data = await res.json();
       console.log(data);
       if (data.success) {
@@ -101,8 +161,10 @@ function Invoices() {
 
       })
     }
+    setProgress(100);
   };
 
+  const [Progress, setProgress] = useState(0)
   const [allInvoices, setAllInvoices] = useState([]);
   const [pendingInvoices, setPendingInvoices] = useState([]);
 
@@ -112,22 +174,11 @@ function Invoices() {
 
   return (
     <div className="w-full h-screen flex flex-col gap-3 items-center justify-center">
+      <LoadingBar color='#0000FF' progress={Progress} onLoaderFinished={() => setProgress(0)} />
       <h1 className="text-white font-bold text-5xl">Invoices</h1>
       <button onClick={genInvoices} className="py-3 px-7 rounded-lg font-bold text-white bg-blue-600 hover:bg-blue-800 transition-all">
         Generate Invoices
       </button>
-      <ToastContainer
-        position="top-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="dark"
-      />
       <div className="bg-neutral-950 px-10 py-5 rounded-xl shadow-xl sm:w-[50%] sm:min-w-[500px] w-full mt-5 max-h-96 overflow-auto">
         <span className="text-white font-bold text-xl">All Invoices</span>
         <ul role="list" className="divide-y divide-gray-700 text-white">
@@ -136,7 +187,7 @@ function Invoices() {
             : pendingInvoices.map((invoice) => (
                 <li
                   className="py-3 px-5 rounded sm:py-4 hover:bg-neutral-700 hover:scale-105 transition-all"
-                  key={invoice.student.cms_id}
+                  key={invoice.id}
                 >
                   <div className="flex items-center space-x-4">
                     <div className="flex-shrink-0 text-white">
@@ -164,7 +215,7 @@ function Invoices() {
                         {invoice.amount}
                       </p>
                     </div>
-                    <button className="group/show relative z-0">
+                    <button className="group/show relative z-0" onClick={() => approveInvoice(invoice.student._id)}>
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
@@ -189,6 +240,18 @@ function Invoices() {
               ))}
         </ul>
       </div>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
     </div>
   );
 }
