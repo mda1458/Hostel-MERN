@@ -17,7 +17,7 @@ import Suggestions from "./components/Dashboards/StudentDashboard/Suggestions";
 import Complaints from "./components/Dashboards/StudentDashboard/Complaints";
 import Settings from "./components/Dashboards/StudentDashboard/Settings";
 import AdminIndex from "./components/Dashboards/AdminDashboard/Index";
-import AdminHome from "./components/Dashboards/AdminDashboard/Home"
+import AdminHome from "./components/Dashboards/AdminDashboard/Home/Home"
 import RegisterStudent from "./components/Dashboards/AdminDashboard/RegisterStudent";
 import AdminAttendance from "./components/Dashboards/AdminDashboard/Attendance";
 import AdminComplaints from "./components/Dashboards/AdminDashboard/Complaints";
