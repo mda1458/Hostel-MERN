@@ -3,9 +3,11 @@ import { Doughnut } from "react-chartjs-2";
 import { getAllStudents } from "../../../utils";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import LoadingBar from 'react-top-loading-bar'
 
 function Attendance() {
   const getALL = async () => {
+    setProgress(30);
     const marked = await fetch("http://localhost:3000/api/attendance/getHostelAttendance", {
       method: "POST",
       headers: {
@@ -13,7 +15,9 @@ function Attendance() {
         },
         body: JSON.stringify({ hostel: JSON.parse(localStorage.getItem("hostel"))._id }),
         });
+    setProgress(40);
     const markedData = await marked.json();
+    setProgress(50)
     if (markedData.success) {
       console.log("Attendance: ", markedData.attendance);
     }
@@ -26,6 +30,7 @@ function Attendance() {
         attendance: student.status === "present" ? true : false,
       };
     });
+    setProgress(70);
     setMarkedStudents(markedStudents);
     const data = await getAllStudents();
     const students = data.students;
@@ -33,6 +38,7 @@ function Attendance() {
       (student) =>
         !markedStudents.find((markedStudent) => markedStudent.id === student._id)
     );
+    setProgress(90);
     unmarkedStudents.map((student) => {
       student.id = student._id;
       student.cms = student.cms_id;
@@ -41,9 +47,11 @@ function Attendance() {
       student.attendance = undefined;
     });
     setunmarkedStudents(unmarkedStudents);
+    setProgress(100);
   };
-  const [unmarkedStudents, setunmarkedStudents] = useState([]);
 
+  const [progress, setProgress] = useState(0)
+  const [unmarkedStudents, setunmarkedStudents] = useState([]);
   const [markedStudents, setMarkedStudents] = useState([]);
 
   const markAttendance = async (id, isPresent) => {
@@ -145,6 +153,7 @@ function Attendance() {
 
   return (
     <div className="w-full h-screen flex flex-col gap-3 items-center xl:pt-0 md:pt-40 pt-64 justify-center overflow-auto max-h-screen">
+      <LoadingBar color="#0000FF" progress={progress} onLoaderFinished={() => setProgress(0)} />
       <h1 className="text-white font-bold text-5xl">Attendance</h1>
       <p className="text-white text-xl mb-10">Date: {date}</p>
       <div className="flex gap-5 flex-wrap items-center justify-center">
