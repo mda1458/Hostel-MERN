@@ -173,8 +173,8 @@ function Home() {
       <h1 className="text-white text-xl">Manager, {hostel.name || "hostel"}</h1>
       <div className="flex w-full gap-5 sm:px-20 pt-5 flex-wrap items-center justify-center">
         <ShortCard title="Total Students" number={200} />
-        <ShortCard title="Total Complaints" number={200} />
-        <ShortCard title="Total Suggestions" number={200} />
+        <ShortCard title="Total Complaints" number={50} />
+        <ShortCard title="Total Suggestions" number={70} />
       </div>
       <div className="w-full flex gap-5 sm:px-20 h-80 flex-wrap items-center justify-center">
         <List list={messReqs} title="mess" icon={messIcon} />
