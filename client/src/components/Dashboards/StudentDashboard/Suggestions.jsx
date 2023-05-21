@@ -1,7 +1,42 @@
 import { useState } from "react";
 import { Input } from "../../LandingSite/AuthPage/Input";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function Suggestions() {
+  const registerSuggestions = async (e) => {
+    e.preventDefault();
+    const student = JSON.parse(localStorage.getItem("student"));
+    const response = await fetch("http://localhost:3000/api/suggestion/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({student: student._id, hostel: student.hostel, title, description: desc}),
+    });
+
+    const data = await response.json();
+    console.log(data);
+    if (data.success) {
+      toast.success("Suggestion registered successfully", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        draggable: true,
+        });
+    } else {
+      toast.error("Suggestion registration failed", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        draggable: true,
+        });
+    }
+  };
+
+
 
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
@@ -27,7 +62,7 @@ function Suggestions() {
       <h1 className="text-white font-bold text-5xl mt-5">Suggestions</h1>
       <form
         method="POST"
-        action="#"
+        onSubmit={registerSuggestions}
         className="md:w-[30vw] w-full py-5 pb-7 px-10 bg-neutral-950 rounded-lg shadow-xl flex flex-col gap-5"
       >
         <Input field={suggestionTitle} />
@@ -53,6 +88,18 @@ function Suggestions() {
           </button>
         </div>
       </form>
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={true}
+        closeOnClick={true}
+        rtl={false}
+        pauseOnFocusLoss={true}
+        draggable={true}
+        pauseOnHover={true}
+        theme="dark"
+      />
     </div>
   );
 }
