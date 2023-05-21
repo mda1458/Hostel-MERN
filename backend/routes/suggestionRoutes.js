@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { check } = require('express-validator');
-const { registerSuggestion, getbyhostel, getbystudent } = require('../controllers/suggestionController');
+const { registerSuggestion, getbyhostel, getbystudent, updateSuggestion } = require('../controllers/suggestionController');
 
 // @route   Register api/suggestion
 // @desc    Register suggestion
@@ -26,5 +26,13 @@ router.post('/hostel', [
 router.post('/student', [
     check('student', 'Student is required').not().isEmpty()
 ], getbystudent);
+
+// @route Update api/suggestion
+// @desc Update suggestion
+// @access Public
+router.post('/update', [
+    check('id', 'Id is required').not().isEmpty(),
+    check('status', 'Status is required').not().isEmpty()
+], updateSuggestion);
 
 module.exports = router;

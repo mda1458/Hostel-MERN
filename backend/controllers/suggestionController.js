@@ -68,3 +68,20 @@ exports.getbystudent = async (req, res) => {
         res.status(500).send('Server error');
     }
 }
+
+// @route   Update api/suggestion
+// @desc    Update suggestion
+// @access  Public
+exports.updateSuggestion = async (req, res) => {
+    let success = false;
+    const { id, status } = req.body;
+    try {
+        const suggestion = await Suggestion.findByIdAndUpdate(id, { status });
+        success = true;
+        res.json({ success, msg: 'Suggestion updated successfully' });
+    }
+    catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server error');
+    }
+}
