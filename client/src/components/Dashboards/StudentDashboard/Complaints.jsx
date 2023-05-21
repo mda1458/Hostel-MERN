@@ -128,13 +128,13 @@ function Complaints() {
 
 
   return (
-    <div className="w-full h-screen flex flex-col gap-10 items-center justify-center md:p-0 px-10">
+    <div className="w-full h-screen flex flex-col gap-10 items-center justify-center md:p-0 px-10 max-h-screen overflow-y-auto pt-80 md:pt-80 lg:p-0">
       <h1 className="text-white font-bold text-5xl mt-10">Complaints</h1>
-      <div className="flex gap-5">
+      <div className="flex gap-5 flex-wrap items-center justify-center">
         <form
           method="POST"
           onSubmit={registerComplaint}
-          className="md:w-[30vw] w-full py-5 pb-7 px-10 bg-neutral-950 rounded-lg shadow-xl flex flex-col gap-5"
+          className="md:w-96 w-full py-5 pb-7 px-10 bg-neutral-950 rounded-lg shadow-xl flex flex-col gap-5"
         >
           <div>
             <label
@@ -197,7 +197,7 @@ function Complaints() {
             />
           </div>
         </form>
-        <div className="w-80 max-w-md max-h-96 p-4 border rounded-lg shadow sm:p-8 bg-neutral-950 border-neutral-900 drop-shadow-xl overflow-y-auto">
+        <div className="w-full md:w-80 max-w-md max-h-96 p-4 border rounded-lg shadow sm:p-8 bg-neutral-950 border-neutral-900 drop-shadow-xl overflow-y-auto">
           <div className="flex items-center justify-between mb-4">
             <h5 className="text-xl font-bold leading-none text-white">
               Registered Complaints

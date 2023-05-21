@@ -141,15 +141,15 @@ function Mess() {
 
   return (
     
-    <div className="w-full h-screen pt-20 gap-10 flex flex-col items-center justify-center">
+    <div className="w-full h-screen gap-10 flex flex-col items-center justify-center max-h-screen overflow-y-auto pt-[500px] sm:pt-96 md:pt-96 lg:pt-40">
       <h1 className="text-white font-bold text-5xl">Mess Off</h1>
-      <ul className="flex gap-5 text-white text-xl">
+      <ul className="flex gap-5 text-white text-xl px-5 sm:p-0 text-center">
         <li>Total Mess: {daysofmonthtilltoday - Messoff} </li>
         <li>Mess Off: {loading ? loader : Messoff}</li>
         <li>Requests Sent: {loading ? loader : requests}</li>
       </ul>
-      <div className="w-full h-[30vh] gap-10 flex items-center justify-center">
-        <div className="h-[30vh] gap-2 flex items-center justify-center">
+      <div className="w-full gap-10 flex items-center justify-center flex-wrap">
+        <div className="h-[30vh] gap-2 flex items-center justify-center flex-wrap">
           <Doughnut
             datasetIdKey="id"
             data={{
@@ -192,7 +192,7 @@ function Mess() {
             </li>
           </ul>
         </div>
-        <div className="w-80 max-w-md max-h-60 p-4 border rounded-lg shadow sm:p-8 bg-neutral-950 border-neutral-900 drop-shadow-xl overflow-y-auto">
+        <div className="w-full sm:w-80 max-w-md max-h-60 p-4 border rounded-lg shadow sm:p-8 bg-neutral-950 border-neutral-900 drop-shadow-xl overflow-y-auto">
           <div className="flex items-center justify-between mb-4">
             <h5 className="text-xl font-bold leading-none text-white">
               All Requests
@@ -226,7 +226,7 @@ function Mess() {
       <form
         method="POST"
         onSubmit={requestMessOff}
-        className="bg-neutral-950 py-5 px-10 rounded-lg shadow-xl"
+        className="bg-neutral-950 py-5 px-10 rounded-lg shadow-xl w-full sm:w-auto"
       >
         <div className="flex gap-5">
           <Input field={leavingDate} />

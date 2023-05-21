@@ -23,7 +23,7 @@ function Suggestions() {
   };
 
   return (
-    <div className="w-full h-screen flex flex-col gap-10 items-center justify-center">
+    <div className="w-full h-screen flex flex-col gap-10 items-center justify-center max-h-screen overflow-y-auto">
       <h1 className="text-white font-bold text-5xl mt-5">Suggestions</h1>
       <form
         method="POST"

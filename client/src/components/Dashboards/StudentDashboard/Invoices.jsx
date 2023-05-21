@@ -49,9 +49,9 @@ function Invoices() {
   }, [invoiceList.length, totalInvoices, pendingInvoices, paidInvoices]);
 
   return (
-    <div className="w-full h-screen flex flex-col gap-5 items-center justify-center">
+    <div className="w-full h-screen flex flex-col gap-5 items-center justify-center max-h-screen overflow-y-auto">
       <h1 className="text-white font-bold text-5xl">Invoices</h1>
-      <p className="text-white text-xl">
+      <p className="text-white text-xl text-center px-5 sm:p-0">
         All the invoices like Mess bills, Hostel fee will be shown here
       </p>
       <div className="flex gap-10 items-center my-5">
