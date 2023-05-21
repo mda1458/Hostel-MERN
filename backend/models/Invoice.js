@@ -8,7 +8,7 @@ const InvoiceSchema = new Schema({
     },
     title:{
         type:String,
-        required:true
+        default:'Mess Fee'
     },
     amount:{
         type:Number,

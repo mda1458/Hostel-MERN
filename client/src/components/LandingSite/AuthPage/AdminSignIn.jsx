@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { Loader } from "../../Dashboards/Common/Loader";
 
 export default function AdminSignIn() {
   let navigate = useNavigate();
@@ -28,6 +29,7 @@ export default function AdminSignIn() {
 
   let login = async (event) => {
     event.preventDefault();
+    setLoader(true);
     let data = {
       email: inputEmail,
       password: pass,
@@ -88,9 +90,10 @@ export default function AdminSignIn() {
         theme: "dark",
       })
     }
-
+    setLoader(false);
   };
 
+  const [loader, setLoader] = useState(false);
   const [inputEmail, setInputEmail] = useState("");
   const [pass, setPass] = useState("");
 
@@ -147,7 +150,13 @@ export default function AdminSignIn() {
             type="submit"
             className="w-full text-white hover:bg-blue-700 focus:ring-4 focus:outline-none  font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-blue-700 focus:ring-blue-800"
           >
-            Sign in
+            {loader ? (
+              <>
+                <Loader /> Verifying...
+              </>
+            ) : (
+              <span>Sign in</span>
+            )}
           </button>
           <ToastContainer
             position="top-right"

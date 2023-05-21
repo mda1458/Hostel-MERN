@@ -4,6 +4,7 @@ import { useState } from "react";
 import { verifysession } from "../../../utils/";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { Loader } from "../../Dashboards/Common/Loader";
 
 export default function SignIn() {
   let navigate = useNavigate();
@@ -14,6 +15,7 @@ export default function SignIn() {
 
   let login = async (event) => {
     event.preventDefault();
+    setLoader(true);
     let data = {
       email: email,
       password: pass,
@@ -63,11 +65,12 @@ export default function SignIn() {
         theme: "dark",
       })
     }
-
+    setLoader(false);
   };
 
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
+  const [loader, setLoader] = useState(false)
 
   const changeEmail = (event) => {
     setEmail(event.target.value);
@@ -122,7 +125,13 @@ export default function SignIn() {
             type="submit"
             className="w-full text-white focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-blue-600 hover:bg-blue-700 focus:ring-blue-800"
           >
-            Sign in
+            {loader ? (
+              <>
+                <Loader /> Verifying...
+              </>
+            ) : (
+              <span>Sign in</span>
+            )}
           </button>
           <ToastContainer
             position="top-right"
