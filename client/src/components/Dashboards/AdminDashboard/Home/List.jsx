@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 
 List.propTypes = {
@@ -16,7 +17,7 @@ function List({ list, title, icon, addClasses }) {
         <span className="text-white font-bold text-xl ml-3">New {title}</span>
         <ul className="divide-y divide-gray-700 text-white">
           {list.length === 0 ? (
-            <li className="mt-2">No new {title}</li>
+            <li className="mt-2 pl-3 mb-5">No new {title}</li>
           ) : (
             list.map((item) => (
               <li
@@ -38,9 +39,9 @@ function List({ list, title, icon, addClasses }) {
             ))
           )}
         </ul>
-        <button className="py-3 text-lg rounded-lg w-full text-white border-blue-600 border-2 hover:bg-blue-600 transition-all">
+        <Link className="py-3 text-lg text-center rounded-lg w-full text-white border-blue-600 border-2 hover:bg-blue-600 transition-all" to={title}>
           Manage {title}
-        </button>
+        </Link>
       </div>
     </div>
   );

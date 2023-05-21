@@ -1,33 +1,54 @@
 import { ShortCard } from "./ShortCard";
 import { List } from "./List";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   AreaChart,
   Area,
   XAxis,
   YAxis,
-  CartesianGrid,
   Tooltip,
   ResponsiveContainer,
   Legend,
 } from "recharts";
 
+
 function Home() {
   const admin = JSON.parse(localStorage.getItem("admin"));
   const hostel = JSON.parse(localStorage.getItem("hostel"));
 
-  const [messReqs, setMessReqs] = useState([
-    {
-      id: 1,
-      title: "AbdulAhad [ Room: 368 ]",
-      desc: "from 28-5-2023 to 29-5-2023",
-    },
-    {
-      id: 1,
-      title: "AbdulAhad [ Room: 368 ]",
-      desc: "from 28-5-2023 to 29-5-2023",
-    },
-  ]);
+  const getRequests = async () => {
+    const hostel = JSON.parse(localStorage.getItem("hostel"));
+    console.log(hostel);
+    const res = await fetch("http://localhost:3000/api/messoff/list", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ hostel: hostel._id }),
+    });
+    const data = await res.json();
+    if (data.success) {
+      data.list.map((req) => {
+        req.id = req._id;
+        req.from = new Date(req.leaving_date).toDateString().slice(4, 10);
+        req.to = new Date(req.return_date).toDateString().slice(4, 10);
+        req._id = req.student._id;
+        req.student.name = req.student.name;
+        req.student.room_no = req.student.room_no;
+        req.status = req.status;
+        req.title = `${req.student.name} [ Room: ${req.student.room_no}]`,
+        req.desc = `${req.from} to ${req.to}`
+      });
+      setMessReqs(data.list);
+    }
+  };
+
+  useEffect(()=> {
+    getRequests();
+  }, [])
+
+  const [messReqs, setMessReqs] = useState([]);
+  console.log(messReqs)
   const [suggestions, setSuggestions] = useState([
     {
       id: 1,
@@ -156,7 +177,7 @@ function Home() {
         <ShortCard title="Total Suggestions" number={200} />
       </div>
       <div className="w-full flex gap-5 sm:px-20 h-80 flex-wrap items-center justify-center">
-        <List list={messReqs} title="Mess requests" icon={messIcon} />
+        <List list={messReqs} title="mess" icon={messIcon} />
         {graph}
         <List list={suggestions} title="suggestions" icon={suggestionIcon} />
       </div>
