@@ -52,6 +52,7 @@ function Suggestions() {
         closeOnClick: true,
         draggable: true,
       });
+      getSuggestions();
     } else {
       toast.error("Something failed", {
         position: "top-right",
