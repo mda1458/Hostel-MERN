@@ -1,0 +1,30 @@
+[{
+  "_id": {
+    "$oid": "646a2feada77d582a894712c"
+  },
+  "student": {
+    "$oid": "6467a0ee36257fce55bac877"
+  },
+  "title": "Mess Fee",
+  "amount": 9000,
+  "status": "pending",
+  "date": {
+    "$date": "2023-05-21T14:51:22.018Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "646a2feada77d582a894712e"
+  },
+  "student": {
+    "$oid": "6467df72c2b3142559d29326"
+  },
+  "title": "Mess Fee",
+  "amount": 9000,
+  "status": "pending",
+  "date": {
+    "$date": "2023-05-21T14:51:22.036Z"
+  },
+  "__v": 0
+}]

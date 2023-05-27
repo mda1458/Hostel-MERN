@@ -1,0 +1,58 @@
+[{
+  "_id": {
+    "$oid": "6467a0ee36257fce55bac877"
+  },
+  "name": "Muhammad Danish Azeem",
+  "cms_id": 366885,
+  "room_no": 317,
+  "batch": 2021,
+  "dept": "SEECS",
+  "course": "CS",
+  "email": "muhammaddanish1458@gmail.com",
+  "father_name": "Muhammad Tariq",
+  "contact": "03131323231",
+  "address": "Attar Block 1",
+  "dob": {
+    "$date": "2004-06-08T00:00:00.000Z"
+  },
+  "cnic": "1234567891234",
+  "user": {
+    "$oid": "6467a0ee36257fce55bac875"
+  },
+  "hostel": {
+    "$oid": "645aae56db7005c0dc64fd92"
+  },
+  "date": {
+    "$date": "2023-05-19T16:16:46.538Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6467df72c2b3142559d29326"
+  },
+  "name": "AbdulAhad",
+  "cms_id": 368115,
+  "room_no": 212,
+  "batch": 2021,
+  "dept": "seecs",
+  "course": "cs",
+  "email": "ahad@gmail.com",
+  "father_name": "dadaadad",
+  "contact": "03260144411",
+  "address": "dasdsaadsads",
+  "dob": {
+    "$date": "2023-05-09T00:00:00.000Z"
+  },
+  "cnic": "6110197584215",
+  "user": {
+    "$oid": "6467df72c2b3142559d29324"
+  },
+  "hostel": {
+    "$oid": "645aae56db7005c0dc64fd92"
+  },
+  "date": {
+    "$date": "2023-05-19T20:43:30.844Z"
+  },
+  "__v": 0
+}]

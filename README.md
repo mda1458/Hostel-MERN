@@ -36,11 +36,24 @@ cd ../
 npm i -g concurrently
 ```
 
+## Setup DB
+- Create a mongodb database named `hostel`
+- Create collections and given names like for `hostel.users.json` --> `users` in mongoCollections
+- Add data by importing file like `hostel.users.json`
+
 ## Usage
 
 ```sh
 npm run dev
 ```
+
+## Login Details
+- AdminLogin
+    - muhammaddanish14@gmail.com
+    - Password: 123456789
+- Login
+    - ahad@gmail.com
+    - Password: 12345678
 
 ## Contributing
 

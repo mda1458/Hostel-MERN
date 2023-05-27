@@ -1,0 +1,36 @@
+[{
+  "_id": {
+    "$oid": "646a5edb7c5c87ff5f721b50"
+  },
+  "student": {
+    "$oid": "6467df72c2b3142559d29326"
+  },
+  "hostel": {
+    "$oid": "645aae56db7005c0dc64fd92"
+  },
+  "title": "Helloo",
+  "description": "I am first suggestion",
+  "status": "approved",
+  "date": {
+    "$date": "2023-05-21T18:11:39.377Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "646b2ba31f2f86ba226eac07"
+  },
+  "student": {
+    "$oid": "6467df72c2b3142559d29326"
+  },
+  "hostel": {
+    "$oid": "645aae56db7005c0dc64fd92"
+  },
+  "title": "Fee ",
+  "description": "Fee payment should be accepted using HBL mobile",
+  "status": "pending",
+  "date": {
+    "$date": "2023-05-22T08:45:23.453Z"
+  },
+  "__v": 0
+}]

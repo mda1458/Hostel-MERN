@@ -1,0 +1,209 @@
+[{
+  "_id": {
+    "$oid": "6467a46536257fce55bad57c"
+  },
+  "student": {
+    "$oid": "6467a0ee36257fce55bac877"
+  },
+  "hostel": {
+    "$oid": "645aae56db7005c0dc64fd92"
+  },
+  "type": "Electric",
+  "title": "Fan is not working",
+  "description": "abc",
+  "status": "solved",
+  "date": {
+    "$date": "2023-05-19T16:31:33.767Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6467e325c2b3142559d29b1c"
+  },
+  "student": {
+    "$oid": "6467df72c2b3142559d29326"
+  },
+  "hostel": {
+    "$oid": "645aae56db7005c0dc64fd92"
+  },
+  "type": "Electric",
+  "title": "AC",
+  "description": "AC not working.",
+  "status": "solved",
+  "date": {
+    "$date": "2023-05-19T20:59:17.319Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "646886fe316eb62deb9ced65"
+  },
+  "student": {
+    "$oid": "6467df72c2b3142559d29326"
+  },
+  "hostel": {
+    "$oid": "645aae56db7005c0dc64fd92"
+  },
+  "type": "Electric",
+  "title": "Bb",
+  "description": "abc",
+  "status": "solved",
+  "date": {
+    "$date": "2023-05-20T08:38:22.152Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6468fb955d028add07391c2f"
+  },
+  "student": {
+    "$oid": "6467a0ee36257fce55bac877"
+  },
+  "hostel": {
+    "$oid": "645aae56db7005c0dc64fd92"
+  },
+  "type": "Cleaning",
+  "title": "Room is not clean",
+  "description": "hello",
+  "status": "solved",
+  "date": {
+    "$date": "2023-05-20T16:55:49.048Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6468fbc25d028add07391c34"
+  },
+  "student": {
+    "$oid": "6467a0ee36257fce55bac877"
+  },
+  "hostel": {
+    "$oid": "645aae56db7005c0dc64fd92"
+  },
+  "type": "Cleaning",
+  "title": "hello",
+  "description": "hello",
+  "status": "solved",
+  "date": {
+    "$date": "2023-05-20T16:56:34.810Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6468fc255d028add07391c39"
+  },
+  "student": {
+    "$oid": "6467a0ee36257fce55bac877"
+  },
+  "hostel": {
+    "$oid": "645aae56db7005c0dc64fd92"
+  },
+  "type": "Electric",
+  "title": "abc",
+  "description": "bad",
+  "status": "solved",
+  "date": {
+    "$date": "2023-05-20T16:58:13.182Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6468fcea5d028add07391c3f"
+  },
+  "student": {
+    "$oid": "6467a0ee36257fce55bac877"
+  },
+  "hostel": {
+    "$oid": "645aae56db7005c0dc64fd92"
+  },
+  "type": "Furniture",
+  "title": "Room is not clean",
+  "description": "hello",
+  "status": "solved",
+  "date": {
+    "$date": "2023-05-20T17:01:30.518Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6468fd335d028add07391c44"
+  },
+  "student": {
+    "$oid": "6467a0ee36257fce55bac877"
+  },
+  "hostel": {
+    "$oid": "645aae56db7005c0dc64fd92"
+  },
+  "type": "Electric",
+  "title": "Fan is not working",
+  "description": "please resolve",
+  "status": "solved",
+  "date": {
+    "$date": "2023-05-20T17:02:43.353Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "646947d561da1d9557dcfe79"
+  },
+  "student": {
+    "$oid": "6467a0ee36257fce55bac877"
+  },
+  "hostel": {
+    "$oid": "645aae56db7005c0dc64fd92"
+  },
+  "type": "Electric",
+  "title": "Heeloo",
+  "description": "helloo",
+  "status": "solved",
+  "date": {
+    "$date": "2023-05-20T22:21:09.125Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6469dc66b639f5924196a4a8"
+  },
+  "student": {
+    "$oid": "6467df72c2b3142559d29326"
+  },
+  "hostel": {
+    "$oid": "645aae56db7005c0dc64fd92"
+  },
+  "type": "Fee",
+  "title": "Mess Bill Status Not Updated",
+  "description": "I paid the bill on 2nd May, 2023 but it is not updated here. Kindly look into the matter!",
+  "status": "pending",
+  "date": {
+    "$date": "2023-05-21T08:55:02.648Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "646a544ad36e1c3711cea22a"
+  },
+  "student": {
+    "$oid": "6467df72c2b3142559d29326"
+  },
+  "hostel": {
+    "$oid": "645aae56db7005c0dc64fd92"
+  },
+  "type": "Cleaning",
+  "title": "please clean",
+  "description": "clean",
+  "status": "solved",
+  "date": {
+    "$date": "2023-05-21T17:26:34.482Z"
+  },
+  "__v": 0
+}]

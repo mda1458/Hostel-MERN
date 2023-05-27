@@ -1,0 +1,171 @@
+[{
+  "_id": {
+    "$oid": "6468761e2e7395f28fc654b8"
+  },
+  "student": {
+    "$oid": "6467a0ee36257fce55bac877"
+  },
+  "leaving_date": {
+    "$date": "2023-05-25T00:00:00.000Z"
+  },
+  "return_date": {
+    "$date": "2023-05-29T00:00:00.000Z"
+  },
+  "status": "approved",
+  "request_date": {
+    "$date": "2023-05-20T07:26:22.490Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6468770d2e7395f28fc654c2"
+  },
+  "student": {
+    "$oid": "6467a0ee36257fce55bac877"
+  },
+  "leaving_date": {
+    "$date": "2023-05-29T00:00:00.000Z"
+  },
+  "return_date": {
+    "$date": "2023-05-31T00:00:00.000Z"
+  },
+  "status": "rejected",
+  "request_date": {
+    "$date": "2023-05-20T07:30:21.070Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6468771c2e7395f28fc654c6"
+  },
+  "student": {
+    "$oid": "6467a0ee36257fce55bac877"
+  },
+  "leaving_date": {
+    "$date": "2023-05-21T00:00:00.000Z"
+  },
+  "return_date": {
+    "$date": "2023-05-30T00:00:00.000Z"
+  },
+  "status": "rejected",
+  "request_date": {
+    "$date": "2023-05-20T07:30:36.399Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "64691749714a6f217422efcb"
+  },
+  "student": {
+    "$oid": "6467df72c2b3142559d29326"
+  },
+  "leaving_date": {
+    "$date": "2023-05-23T00:00:00.000Z"
+  },
+  "return_date": {
+    "$date": "2023-05-24T00:00:00.000Z"
+  },
+  "status": "rejected",
+  "request_date": {
+    "$date": "2023-05-20T18:54:01.509Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6469b585b639f5924196a304"
+  },
+  "student": {
+    "$oid": "6467df72c2b3142559d29326"
+  },
+  "leaving_date": {
+    "$date": "2023-05-24T00:00:00.000Z"
+  },
+  "return_date": {
+    "$date": "2023-05-31T00:00:00.000Z"
+  },
+  "status": "approved",
+  "request_date": {
+    "$date": "2023-05-21T06:09:09.254Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6469e9ceb639f5924196a5a1"
+  },
+  "student": {
+    "$oid": "6467df72c2b3142559d29326"
+  },
+  "leaving_date": {
+    "$date": "2023-05-26T00:00:00.000Z"
+  },
+  "return_date": {
+    "$date": "2023-05-31T00:00:00.000Z"
+  },
+  "status": "rejected",
+  "request_date": {
+    "$date": "2023-05-21T09:52:14.951Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "646a542fd36e1c3711cea21a"
+  },
+  "student": {
+    "$oid": "6467df72c2b3142559d29326"
+  },
+  "leaving_date": {
+    "$date": "2023-05-25T00:00:00.000Z"
+  },
+  "return_date": {
+    "$date": "2023-05-30T00:00:00.000Z"
+  },
+  "status": "approved",
+  "request_date": {
+    "$date": "2023-05-21T17:26:07.994Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "646b2c471f2f86ba226eac0f"
+  },
+  "student": {
+    "$oid": "6467df72c2b3142559d29326"
+  },
+  "leaving_date": {
+    "$date": "2023-05-29T00:00:00.000Z"
+  },
+  "return_date": {
+    "$date": "2023-05-31T00:00:00.000Z"
+  },
+  "status": "pending",
+  "request_date": {
+    "$date": "2023-05-22T08:48:07.335Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "646b46a952899c4b8ce15274"
+  },
+  "student": {
+    "$oid": "6467df72c2b3142559d29326"
+  },
+  "leaving_date": {
+    "$date": "2023-05-23T00:00:00.000Z"
+  },
+  "return_date": {
+    "$date": "2027-11-30T00:00:00.000Z"
+  },
+  "status": "approved",
+  "request_date": {
+    "$date": "2023-05-22T10:40:41.894Z"
+  },
+  "__v": 0
+}]
