@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Doughnut } from "react-chartjs-2";
 
 function Attendance() {
+  const [totalDays, setTotalDays] = useState(0);
   const getAttendance = async () => {
       let student = JSON.parse(localStorage.getItem("student"));
       const res = await fetch("http://localhost:3000/api/attendance/get", {
@@ -27,6 +28,7 @@ function Attendance() {
         });
         setDaysOff(daysOff);
         setThisWeek(thisWeek);
+        setTotalDays(data.attendance.length);
       }
       else{
         // console.log("Error");
@@ -35,8 +37,6 @@ function Attendance() {
   const [daysOff, setDaysOff] = useState(0); //!Fetch from database
   const [thisWeek, setThisWeek] = useState([]); //!Fetch from database
 
-  let totalDays = new Date();
-  totalDays = totalDays.getDate();
   const labels = ["Days off", "Days present"];
 
   useEffect(() => {
