@@ -145,9 +145,9 @@ const getAdmin = async (req, res) => {
         if (!decoded) {
             return res.status(401).json({success, errors: [{msg: 'Token is not valid'}]});
         }
-
+        
         let admin = await Admin.findOne({user:decoded.userId}).select('-password');
-
+        
         if (!admin) {
             return res.status(401).json({success, errors: [{msg: 'Token is not valid'}]});
         }

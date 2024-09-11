@@ -30,8 +30,10 @@ function Topbar({ name, notifications }) {
   }, []);
 
   return (
-    <div className="py-5 px-5 flex items-center justify-between text-white w-full bg-stone-950 shadow-lg absolute top-0 md:w-[83.3vw] md:ml-[16.7vw]">
-      {date.toLocaleTimeString()}
+    <div className="py-5 px-5 flex items-center justify-between text-white w-full bg-stone-950 shadow-lg absolute top-0 md:w-[calc(100%-256px)] md:ml-[256px]">
+      <span className="hidden md:block">
+        {date.toLocaleTimeString()}
+      </span>    
       <span>{name}</span>
       <div className="flex gap-3">
         <Link to="settings">

@@ -10,7 +10,7 @@ const { registerStudent, getStudent, getAllStudents, updateStudent, deleteStuden
 router.post('/register-student', [
     check('name', 'Name is required').not().isEmpty(),
     check('cms_id', 'CMS ID of at least 6 digit is required').isLength(6),
-    check('room_no', 'Room number is required').isLength(3),
+    check('room_no', 'Room number is required').isLength(1),
     check('batch', 'Batch is required').not().isEmpty(),
     check('dept', 'Department is required').not().isEmpty(),
     check('course', 'Course is required').not().isEmpty(),

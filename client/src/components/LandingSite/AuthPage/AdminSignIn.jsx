@@ -45,6 +45,7 @@ export default function AdminSignIn() {
 
     let result = await response.json();
 
+
     if (result.success) {
       localStorage.setItem("token", result.data.token);
       let admin = await fetch("http://localhost:3000/api/admin/get-admin", {

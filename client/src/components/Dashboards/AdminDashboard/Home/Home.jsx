@@ -10,11 +10,75 @@ import {
   ResponsiveContainer,
   Legend,
 } from "recharts";
-
+import { getAllStudents } from "../../../../utils";
+import { toast } from "react-toastify";
 
 function Home() {
   const admin = JSON.parse(localStorage.getItem("admin"));
   const hostel = JSON.parse(localStorage.getItem("hostel"));
+  const [noOfStudents, setNoOfStudents] = useState(0);
+  const [complaints, setComplaints] = useState([]);
+  const [suggestions, setSuggestions] = useState([]);
+
+  const getStudentCount = async () => {
+    const res = await getAllStudents();
+    if (res.success) {
+      setNoOfStudents(res.students.length);
+    }
+  };
+
+  const getComplaints = async () => {
+    const hostel = JSON.parse(localStorage.getItem("hostel"))._id;
+    const response = await fetch(`http://localhost:3000/api/complaint/hostel`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ hostel }),
+    });
+
+    const data = await response.json();
+    if (data.success) {
+      setComplaints(data.complaints);
+    } else {
+      toast.error("Something failed", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+      });
+    }
+  };
+
+  const getSuggestions = async () => {
+    const hostel = JSON.parse(localStorage.getItem("hostel"));
+    const response = await fetch(
+      "http://localhost:3000/api/suggestion/hostel",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ hostel: hostel._id }),
+      }
+    );
+
+    const data = await response.json();
+    console.log(data);
+    if (data.success) {
+      setSuggestions(
+        data.suggestions.filter((suggestion) => suggestion.status === "pending")
+      );
+    } else {
+      toast.error("Something failed", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        draggable: true,
+      });
+    }
+  };
 
   const getRequests = async () => {
     const hostel = JSON.parse(localStorage.getItem("hostel"));
@@ -36,31 +100,53 @@ function Home() {
         req.student.name = req.student.name;
         req.student.room_no = req.student.room_no;
         req.status = req.status;
-        req.title = `${req.student.name} [ Room: ${req.student.room_no}]`,
-        req.desc = `${req.from} to ${req.to}`
+        (req.title = `${req.student.name} [ Room: ${req.student.room_no}]`),
+          (req.desc = `${req.from} to ${req.to}`);
       });
       setMessReqs(data.list);
     }
   };
 
-  useEffect(()=> {
+  function transformApiData(apiData) {
+    // Extract complaints from the API data
+    const complaintss = apiData || [];
+  
+    // Create a Map to store complaints grouped by date
+    const complaintMap = new Map();
+  
+    // Process each complaint
+    complaintss.forEach(complaint => {
+      // Parse the date string
+      const date = new Date(complaint.date);
+      
+      const formattedDate = date.toLocaleDateString('en-US', {
+        timeZone: 'UTC',
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit'
+      }).replace(/\.\d{3}/, '');
+
+      // Increment the count for this date
+      complaintMap.set(formattedDate, (complaintMap.get(formattedDate) || 0) + 1);
+    });
+  
+    // Convert the Map to an array of objects
+    const transformedData = Array.from(complaintMap.entries()).map(([date, count]) => ({
+      name: date,
+      DailyComplaints: count
+    }));
+  
+    return transformedData;
+  }
+
+  useEffect(() => {
     getRequests();
-  }, [])
+    getStudentCount();
+    getComplaints();
+    getSuggestions();
+  }, []);
 
   const [messReqs, setMessReqs] = useState([]);
-  console.log(messReqs)
-  const [suggestions, setSuggestions] = useState([
-    {
-      id: 1,
-      title: "AbdulAhad [ Room: 368 ]",
-      desc: "from 28-5-2023 to 29-5-2023",
-    },
-    {
-      id: 1,
-      title: "AbdulAhad [ Room: 368 ]",
-      desc: "from 28-5-2023 to 29-5-2023",
-    },
-  ]);
 
   const messIcon = (
     <svg
@@ -96,37 +182,7 @@ function Home() {
     </svg>
   );
 
-  const data = [
-    {
-      name: "",
-      DailyComplaints: 20,
-    },
-    {
-      name: "",
-      DailyComplaints: 40,
-    },
-    {
-      name: "",
-      DailyComplaints: 15,
-    },
-    {
-      name: "",
-      DailyComplaints: 90,
-    },
-    {
-      name: "",
-      DailyComplaints: 3,
-    },
-    {
-      name: "",
-      DailyComplaints: 50,
-    },
-    {
-      name: "",
-      DailyComplaints: 20,
-    },
-  ];
-
+  const data = transformApiData(complaints);
   const graph = (
     <ResponsiveContainer
       width="100%"
@@ -172,9 +228,9 @@ function Home() {
       </h1>
       <h1 className="text-white text-xl">Manager, {hostel.name || "hostel"}</h1>
       <div className="flex w-full gap-5 sm:px-20 pt-5 flex-wrap items-center justify-center">
-        <ShortCard title="Total Students" number={200} />
-        <ShortCard title="Total Complaints" number={50} />
-        <ShortCard title="Total Suggestions" number={70} />
+        <ShortCard title="Total Students" number={noOfStudents} />
+        <ShortCard title="Total Complaints" number={complaints.length} />
+        <ShortCard title="Total Suggestions" number={suggestions.length} />
       </div>
       <div className="w-full flex gap-5 sm:px-20 h-80 flex-wrap items-center justify-center">
         <List list={messReqs} title="mess" icon={messIcon} />
