@@ -21,7 +21,6 @@ exports.generateInvoices = async (req, res) => {
     // get days in previous month
     let daysinlastmonth = new Date(new Date().getFullYear(), new Date().getMonth(), 0).getDate();
 
-    console.log(Mess_bill_per_day);
     let amount = Mess_bill_per_day * daysinlastmonth;
     count = 0;
     students.map(async (student) => {
@@ -29,7 +28,6 @@ exports.generateInvoices = async (req, res) => {
         if (messoff) {
             messoff.map((messoffone) => {
                 if (messoffone.status === 'approved' && messoffone.return_date.getMonth() + 1 === new Date().getMonth()) {
-                    console.log(messoffone);
                     let leaving_date = messoffone.leaving_date;
                     let return_date = messoffone.return_date;
                     let number_of_days = (return_date - leaving_date) / (1000 * 60 * 60 * 24);
@@ -38,7 +36,6 @@ exports.generateInvoices = async (req, res) => {
             });
         }
 
-        console.log(amount);
         try {
             let invoice = new Invoice({
                 student,

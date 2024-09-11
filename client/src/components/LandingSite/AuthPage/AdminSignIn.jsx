@@ -20,10 +20,9 @@ export default function AdminSignIn() {
       });
 
       const data = await res.json();
-      console.log(data);
       localStorage.setItem("hostel", JSON.stringify(data.hostel));
     } catch (err) {
-      console.log(err);
+      // console.log(err);
     }
   };
 
@@ -60,10 +59,9 @@ export default function AdminSignIn() {
       });
 
       let adminResult = await admin.json();
-      console.log(adminResult);
       if (adminResult.success) {
         localStorage.setItem("admin", JSON.stringify(adminResult.admin));
-        const hostel = await getHostel();
+        await getHostel();
         navigate("/admin-dashboard");
       } else {
         toast.error(

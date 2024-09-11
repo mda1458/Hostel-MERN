@@ -27,10 +27,9 @@ function Attendance() {
         });
         setDaysOff(daysOff);
         setThisWeek(thisWeek);
-        console.log(daysOff, thisWeek);
       }
       else{
-        console.log("Error");
+        // console.log("Error");
       }
     };
   const [daysOff, setDaysOff] = useState(0); //!Fetch from database

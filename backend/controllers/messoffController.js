@@ -13,7 +13,6 @@ exports.requestMessOff = async (req, res) => {
     }
     const { student, leaving_date, return_date } = req.body;
     const today = new Date();
-    console.log(leaving_date);
     if (new Date(leaving_date) > new Date(return_date)) {
         return res.status(400).json({success, "message": "Leaving date cannot be greater than return date"});
     }

@@ -44,12 +44,11 @@ export default function SignIn() {
       });
 
       let studentResult = await student.json();
-      console.log(studentResult);
       if (studentResult.success) {
         localStorage.setItem("student", JSON.stringify(studentResult.student));
         navigate("/student-dashboard");
       } else {
-        console.log(studentResult.errors)
+        // console.log(studentResult.errors)
       }
     } else {
       // alert(result.errors[0].msg);

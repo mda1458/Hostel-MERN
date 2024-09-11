@@ -16,7 +16,6 @@ function Suggestions() {
     });
 
     const data = await response.json();
-    console.log(data);
     if (data.success) {
       setSuggestions(data.suggestions.filter((suggestion) => suggestion.status === "pending"));
 
@@ -33,7 +32,6 @@ function Suggestions() {
 
   const updateSuggestion = async (id) => {
     setLoader(true);
-    console.log(id);
     const response = await fetch("http://localhost:3000/api/suggestion/update", {
       method: "POST",
       headers: {

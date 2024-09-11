@@ -9,7 +9,6 @@ const verifysession = async () => {
 
     let result = await response.json();
     if (result.success) {
-      console.log(result.data.isAdmin);
       if (result.data.isAdmin) {
         window.location.href = "/admin-dashboard";
       } else {

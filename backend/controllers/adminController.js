@@ -56,7 +56,6 @@ const registerAdmin = async (req, res) => {
             res.status(500).send('Server error');
         }
     } catch (err) {
-        console.log(err);
         res.status(500).json({success, errors: [{msg: 'Server error'}]});
     }
 }
@@ -95,7 +94,6 @@ const updateAdmin = async (req, res) => {
             res.status(500).send('Server error');
         }
     } catch (err) {
-        console.log(err);
         res.status(500).json({success, errors: [{msg: 'Server error'}]});
     }
 }

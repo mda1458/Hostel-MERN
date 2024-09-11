@@ -137,9 +137,8 @@ function Home() {
         }
       });
       setDaysOff(daysOff);
-      console.log(daysOff);
     } else {
-      console.log("Error");
+      // console.log("Error");
     }
   };
 

@@ -56,7 +56,6 @@ const registerStudent = async (req, res) => {
         success = true;
         res.json({success, student });
     } catch (err) {
-        console.log(err);
         res.status(500).json({success, errors: 'Server error'});
     }
 }
@@ -90,7 +89,6 @@ const getStudent = async (req, res) => {
         success = true;
         res.json({success, student });
     } catch (err) {
-        console.log(err);
         res.status(500).json({success, errors: 'Server error'});
     }
 }
@@ -116,7 +114,6 @@ const getAllStudents = async (req, res) => {
         res.json({success, students});
     }
     catch (err) {
-        console.log(err);
         res.status(500).json({success, errors: [{msg: 'Server error'}]});
     }
 }
@@ -148,7 +145,6 @@ const updateStudent = async (req, res) => {
         success = true;
         res.json({success, student});
     } catch (err) {
-        console.log(err);
         res.status(500).json({success, errors: [{msg: 'Server error'}]});
     }
 }
@@ -178,7 +174,6 @@ const deleteStudent = async (req, res) => {
         success = true;
         res.json({success, msg: 'Student deleted successfully' });
     } catch (err) {
-        console.log(err);
         res.status(500).json({success, errors: [{msg: 'Server error'}]});
     }
 }
@@ -217,7 +212,6 @@ const csvStudent = async (req, res) => {
         success = true;
         res.json({success, csv});
     } catch (err) {
-        console.log(err);
         res.status(500).json({success, errors: [{msg: 'Server error'}]});
     }
 }

@@ -14,7 +14,6 @@ function AllStudents() {
       body: JSON.stringify({ hostel }),
     });
     const data = await res.json();
-    console.log(data);
     if (data.success) {
       const link = document.createElement('a');
       link.href = "data:text/csv;charset=utf-8," + escape(data.csv);
@@ -41,7 +40,6 @@ function AllStudents() {
   };
   const getAll = async () => {
     const data = await getAllStudents();
-    console.log(data);
     setallStudents(data.students);
   };
 

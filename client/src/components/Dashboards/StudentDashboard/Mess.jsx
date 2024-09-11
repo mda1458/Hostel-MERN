@@ -24,7 +24,6 @@ function Mess() {
     });
 
     let result = await response.json();
-    console.log(result);
     if (result.success) {
       setRequests(requests+1);
       setLeaveDate("");
@@ -91,7 +90,6 @@ function Mess() {
   // console.log(returnDate);
 
   useEffect(() => {
-    console.log(1);
     let student = JSON.parse(localStorage.getItem("student"));
     setLoading(true);
     if (student) {
@@ -110,7 +108,6 @@ function Mess() {
             setMessOff(result.approved);
             setRequests(result.list.length);
             setRequestsList(result.list);
-            console.log(result)
           } else {
             alert(result.errors[0].msg);
           }

@@ -44,8 +44,9 @@ function Complaints() {
         )
       );
     }
-    else
-      console.log(data);
+    else{
+      // console.log(data);
+    }
   };
 
   //!AFTER FETCH FILL THIS WITH COMPLAINT DATA

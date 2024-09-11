@@ -19,7 +19,7 @@ function Attendance() {
     const markedData = await marked.json();
     setProgress(50)
     if (markedData.success) {
-      console.log("Attendance: ", markedData.attendance);
+      // console.log("Attendance: ", markedData.attendance);
     }
     const markedStudents = markedData.attendance.map((student) => {
       return {
@@ -90,12 +90,9 @@ function Attendance() {
 
   useEffect(() => {
     getALL();
-    console.log("State: ", unmarkedStudents);
-    console.log("Marked: ", markedStudents);
     setPresent(
       markedStudents.filter((student) => student.attendance === true).length
     );
-    console.log("Present: ", present);
   }, [unmarkedStudents.length, markedStudents.length]);
 
   let date = new Date();

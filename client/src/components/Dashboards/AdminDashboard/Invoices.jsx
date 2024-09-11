@@ -17,7 +17,6 @@ function Invoices() {
       });
       setProgress(60)
       const data = await res.json();
-      console.log(data);
       if (data.success) {
         toast.success(
           "Invoices generated succesfully!", {
@@ -129,7 +128,6 @@ function Invoices() {
       });
       setProgress(60);
       const data = await res.json();
-      console.log(data);
       if (data.success) {
         setAllInvoices(data.invoices);
         setPendingInvoices(data.invoices.filter((invoice) => invoice.status === "pending"));

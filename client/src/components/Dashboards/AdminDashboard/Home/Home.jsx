@@ -64,7 +64,6 @@ function Home() {
     );
 
     const data = await response.json();
-    console.log(data);
     if (data.success) {
       setSuggestions(
         data.suggestions.filter((suggestion) => suggestion.status === "pending")
@@ -82,7 +81,6 @@ function Home() {
 
   const getRequests = async () => {
     const hostel = JSON.parse(localStorage.getItem("hostel"));
-    console.log(hostel);
     const res = await fetch("http://localhost:3000/api/messoff/list", {
       method: "POST",
       headers: {
